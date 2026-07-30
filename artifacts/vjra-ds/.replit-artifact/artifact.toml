@@ -1,0 +1,18 @@
+kind = "design-system"
+previewPath = "/vjra-ds/"
+title = "VJRA Design System"
+version = "1.0.0"
+id = "artifacts/vjra-ds"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/vjra-ds/" ]
+localPort = 24433
+
+[services.development]
+run = "pnpm --filter @workspace/vjra-ds run dev"
+
+[services.env]
+PORT = "24433"
+BASE_PATH = "/vjra-ds/"
