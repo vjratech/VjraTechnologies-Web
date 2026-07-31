@@ -27,6 +27,8 @@ export default function Home() {
       {/* Particle background */}
       <ParticleField />
 
+
+
       {/* Hero Section */}
       <motion.section
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
@@ -54,12 +56,23 @@ export default function Home() {
 
         {/* Hero content */}
         <div className="relative z-20 max-w-7xl mx-auto px-6 text-center">
+
+                  <div className="flex items-center gap-3">
+  <img
+    src="/logo-removebg-preview.png"
+    alt="VJRA Technologies"
+   className="h-16 md:h-20 w-auto object-contain relative z-30"
+  />
+
+</div>
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="inline-block px-6 py-2 rounded-full glass-panel mb-8"
           >
+          
             <span className="text-sm font-mono text-primary">Energy Intelligence Platform</span>
           </motion.div>
 
@@ -114,8 +127,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             {[
-              { value: '2.4 GW', label: 'Power Deployed', suffix: 'h' },
-              { value: '18K+', label: 'Charging Sessions', suffix: '/day' },
+              { value: '100+ kW', label: 'Power Deployed', suffix: 'h' },
+              { value: '1k+', label: 'Charging Sessions', suffix: '/day' },
               { value: '99.7%', label: 'Platform Uptime', suffix: '' },
               { value: '47 ms', label: 'Response Time', suffix: 'avg' },
             ].map((stat, i) => (
@@ -289,7 +302,7 @@ export default function Home() {
             >
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="font-display text-2xl font-bold">Network Status</h3>
+                  <h3 className="font-display text-2xl font-bold">Charger Status</h3>
                   <p className="text-sm text-muted-foreground mt-1 font-mono">Connected infrastructure</p>
                 </div>
                 <div className="glass-panel px-4 py-2 rounded-lg">
@@ -340,19 +353,19 @@ export default function Home() {
               <span className="text-xs font-mono text-secondary">Infrastructure</span>
             </div>
             <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
-              Connected to the <span className="text-gradient-cyan">Future Grid</span>
+              Connected to the <span className="text-gradient-cyan">Future Grid</span> via <span className="text-gradient-green">Green Meters</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Our platform integrates seamlessly with utility infrastructure, enabling vehicle-to-grid (V2G),
-              demand response, and renewable energy integration at scale.
+              Our platform integrates seamlessly with utility infrastructure, providing fixed per unit charges via green meters,
+              demand/ load balancing, and renewable energy integration at scale.
             </p>
             <ul className="space-y-4 mb-8">
               {[
-                'Bi-directional power flow for grid stabilization',
+                'Fix per unit charges via Green Meters',
                 'Dynamic load balancing across charging networks',
                 'Renewable energy source prioritization',
                 'ISO 15118 Plug & Charge compliance',
-                'Real-time grid frequency regulation',
+                'State DISCOM handling support',
               ].map((feature, i) => (
                 <motion.li
                   key={i}
@@ -411,7 +424,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <span className="text-xs font-mono text-primary">Deployed Worldwide</span>
+              <span className="text-xs font-mono text-primary">Made for India in India</span>
             </div>
             <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
               Real-World <span className="text-gradient-cyan">Deployment</span>
@@ -424,22 +437,22 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'Commercial Fleets',
-                desc: 'Optimize charging schedules, minimize downtime, reduce operational costs with AI-driven fleet management',
+                title: 'Housing Societies',
+                desc: 'Optimize charging schedules, minimize downtime, reduce operational costs with AI-driven members management',
                 image: evChargingSceneImg,
-                stat: '3,400+ vehicles',
+                stat: '100+ vehicles filling daily',
               },
               {
-                title: 'Public Charging Networks',
+                title: 'Commercial Properties',
                 desc: 'Deploy scalable infrastructure with payment processing, user authentication, and remote diagnostics',
                 image: heroChargerImg,
-                stat: '12 countries',
+                stat: '10+ properties EV ready',
               },
               {
-                title: 'Workplace Charging',
+                title: 'Public Charging Infrastructure',
                 desc: 'Smart load balancing ensures fair distribution, while energy analytics reduce peak demand charges',
                 image: circuitDetailImg,
-                stat: '840+ installations',
+                stat: '10+ installations',
               },
             ].map((useCase, i) => (
               <motion.div
@@ -487,7 +500,7 @@ export default function Home() {
               Ready to Power <span className="text-gradient-cyan">Tomorrow</span>?
             </h2>
             <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Join the energy revolution. Partner with VJRA to deploy intelligent charging infrastructure
+              Join the energy revolution. Partner with Vjra Technologies to deploy intelligent charging infrastructure
               that scales with your vision.
             </p>
 
@@ -504,7 +517,7 @@ export default function Home() {
                 className="px-10 py-5 glass-panel rounded-xl font-semibold text-lg hover:border-primary/50 transition-all duration-300"
                 data-testid="button-download-whitepaper"
               >
-                Download Technical Whitepaper
+                Download Brochure
               </button>
             </div>
 
@@ -513,15 +526,15 @@ export default function Home() {
               <div className="grid md:grid-cols-3 gap-8 text-left">
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Email</div>
-                  <div className="font-semibold text-primary">hello@vjra.energy</div>
+                  <div className="font-semibold text-primary">sales@vjratechnologies.com</div>
                 </div>
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Phone</div>
-                  <div className="font-semibold text-foreground">+1 (555) 847-3920</div>
+                  <div className="font-semibold text-foreground">+91 9545092266</div>
                 </div>
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Location</div>
-                  <div className="font-semibold text-foreground">San Francisco, CA</div>
+                  <div className="font-semibold text-foreground">Pune, Maharashtra, India</div>
                 </div>
               </div>
             </div>
@@ -552,11 +565,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-              <div className="font-display text-3xl font-bold text-gradient-cyan mb-2">VJRA</div>
+              <div className="font-display text-3xl font-bold text-gradient-cyan mb-2">Vjra Technologies LLP</div>
               <p className="text-sm text-muted-foreground">The intelligence behind energy</p>
             </div>
             <div className="text-sm text-muted-foreground font-mono">
-              © 2024 VJRA Energy Systems. All rights reserved.
+              © 2026 VJRA TECHNOLOGIES LLP. All rights reserved.
             </div>
           </div>
         </div>

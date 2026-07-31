@@ -366,6 +366,12 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.text-gradient-green {
+  background: linear-gradient(135deg, #a6ffbc 0%, #004d20 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .font-display {
   font-family: var(--font-display);

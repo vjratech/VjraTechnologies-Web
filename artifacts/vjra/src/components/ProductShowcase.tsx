@@ -4,30 +4,43 @@ import { useRef, useState } from 'react';
 import { Zap, Gauge, Wifi, Shield } from 'lucide-react';
 
 const products = [
-  {
-    name: 'VJRA Pulse',
-    category: 'Level 2 AC Charger',
-    power: '7.4 - 22 kW',
-    features: ['Smart load balancing', 'RFID/App access', 'Weather-resistant', 'Dynamic pricing'],
+    {
+    name: 'VIZ - Smart Charging Points',
+    category: 'Universal Charging Sockets',
+    power: '1.4kW - 11 kW',
+    features: ['Suitable for 2/3/4 Wheelers', 'QR code based authentication', 'Weather-resistant', 'Dynamic pricing'],
     image: 'hero-charger',
     stats: [
-      { icon: Zap, label: 'Peak Power', value: '22 kW' },
-      { icon: Gauge, label: 'Efficiency', value: '96.2%' },
-      { icon: Wifi, label: 'Connectivity', value: '4G/WiFi/Ethernet' },
+      { icon: Zap, label: 'Peak Power', value: '11 kW' },
+      { icon: Gauge, label: 'Uptime', value: '99%' },
+      { icon: Wifi, label: 'Connectivity', value: 'Wifi/GSM' },
       { icon: Shield, label: 'Protection', value: 'IP54' },
     ],
   },
   {
-    name: 'VJRA Nexus',
+    name: 'VIZ - Level 2 AC Charger ',
+    category: 'Level 2 AC Charger',
+    power: '3.3kW - 22 kW',
+    features: ['Single/ Three Phase Options', 'QR code based authentication', 'Weather-resistant', 'Dynamic pricing'],
+    image: 'hero-charger',
+    stats: [
+      { icon: Zap, label: 'Peak Power', value: '22 kW' },
+      { icon: Gauge, label: 'Uptime', value: '99%' },
+      { icon: Wifi, label: 'Connectivity', value: 'Wifi/GSM' },
+      { icon: Shield, label: 'Protection', value: 'IP54' },
+    ],
+  },
+  {
+    name: 'VIZ - DC Fast Charger',
     category: 'DC Fast Charger',
-    power: '60 - 350 kW',
-    features: ['Liquid-cooled cable', 'Multi-standard', 'Payment terminal', 'Fleet management'],
+    power: '30kW - 240 kW',
+    features: ['High Uptime | Low Maintenance', 'Multi-standard', 'Payment terminal', 'Fleet management'],
     image: 'circuit-detail',
     stats: [
-      { icon: Zap, label: 'Peak Power', value: '350 kW' },
+      { icon: Zap, label: 'Peak Power', value: '240 kW' },
       { icon: Gauge, label: 'Efficiency', value: '97.8%' },
       { icon: Wifi, label: 'Protocols', value: 'CCS/CHAdeMO/GB/T' },
-      { icon: Shield, label: 'Uptime', value: '99.6%' },
+      { icon: Shield, label: 'Uptime', value: '99%' },
     ],
   },
 ];
