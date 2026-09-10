@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Zap, Gauge, Wifi, Shield } from 'lucide-react';
+import { ArrowRight, Zap, Gauge, Wifi, Shield } from 'lucide-react';
+import { Link } from 'wouter';
 
 const products = [
     {
@@ -190,6 +191,15 @@ export function ProductShowcase() {
           </div>
         </motion.div>
       ))}
+      <div className="flex justify-center pt-4">
+        <Link
+          href="/products"
+          className="group inline-flex items-center gap-2 rounded-xl border border-primary/40 px-6 py-3 font-semibold text-primary transition hover:bg-primary/10"
+        >
+          Explore the full products catalogue
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Link>
+      </div>
     </div>
   );
 }
