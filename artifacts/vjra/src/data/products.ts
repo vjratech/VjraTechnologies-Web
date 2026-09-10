@@ -1,4 +1,4 @@
-import heroChargerImg from '@/assets/hero-charger.jpg';
+import heroChargerImg from '@/assets/charger.png';
 import circuitDetailImg from '@/assets/circuit-detail.jpg';
 import evChargingSceneImg from '@/assets/ev-charging-scene.jpg';
 import smartGridImg from '@/assets/smart-grid.jpg';
