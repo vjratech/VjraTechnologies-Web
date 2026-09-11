@@ -3,6 +3,27 @@ import circuitDetailImg from '@/assets/circuit-detail.jpg';
 import evChargingSceneImg from '@/assets/ev-charging-scene.jpg';
 import smartGridImg from '@/assets/smart-grid.jpg';
 
+import singlepoint_16a_f1 from '@/assets/productimages/singlepoint_16a_f1.png';
+import singlepoint_16a_i1 from '@/assets/productimages/singlepoint_16a_i1.png';
+import singlepoint_16a_i2 from  '@/assets/productimages/singlepoint_16a_i2.png';
+import singlepoint_16a_i3 from '@/assets/productimages/singlepoint_16a_i3.png';
+import singlepoint_16a_m1 from '@/assets/productimages/singlepoint_16a_m1.png';
+import singlepoint_16a_s1 from '@/assets/productimages/singlepoint_16a_s1.png';
+import singlepoint_6a_f1 from '@/assets/productimages/singlepoint_6a_f1.png';
+import singlepoint_6a_i1 from '@/assets/productimages/singlepoint_6a_i1.png';
+import singlepoint_6a_m1 from '@/assets/productimages/singlepoint_6a_m1.png';
+import singlepoint_6a_s1 from '@/assets/productimages/singlepoint_6a_s1.png';
+import singlepoint_common from '@/assets/singlepoint_common.jpeg';
+import threepoint_16a_f1 from '@/assets/productimages/threepoint_16a_f1.png';
+import threepoint_16a_i1 from '@/assets/productimages/threepoint_16a_i1.png';
+import threepoint_6a_f1 from '@/assets/productimages/threepoint_6a_f1.png';
+import threepoint_6a_i1 from '@/assets/productimages/threepoint_6a_i1.png';
+import threepoint_6a_i2 from '@/assets/productimages/threepoint_6a_i2.png';
+import threepoint_common from '@/assets/threepoint_common.jpeg';
+import common1 from '@/assets/common1.png';
+import common2 from '@/assets/common2.png';
+import common3 from '@/assets/common3.png';
+
 export type ProductVariant = {
   id: string;
   name: string;
@@ -35,6 +56,8 @@ export type Product = {
 };
 
 const gallery = [heroChargerImg, circuitDetailImg, evChargingSceneImg, smartGridImg];
+const Singlepoint = [singlepoint_6a_m1, circuitDetailImg, evChargingSceneImg, smartGridImg];
+
 
 const connectedPointVariants = (prefix: 'single' | 'three') =>
   ['6A Wi-Fi', '6A 4G', '16A Wi-Fi', '16A 4G'].map((name, index) => {
@@ -59,10 +82,10 @@ export const products: Product[] = [
     categorySlug: 'ev-charging-point',
     name: 'EV Charging Point — Single Point',
     cardName: 'Single Point',
-    subtitle: '1.3–3.3 kW',
+    subtitle: '1.3kW–3.3 kW',
     description: 'A compact connected AC charging point designed for everyday EV charging.',
-    image: heroChargerImg,
-    images: gallery,
+    image: singlepoint_6a_m1,
+    images: Singlepoint,
     features: ['1 socket', '6A / 16A', 'Wi-Fi / 4G', '1.3–3.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
     variants: connectedPointVariants('single'),
