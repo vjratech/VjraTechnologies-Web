@@ -11,7 +11,7 @@ import heroChargerImg from '@/assets/hero-charger.jpg';
 import circuitDetailImg from '@/assets/circuit-detail.jpg';
 import smartGridImg from '@/assets/smart-grid.jpg';
 import evChargingSceneImg from '@/assets/ev-charging-scene.jpg';
-import brochurePdf from '@/assets/vjra-ev-charging-brochure.pdf';
+import brochurePdf from '@/assets/Brochure_VjraTechnologies.pdf';
 
 export default function Home() {
   const containerRef = useRef(null);
