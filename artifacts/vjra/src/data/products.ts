@@ -57,14 +57,21 @@ export type Product = {
 
 const commonImages = [common1, common2, common3];
 
-const connectivityVariants = (prefix: string, current: string, power: string, images: string[]): ProductVariant[] =>
+const connectivityVariants = (
+  prefix: string,
+  current: string,
+  power: string,
+  images: string[],
+  wifiPrice: number,
+  fourGPrice: number
+): ProductVariant[] =>
   ['Wi-Fi', '4G'].map((connectivity) => ({
     id: `${prefix}-${connectivity.toLowerCase().replace('-', '')}`,
     name: `${current} ${connectivity}`,
     current,
     connectivity,
     power,
-    price: 0,
+    price: connectivity === 'Wi-Fi' ? wifiPrice : fourGPrice,
     sku: `VJRA-${prefix.toUpperCase()}-${connectivity.toUpperCase().replace('-', '')}`,
     images,
   }));
@@ -97,7 +104,7 @@ export const products: Product[] = [
      overviewImage: singlepoint_common,
     features: ['1 socket', '6A current', 'Wi-Fi / 4G', '1.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
-    variants: connectivityVariants('single-point-6a', '6A', '1.3 kW', singlePoint6AImages),
+    variants: connectivityVariants('single-point-6a','6A','1.3 kW', singlePoint6AImages, 6999, 7999),
     specifications: {
       Electrical: { 'Rated power': '1.3 kW', 'Output current': '6A' },
       Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
@@ -119,7 +126,7 @@ export const products: Product[] = [
      overviewImage: singlepoint_common,
     features: ['1 socket', '16A current', 'Wi-Fi / 4G', '3.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
-    variants: connectivityVariants('single-point-16a', '16A', '3.3 kW', singlePoint16AImages),
+    variants: connectivityVariants('single-point-16a', '16A', '3.3 kW', singlePoint16AImages, 7999, 8999),
     specifications: {
       Electrical: { 'Rated power': '3.3 kW', 'Output current': '16A' },
       Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
@@ -141,7 +148,7 @@ export const products: Product[] = [
      overviewImage: singlepoint_common,
     features: ['3 sockets', '6A per socket', 'Wi-Fi / 4G', '4 kW', 'Suitable for simultaneous charging'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
-    variants: connectivityVariants('three-point-6a', '6A', '4 kW', threePoint6AImages),
+    variants: connectivityVariants('three-point-6a', '6A', '4 kW', threePoint6AImages, 18999, 23999),
     specifications: {
       Electrical: { 'Rated power': '4 kW', 'Output current': '6A per socket', 'Charging outputs': '3 sockets' },
       Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
@@ -163,7 +170,7 @@ export const products: Product[] = [
     overviewImage: singlepoint_common,
     features: ['3 sockets', '16A per socket', 'Wi-Fi / 4G', '10 kW', 'Suitable for simultaneous charging'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
-    variants: connectivityVariants('three-point-16a', '16A', '10 kW', threePoint16AImages),
+    variants: connectivityVariants('three-point-16a', '16A', '10 kW', threePoint16AImages, 21999, 26999),
     specifications: {
       Electrical: { 'Rated power': '10 kW', 'Output current': '16A per socket', 'Charging outputs': '3 sockets' },
       Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },

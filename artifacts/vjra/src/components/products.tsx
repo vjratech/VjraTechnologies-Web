@@ -9,13 +9,13 @@ import { Button } from '@/components/ui/button';
 
 export function ProductSiteHeader() {
   return (
-    <header className="relative z-40 border-b border-border/60 bg-background/80 px-6 py-5 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6">
+    <header className="relative z-40 border-b border-border/60 bg-background/80 px-4 py-4 sm:px-6 sm:py-5 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-6">
         <Link href="/" className="flex items-center gap-3" aria-label="Vjra Technologies home">
           <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-10 w-auto object-contain" />
           <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VJRA TECHNOLOGIES</span>
         </Link>
-        <nav className="flex items-center gap-5 text-sm text-muted-foreground">
+        <nav className="flex items-center gap-3 sm:gap-5 text-sm text-muted-foreground">
           <Link href="/" className="transition-colors hover:text-primary">Platform</Link>
           <Link href="/products" className="text-primary">Products</Link>
           <a href="mailto:sales@vjratechnologies.com" className="hidden transition-colors hover:text-primary sm:block">Talk to sales</a>
@@ -83,16 +83,16 @@ export function ProductGallery({ product, selectedVariant }: { product: Product;
 
   return (
     <div className="space-y-4">
-      <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-6 md:min-h-[520px]">
+      <div className="relative flex min-h-[260px] items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-4 sm:min-h-[320px] sm:p-5 md:min-h-[520px] md:p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,240,255,0.12),transparent_55%)]" />
-        <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative max-h-[460px] w-full object-contain transition-opacity duration-300" />
+        <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative max-h-[260px] w-full object-contain transition-opacity duration-300 sm:max-h-[320px] md:max-h-[460px]"/>
         <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur">
           <RefreshCw className="h-3 w-3 text-primary" /> Product imagery
         </div>
       </div>
       <div className="flex gap-3 overflow-x-auto pb-1">
         {currentImages.map((image, index) => (
-          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-20 w-24 shrink-0 overflow-hidden rounded-xl border transition ${activeImage === image ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`} aria-label={`Show product image ${index + 1}`}>
+          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-16 w-20 shrink-0 overflow-hidden rounded-xl border transition ${activeImage === image ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`} aria-label={`Show product image ${index + 1}`}>
             <img src={image} alt="" className="h-full w-full object-cover" />
           </button>
         ))}
@@ -119,13 +119,13 @@ export function ProductConfigurator({ product, onVariantChange }: { product: Pro
   const selectableConnectivity = [...new Set(product.variants.map((variant) => variant.connectivity).filter(Boolean))] as string[];
 
   return (
-    <div className="space-y-6 rounded-3xl border border-border/70 bg-card/60 p-6 md:p-8">
-      <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-5">
+    <div className="space-y-5 rounded-3xl border border-border/70 bg-card/60 p-4 sm:space-y-6 sm:p-6 md:p-8">
+      <div className="flex flex-col gap-3 border-b border-border/60 pb-5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary">Selected configuration</div>
           <h2 className="mt-2 font-display text-2xl font-bold">{selected.name}</h2>
         </div>
-        <div className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-xs text-primary">{selected.sku}</div>
+        <div className="w-fit max-w-full rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] text-primary sm:text-xs">{selected.sku}</div>
       </div>
 
       {selectableCurrents.length > 0 && (
@@ -164,7 +164,7 @@ export function ProductConfigurator({ product, onVariantChange }: { product: Pro
         </fieldset>
       )}
 
-      <div className="flex items-end justify-between gap-4 border-t border-border/60 pt-5">
+      <div className="flex flex-col gap-4 border-t border-border/60 pt-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="text-xs text-muted-foreground">Indicative price</div>
           <div className="mt-1 font-display text-3xl font-bold text-primary">{placeholderPrice(selected.price)}</div>
@@ -227,16 +227,104 @@ export function SpecificationTable({ product }: { product: Product }) {
   );
 }
 
-export function VariantComparison({ product, selectedId, onSelect }: { product: Product; selectedId: string; onSelect: (variant: ProductVariant) => void }) {
+export function VariantComparison({
+  product,
+  selectedId,
+  onSelect,
+}: {
+  product: Product;
+  selectedId: string;
+  onSelect: (variant: ProductVariant) => void;
+}) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-border/70">
-      <table className="w-full min-w-[680px] text-left text-sm">
-        <thead className="bg-card/80 text-xs uppercase tracking-[0.14em] text-muted-foreground"><tr><th className="px-5 py-4">Configuration</th><th className="px-5 py-4">Current</th><th className="px-5 py-4">Connectivity</th><th className="px-5 py-4">Power</th><th className="px-5 py-4">Price</th></tr></thead>
-        <tbody className="divide-y divide-border/60">
-          {product.variants.map((variant) => <tr key={variant.id} className={`cursor-pointer transition hover:bg-primary/5 ${selectedId === variant.id ? 'bg-primary/10' : ''}`} onClick={() => onSelect(variant)}><td className="px-5 py-4 font-medium">{variant.name}</td><td className="px-5 py-4 text-muted-foreground">{variant.current ?? '—'}</td><td className="px-5 py-4 text-muted-foreground">{variant.connectivity ?? '—'}</td><td className="px-5 py-4 text-muted-foreground">{variant.power ?? '—'}</td><td className="px-5 py-4 text-primary">{placeholderPrice(variant.price)}</td></tr>)}
-        </tbody>
-      </table>
-    </div>
+    <>
+      {/* Mobile */}
+      <div className="space-y-3 md:hidden">
+        {product.variants.map((variant) => (
+          <button
+            key={variant.id}
+            type="button"
+            onClick={() => onSelect(variant)}
+            className={`w-full rounded-2xl border p-4 text-left transition ${
+              selectedId === variant.id
+                ? 'border-primary bg-primary/10'
+                : 'border-border/70 bg-card/50 hover:border-primary/50'
+            }`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="font-medium">{variant.name}</div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  {variant.sku}
+                </div>
+              </div>
+
+              <div className="shrink-0 font-display text-lg font-bold text-primary">
+                {placeholderPrice(variant.price)}
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border/60 pt-3 text-xs">
+              <div>
+                <div className="text-muted-foreground">Current</div>
+                <div className="mt-1">{variant.current ?? '—'}</div>
+              </div>
+
+              <div>
+                <div className="text-muted-foreground">Power</div>
+                <div className="mt-1">{variant.power ?? '—'}</div>
+              </div>
+
+              <div className="col-span-2">
+                <div className="text-muted-foreground">Connectivity</div>
+                <div className="mt-1">{variant.connectivity ?? '—'}</div>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden overflow-x-auto rounded-2xl border border-border/70 md:block">
+        <table className="w-full min-w-[680px] text-left text-sm">
+          <thead className="bg-card/80 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            <tr>
+              <th className="px-5 py-4">Configuration</th>
+              <th className="px-5 py-4">Current</th>
+              <th className="px-5 py-4">Connectivity</th>
+              <th className="px-5 py-4">Power</th>
+              <th className="px-5 py-4">Price</th>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-border/60">
+            {product.variants.map((variant) => (
+              <tr
+                key={variant.id}
+                className={`cursor-pointer transition hover:bg-primary/5 ${
+                  selectedId === variant.id ? 'bg-primary/10' : ''
+                }`}
+                onClick={() => onSelect(variant)}
+              >
+                <td className="px-5 py-4 font-medium">{variant.name}</td>
+                <td className="px-5 py-4 text-muted-foreground">
+                  {variant.current ?? '—'}
+                </td>
+                <td className="px-5 py-4 text-muted-foreground">
+                  {variant.connectivity ?? '—'}
+                </td>
+                <td className="px-5 py-4 text-muted-foreground">
+                  {variant.power ?? '—'}
+                </td>
+                <td className="px-5 py-4 text-primary">
+                  {placeholderPrice(variant.price)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
