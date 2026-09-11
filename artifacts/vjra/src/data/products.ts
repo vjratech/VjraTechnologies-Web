@@ -20,7 +20,7 @@ import threepoint_6a_i2 from '@/assets/productimages/threepoint_6a_i2.png';
 import common1 from '@/assets/common1.png';
 import common2 from '@/assets/common2.png';
 import common3 from '@/assets/common3.png';
-import singlepoint_common from '@/assets/singlepoint_common.jpeg';
+import singlepoint_common from '@/assets/singlepoint_common.png';
 
 
 export type ProductVariant = {
