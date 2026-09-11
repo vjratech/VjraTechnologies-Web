@@ -51,7 +51,7 @@ export function ProductCard({ product, compact = false }: { product: Product; co
       className={`group overflow-hidden rounded-3xl border border-border/70 bg-card/70 ${compact ? '' : 'h-full'}`}
     >
       <div className={`relative overflow-hidden bg-gradient-to-br from-card via-background to-primary/5 ${compact ? 'h-44' : 'h-64'}`}>
-        <img src={product.image} alt={`${product.name} product visual`} className="h-full w-full object-cover opacity-75 transition duration-700 group-hover:scale-105 group-hover:opacity-95" />
+        <img src={product.image} alt={`${product.name} product visual`} className="h-full w-full object-contain p-8 opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/15 to-transparent" />
         <div className="absolute left-5 top-5 rounded-full border border-primary/25 bg-background/80 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary backdrop-blur">
           {product.category}

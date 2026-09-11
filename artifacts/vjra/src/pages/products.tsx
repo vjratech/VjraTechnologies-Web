@@ -46,7 +46,7 @@ function ProductFamily({ title, subtitle, description, products }: { title: stri
         </div>
         <p className="max-w-xl text-base leading-relaxed text-muted-foreground">{description}</p>
       </div>
-      <div className={`grid gap-6 ${products.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
+      <div className={`grid gap-6 ${products.length === 2 ? 'lg:grid-cols-2' : products.length >= 4 ? 'lg:grid-cols-2 xl:grid-cols-4' : 'lg:grid-cols-3'}`}>
         {products.map((product) => <ProductCard key={product.id} product={product} />)}
       </div>
       <div className="mt-6 flex justify-end">

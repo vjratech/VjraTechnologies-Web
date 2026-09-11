@@ -5,7 +5,6 @@ import smartGridImg from '@/assets/smart-grid.jpg';
 
 import singlepoint_16a_f1 from '@/assets/productimages/singlepoint_16a_f1.png';
 import singlepoint_16a_i1 from '@/assets/productimages/singlepoint_16a_i1.png';
-import singlepoint_16a_i2 from  '@/assets/productimages/singlepoint_16a_i2.png';
 import singlepoint_16a_i3 from '@/assets/productimages/singlepoint_16a_i3.png';
 import singlepoint_16a_m1 from '@/assets/productimages/singlepoint_16a_m1.png';
 import singlepoint_16a_s1 from '@/assets/productimages/singlepoint_16a_s1.png';
@@ -13,13 +12,11 @@ import singlepoint_6a_f1 from '@/assets/productimages/singlepoint_6a_f1.png';
 import singlepoint_6a_i1 from '@/assets/productimages/singlepoint_6a_i1.png';
 import singlepoint_6a_m1 from '@/assets/productimages/singlepoint_6a_m1.png';
 import singlepoint_6a_s1 from '@/assets/productimages/singlepoint_6a_s1.png';
-import singlepoint_common from '@/assets/singlepoint_common.jpeg';
 import threepoint_16a_f1 from '@/assets/productimages/threepoint_16a_f1.png';
 import threepoint_16a_i1 from '@/assets/productimages/threepoint_16a_i1.png';
 import threepoint_6a_f1 from '@/assets/productimages/threepoint_6a_f1.png';
 import threepoint_6a_i1 from '@/assets/productimages/threepoint_6a_i1.png';
 import threepoint_6a_i2 from '@/assets/productimages/threepoint_6a_i2.png';
-import threepoint_common from '@/assets/threepoint_common.jpeg';
 import common1 from '@/assets/common1.png';
 import common2 from '@/assets/common2.png';
 import common3 from '@/assets/common3.png';
@@ -55,77 +52,116 @@ export type Product = {
   faqs: Array<{ question: string; answer: string }>;
 };
 
-const gallery = [heroChargerImg, circuitDetailImg, evChargingSceneImg, smartGridImg];
-const Singlepoint = [singlepoint_6a_m1, circuitDetailImg, evChargingSceneImg, smartGridImg];
+const commonImages = [common1, common2, common3];
 
+const connectivityVariants = (prefix: string, current: string, power: string, images: string[]): ProductVariant[] =>
+  ['Wi-Fi', '4G'].map((connectivity) => ({
+    id: `${prefix}-${connectivity.toLowerCase().replace('-', '')}`,
+    name: `${current} ${connectivity}`,
+    current,
+    connectivity,
+    power,
+    price: 0,
+    sku: `VJRA-${prefix.toUpperCase()}-${connectivity.toUpperCase().replace('-', '')}`,
+    images,
+  }));
 
-const connectedPointVariants = (prefix: 'single' | 'three') =>
-  ['6A Wi-Fi', '6A 4G', '16A Wi-Fi', '16A 4G'].map((name, index) => {
-    const [current, connectivity] = name.split(' ');
-    return {
-      id: `${prefix}-${name.toLowerCase().replace(' ', '-')}`,
-      name,
-      current,
-      connectivity,
-      power: prefix === 'single' ? (current === '6A' ? '1.3 kW' : '3.3 kW') : current === '6A' ? '3 kW' : '10 kW',
-      price: 0,
-      sku: `VJRA-${prefix.toUpperCase()}-${current}-${connectivity.toUpperCase()}`,
-      images: [gallery[index % gallery.length], ...gallery.filter((_, imageIndex) => imageIndex !== index % gallery.length)],
-    };
-  });
+const productFaqs = (current: string, power: string, outputCount: string) => [
+  { question: 'Which connectivity options are available?', answer: `This product is available with Wi-Fi or 4G connectivity.` },
+  { question: 'What current rating does this product use?', answer: `This product is configured for ${current}.` },
+  { question: 'What is the rated power?', answer: `The supplied product data specifies ${power}.` },
+  { question: 'How many charging outputs are included?', answer: `${outputCount} charging output${outputCount === '1' ? '' : 's'} are included in this product.` },
+];
+
+const singlePoint6AImages = [singlepoint_6a_m1, singlepoint_6a_f1, singlepoint_6a_s1, singlepoint_6a_i1, ...commonImages];
+const singlePoint16AImages = [singlepoint_16a_m1, singlepoint_16a_f1, singlepoint_16a_s1, singlepoint_16a_i1, singlepoint_16a_i3, ...commonImages];
+const threePoint6AImages = [threepoint_6a_f1, threepoint_6a_i1, threepoint_6a_i2, ...commonImages];
+const threePoint16AImages = [threepoint_16a_f1, threepoint_16a_i1, ...commonImages];
 
 export const products: Product[] = [
   {
-    id: 'single-point',
-    slug: 'single-point',
+    id: 'single-point-6a',
+    slug: 'single-point-6a',
     category: 'EV Charging Points',
     categorySlug: 'ev-charging-point',
-    name: 'EV Charging Point — Single Point',
-    cardName: 'Single Point',
-    subtitle: '1.3kW–3.3 kW',
-    description: 'A compact connected AC charging point designed for everyday EV charging.',
-    image: singlepoint_6a_m1,
-    images: Singlepoint,
-    features: ['1 socket', '6A / 16A', 'Wi-Fi / 4G', '1.3–3.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
+    name: 'EV Charging Point — Single Point 6A',
+    cardName: 'Single Point — 6A',
+    subtitle: '1.3 kW',
+    description: 'A compact connected AC charging point for everyday 6A charging.',
+    image: singlePoint6AImages[0],
+    images: singlePoint6AImages,
+    features: ['1 socket', '6A current', 'Wi-Fi / 4G', '1.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
-    variants: connectedPointVariants('single'),
+    variants: connectivityVariants('single-point-6a', '6A', '1.3 kW', singlePoint6AImages),
     specifications: {
-      Electrical: { 'Rated power': '1.3–3.3 kW', 'Output current': '6A / 16A' },
+      Electrical: { 'Rated power': '1.3 kW', 'Output current': '6A' },
       Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
     },
-    overview: 'The Single Point brings connected AC charging into everyday environments with a compact format and flexible current and connectivity configurations.',
-    faqs: [
-      { question: 'Which configurations are available?', answer: 'The Single Point is available in 6A and 16A current configurations with either Wi-Fi or 4G connectivity.' },
-      { question: 'How many vehicles can it charge at once?', answer: 'The Single Point has one charging socket.' },
-      { question: 'What power range does it support?', answer: 'The supplied product data specifies a 1.3–3.3 kW power range.' },
-      { question: 'Where can it be used?', answer: 'It is suitable for homes, workplaces and 2, 3 and 4 wheelers depending on configuration.' },
-    ],
+    overview: 'The Single Point 6A brings connected AC charging into everyday environments with a compact format and dedicated 6A output.',
+    faqs: productFaqs('6A', '1.3 kW', '1'),
   },
   {
-    id: 'three-point',
-    slug: 'three-point',
+    id: 'single-point-16a',
+    slug: 'single-point-16a',
     category: 'EV Charging Points',
     categorySlug: 'ev-charging-point',
-    name: 'EV Charging Point — Three Point',
-    cardName: 'Three Point',
-    subtitle: '3–10 kW',
-    description: 'A connected multi-output AC charging point designed for simultaneous charging.',
-    image: circuitDetailImg,
-    images: [circuitDetailImg, ...gallery.filter((image) => image !== circuitDetailImg)],
-    features: ['3 sockets', '6A / 16A per socket', 'Wi-Fi / 4G', '3–10 kW', 'Suitable for simultaneous charging'],
-    applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
-    variants: connectedPointVariants('three'),
+    name: 'EV Charging Point — Single Point 16A',
+    cardName: 'Single Point — 16A',
+    subtitle: '3.3 kW',
+    description: 'A compact connected AC charging point for higher-power 16A charging.',
+    image: singlePoint16AImages[0],
+    images: singlePoint16AImages,
+    features: ['1 socket', '16A current', 'Wi-Fi / 4G', '3.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
+    applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
+    variants: connectivityVariants('single-point-16a', '16A', '3.3 kW', singlePoint16AImages),
     specifications: {
-      Electrical: { 'Rated power': '3–10 kW', 'Output current': '6A / 16A per socket', 'Charging outputs': '3 sockets' },
+      Electrical: { 'Rated power': '3.3 kW', 'Output current': '16A' },
       Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
     },
-    overview: 'The Three Point is built for shared charging environments, giving operators three outputs and simultaneous charging in a single connected unit.',
-    faqs: [
-      { question: 'How many charging outputs are included?', answer: 'The Three Point includes three sockets.' },
-      { question: 'Can all sockets charge simultaneously?', answer: 'Yes. The supplied product data identifies the Three Point for simultaneous charging.' },
-      { question: 'Which current ratings are supported?', answer: 'Each socket supports the selected 6A or 16A current rating.' },
-      { question: 'Which connectivity options are available?', answer: 'Wi-Fi and 4G configurations are available.' },
-    ],
+    overview: 'The Single Point 16A is a connected AC charging point with a dedicated 16A output for higher-power everyday charging.',
+    faqs: productFaqs('16A', '3.3 kW', '1'),
+  },
+  {
+    id: 'three-point-6a',
+    slug: 'three-point-6a',
+    category: 'EV Charging Points',
+    categorySlug: 'ev-charging-point',
+    name: 'EV Charging Point — Three Point 6A',
+    cardName: 'Three Point — 6A',
+    subtitle: '3 kW',
+    description: 'A connected three-output AC charging point for simultaneous 6A charging.',
+    image: threePoint6AImages[0],
+    images: threePoint6AImages,
+    features: ['3 sockets', '6A per socket', 'Wi-Fi / 4G', '3 kW', 'Suitable for simultaneous charging'],
+    applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
+    variants: connectivityVariants('three-point-6a', '6A', '3 kW', threePoint6AImages),
+    specifications: {
+      Electrical: { 'Rated power': '3 kW', 'Output current': '6A per socket', 'Charging outputs': '3 sockets' },
+      Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
+    },
+    overview: 'The Three Point 6A is built for shared charging environments, providing three connected outputs for simultaneous 6A charging.',
+    faqs: productFaqs('6A per socket', '3 kW', '3'),
+  },
+  {
+    id: 'three-point-16a',
+    slug: 'three-point-16a',
+    category: 'EV Charging Points',
+    categorySlug: 'ev-charging-point',
+    name: 'EV Charging Point — Three Point 16A',
+    cardName: 'Three Point — 16A',
+    subtitle: '10 kW',
+    description: 'A connected three-output AC charging point for simultaneous 16A charging.',
+    image: threePoint16AImages[0],
+    images: threePoint16AImages,
+    features: ['3 sockets', '16A per socket', 'Wi-Fi / 4G', '10 kW', 'Suitable for simultaneous charging'],
+    applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
+    variants: connectivityVariants('three-point-16a', '16A', '10 kW', threePoint16AImages),
+    specifications: {
+      Electrical: { 'Rated power': '10 kW', 'Output current': '16A per socket', 'Charging outputs': '3 sockets' },
+      Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
+    },
+    overview: 'The Three Point 16A is built for shared charging environments, providing three connected outputs for simultaneous 16A charging.',
+    faqs: productFaqs('16A per socket', '10 kW', '3'),
   },
   {
     id: 'ac-7-3kw',
@@ -137,17 +173,14 @@ export const products: Product[] = [
     subtitle: 'Single phase',
     description: 'A higher-power AC charger for residential, commercial and destination charging.',
     image: heroChargerImg,
-    images: gallery,
+    images: [heroChargerImg, circuitDetailImg, evChargingSceneImg, smartGridImg],
     features: ['Single phase', 'Single gun / dual gun', 'Wi-Fi / 4G'],
     applications: ['Homes', 'Workplaces', 'Apartments', 'Destination Charging'],
     variants: [
       { id: 'single-phase-single-gun', name: 'Single Phase — Single Gun', configuration: 'Single Phase — Single Gun', power: '7.3 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-7.3-SINGLE' },
       { id: 'single-phase-dual-gun', name: 'Single Phase — Dual Gun', configuration: 'Single Phase — Dual Gun', power: '7.3 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-7.3-DUAL' },
     ],
-    specifications: {
-      Electrical: { 'Rated power': '7.3 kW', Phase: 'Single phase' },
-      Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
-    },
+    specifications: { Electrical: { 'Rated power': '7.3 kW', Phase: 'Single phase' }, Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' } },
     overview: 'The 7.3 kW AC Charger pairs single-phase power with a choice of single-gun or dual-gun configuration for flexible destination charging.',
     faqs: [
       { question: 'Which configurations are available?', answer: 'The 7.3 kW charger is available in single-gun and dual-gun configurations.' },
@@ -165,15 +198,12 @@ export const products: Product[] = [
     cardName: '11 kW',
     subtitle: 'Three phase',
     description: 'A three-phase AC charger with a focused single-gun configuration.',
-    image: evChargingSceneImg,
-    images: [evChargingSceneImg, ...gallery.filter((image) => image !== evChargingSceneImg)],
+    image: heroChargerImg,
+    images: [heroChargerImg, evChargingSceneImg, circuitDetailImg, smartGridImg],
     features: ['Three phase', 'Single gun', 'Wi-Fi / 4G'],
     applications: ['Homes', 'Workplaces', 'Apartments', 'Destination Charging'],
     variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '11 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-11-SINGLE' }],
-    specifications: {
-      Electrical: { 'Rated power': '11 kW', Phase: 'Three phase' },
-      Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
-    },
+    specifications: { Electrical: { 'Rated power': '11 kW', Phase: 'Three phase' }, Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' } },
     overview: 'The 11 kW AC Charger delivers a three-phase, single-gun configuration for higher-power connected charging.',
     faqs: [
       { question: 'What configuration is available?', answer: 'The supplied product data specifies a three-phase, single-gun configuration.' },
@@ -191,15 +221,12 @@ export const products: Product[] = [
     cardName: '22 kW',
     subtitle: 'Three phase',
     description: 'A high-power three-phase AC charger with a single-gun configuration.',
-    image: smartGridImg,
-    images: [smartGridImg, ...gallery.filter((image) => image !== smartGridImg)],
+    image: heroChargerImg,
+    images: [heroChargerImg, smartGridImg, circuitDetailImg, evChargingSceneImg],
     features: ['Three phase', 'Single gun', 'Wi-Fi / 4G'],
     applications: ['Workplaces', 'Apartments', 'Public Charging', 'Fleet Charging'],
     variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '22 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-22-SINGLE' }],
-    specifications: {
-      Electrical: { 'Rated power': '22 kW', Phase: 'Three phase' },
-      Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' },
-    },
+    specifications: { Electrical: { 'Rated power': '22 kW', Phase: 'Three phase' }, Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' } },
     overview: 'The 22 kW AC Charger is designed for destination, public and fleet environments that benefit from higher-power three-phase charging.',
     faqs: [
       { question: 'What configuration is available?', answer: 'The supplied product data specifies a three-phase, single-gun configuration.' },
