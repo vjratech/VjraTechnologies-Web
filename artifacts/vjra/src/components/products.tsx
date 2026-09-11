@@ -104,6 +104,13 @@ export function ProductGallery({ product, selectedVariant }: { product: Product;
 export function ProductConfigurator({ product, onVariantChange }: { product: Product; onVariantChange: (variant: ProductVariant) => void }) {
   const [selectedId, setSelectedId] = useState(product.variants[0].id);
   const selected = product.variants.find((variant) => variant.id === selectedId) ?? product.variants[0];
+  const buyMessage = `Hello Vjra, I’m interested in purchasing ${product.name}${selected.name ? `, ${selected.name}` : ''}.`;
+
+  const quoteMessage = `Hello Vjra, I’d like a quote for ${product.name}${selected.name ? `, ${selected.name}` : ''}.`;
+
+  const buyWhatsAppUrl = `https://wa.me/918855094432?text=${encodeURIComponent(buyMessage)}`;
+
+  const quoteWhatsAppUrl = `https://wa.me/918855094432?text=${encodeURIComponent(quoteMessage)}`;
   const choose = (variant: ProductVariant) => {
     setSelectedId(variant.id);
     onVariantChange(variant);
@@ -169,8 +176,25 @@ export function ProductConfigurator({ product, onVariantChange }: { product: Pro
         </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Button asChild size="lg"><a href="mailto:sales@vjratechnologies.com?subject=Buy%20Now%20-%20Vjra%20product">Buy Now <ArrowRight /></a></Button>
-        <Button asChild size="lg" variant="outline"><a href="mailto:sales@vjratechnologies.com?subject=Request%20a%20Quote%20-%20Vjra%20product">Request a Quote <ExternalLink /></a></Button>
+        <Button asChild size="lg">
+          <a
+            href={buyWhatsAppUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Buy Now <ArrowRight />
+          </a>
+        </Button>
+
+        <Button asChild size="lg" variant="outline">
+          <a
+            href={quoteWhatsAppUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Request a Quote <ExternalLink />
+          </a>
+        </Button>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import heroChargerImg from '@/assets/hero-charger.jpg';
 import circuitDetailImg from '@/assets/circuit-detail.jpg';
 import smartGridImg from '@/assets/smart-grid.jpg';
 import evChargingSceneImg from '@/assets/ev-charging-scene.jpg';
+import brochurePdf from '@/assets/vjra-ev-charging-brochure.pdf';
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -21,6 +22,11 @@ export default function Home() {
 
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+  const consultationMessage =
+  "Hello Vjra, I’m interested in your products and services and would like to know more.";
+
+  const consultationWhatsAppUrl =
+  `https://wa.me/918855094432?text=${encodeURIComponent(consultationMessage)}`;
 
   return (
     <div ref={containerRef} className="relative min-h-screen">
@@ -107,7 +113,9 @@ export default function Home() {
               className="group px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold flex items-center gap-2 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300"
               data-testid="button-request-demo"
             >
-              Request Demo
+              <a href="/products">
+              View Products
+            </a>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
@@ -115,7 +123,12 @@ export default function Home() {
               data-testid="button-watch-video"
             >
               <Play className="w-5 h-5" />
-              Watch Platform Overview
+              <a
+              href={brochurePdf}
+              download
+            >
+              Download Brochure
+            </a>
             </button>
           </motion.div>
 
@@ -509,15 +522,25 @@ export default function Home() {
                 className="group px-10 py-5 bg-primary text-primary-foreground rounded-xl font-semibold text-lg flex items-center gap-3 hover:shadow-xl hover:shadow-primary/50 transition-all duration-300"
                 data-testid="button-schedule-consultation"
               >
-                <Mail className="w-6 h-6" />
+              <a
+                href={consultationWhatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Schedule Consultation
+              </a>
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
                 className="px-10 py-5 glass-panel rounded-xl font-semibold text-lg hover:border-primary/50 transition-all duration-300"
                 data-testid="button-download-whitepaper"
               >
-                Download Brochure
+            <a
+              href={brochurePdf}
+              download
+            >
+              Download Brochure
+            </a>
               </button>
             </div>
 

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { Download} from 'lucide-react';
 import { Link, useParams } from 'wouter';
 import { getProduct, products, type ProductVariant } from '@/data/products';
 import { ApplicationSection, FeatureHighlights, ProductConfigurator, ProductFaq, ProductGallery, ProductSiteFooter, ProductSiteHeader, RelatedProducts, SpecificationTable, VariantComparison } from '@/components/products';
 import NotFound from '@/pages/not-found';
+import brochurePdf from '@/assets/Brochure_VjraTechnologies.pdf';
 
 export default function ProductDetail() {
   const params = useParams<{ category: string; slug: string }>();
@@ -59,7 +60,7 @@ export default function ProductDetail() {
 
         <section className="bg-card/20 px-6 py-24">
           <div className="mx-auto max-w-7xl">
-            <SectionHeading eyebrow="Technical specifications" title="The details that matter." description="Only supplied product data is shown here. Configuration-specific information updates with your selection." />
+            <SectionHeading eyebrow="Technical specifications" title="The details that matter." description="Lets get technical here." />
             <SpecificationTable product={product} />
           </div>
         </section>
@@ -67,7 +68,7 @@ export default function ProductDetail() {
         {product.variants.length > 1 && (
           <section className="px-6 py-24">
             <div className="mx-auto max-w-7xl">
-              <SectionHeading eyebrow="Variant comparison" title="Choose the right configuration." description="Select a row to update the active configuration above." />
+              <SectionHeading eyebrow="Variant comparison" title="Choose the right configuration." description="Lets not get confused in product selection. Refer below table for all variants at one place." />
               <VariantComparison product={product} selectedId={selectedVariant?.id ?? ''} onSelect={setSelectedVariant} />
             </div>
           </section>
@@ -100,7 +101,7 @@ export default function ProductDetail() {
             <div className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Next step</div>
             <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">Ready to build your charging setup?</h2>
             <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">Tell us about your site, vehicles and charging goals. We’ll help you choose the right configuration.</p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a href="mailto:sales@vjratechnologies.com?subject=Buy%20Now%20-%20Vjra%20product" className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-primary bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition hover:shadow-lg hover:shadow-primary/30">Buy Now <ArrowRight className="h-4 w-4" /></a><a href="mailto:sales@vjratechnologies.com?subject=Request%20a%20Quote%20-%20Vjra%20product" className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-border bg-transparent px-8 py-3 text-sm font-medium transition hover:border-primary">Request a Quote</a></div>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a href={brochurePdf} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-primary bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition hover:shadow-lg hover:shadow-primary/30"> Download Brochure <Download /> </a></div>
           </div>
         </section>
       </main>
