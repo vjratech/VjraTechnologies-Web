@@ -90,6 +90,7 @@ export const products: Product[] = [
     name: 'EV Charging Point — Single Point 6A',
     cardName: 'Single Point — 6A',
     subtitle: '1.3 kW',
+    
     description: 'A compact connected AC charging point for everyday 6A charging.',
     image: singlePoint6AImages[0],
     images: singlePoint6AImages,
@@ -185,8 +186,8 @@ export const products: Product[] = [
     features: ['Single phase', 'Single gun / dual gun', 'Wi-Fi / 4G'],
     applications: ['Homes', 'Workplaces', 'Apartments', 'Destination Charging'],
     variants: [
-      { id: 'single-phase-single-gun', name: 'Single Phase — Single Gun', configuration: 'Single Phase — Single Gun', power: '7.3 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-7.3-SINGLE' },
-      { id: 'single-phase-dual-gun', name: 'Single Phase — Dual Gun', configuration: 'Single Phase — Dual Gun', power: '7.3 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-7.3-DUAL' },
+      { id: 'single-phase-single-gun', name: 'Single Phase — Single Gun', configuration: 'Single Phase — Single Gun', power: '7.3 kW', connectivity: 'Wi-Fi / 4G', price: 29000, sku: 'VJRA-AC-7.3-SINGLE' },
+      { id: 'single-phase-dual-gun', name: 'Single Phase — Dual Gun', configuration: 'Single Phase — Dual Gun', power: '7.3 kW', connectivity: 'Wi-Fi / 4G', price: 49000, sku: 'VJRA-AC-7.3-DUAL' },
     ],
     specifications: { Electrical: { 'Rated power': '7.3 kW', Phase: 'Single phase' }, Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' } },
     overview: 'The 7.3 kW AC Charger pairs single-phase power with a choice of single-gun or dual-gun configuration for flexible destination charging.',
@@ -211,7 +212,7 @@ export const products: Product[] = [
      overviewImage: singlepoint_common,
     features: ['Three phase', 'Single gun', 'Wi-Fi / 4G'],
     applications: ['Homes', 'Workplaces', 'Apartments', 'Destination Charging'],
-    variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '11 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-11-SINGLE' }],
+    variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '11 kW', connectivity: 'Wi-Fi / 4G', price: 44999, sku: 'VJRA-AC-11-SINGLE' }],
     specifications: { Electrical: { 'Rated power': '11 kW', Phase: 'Three phase' }, Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' } },
     overview: 'The 11 kW AC Charger delivers a three-phase, single-gun configuration for higher-power connected charging.',
     faqs: [
@@ -235,7 +236,7 @@ export const products: Product[] = [
      overviewImage: singlepoint_common,
     features: ['Three phase', 'Single gun', 'Wi-Fi / 4G'],
     applications: ['Workplaces', 'Apartments', 'Public Charging', 'Fleet Charging'],
-    variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '22 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-22-SINGLE' }],
+    variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '22 kW', connectivity: 'Wi-Fi / 4G', price: 45999, sku: 'VJRA-AC-22-SINGLE' }],
     specifications: { Electrical: { 'Rated power': '22 kW', Phase: 'Three phase' }, Connectivity: { 'Wi-Fi': 'Available', '4G': 'Available' } },
     overview: 'The 22 kW AC Charger is designed for destination, public and fleet environments that benefit from higher-power three-phase charging.',
     faqs: [
