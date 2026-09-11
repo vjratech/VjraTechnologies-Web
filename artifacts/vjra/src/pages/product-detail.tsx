@@ -53,7 +53,7 @@ export default function ProductDetail() {
               <h2 className="mt-4 font-display text-4xl font-bold md:text-5xl">Built for the way charging happens.</h2>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">{product.overview}</p>
             </div>
-            <div className="overflow-hidden rounded-3xl border border-border/70 bg-card/60 p-3"><img src={product.images[1] ?? product.image} alt={`${product.name} application view`} className="h-[360px] w-full rounded-2xl object-cover md:h-[460px]" /></div>
+            <div className="overflow-hidden rounded-3xl border border-border/70 bg-card/60 p-3"><img src={product.overviewImage ?? product.images[1] ?? product.image} alt={`${product.name} application view`} className="h-[360px] w-full rounded-2xl object-cover md:h-[460px]" /></div>
           </div>
         </section>
 
