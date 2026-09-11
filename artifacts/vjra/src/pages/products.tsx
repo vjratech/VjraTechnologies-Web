@@ -11,20 +11,20 @@ export default function Products() {
     <div className="min-h-screen bg-background">
       <ProductSiteHeader />
       <main>
-        <section className="relative overflow-hidden px-6 pb-24 pt-20 md:pt-28">
+        <section className="relative overflow-hidden px-4 pb-16 pt-12 sm:px-6 sm:pb-24 sm:pt-20 md:pt-28">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_20%,rgba(0,240,255,0.14),transparent_35%)]" />
           <div className="relative mx-auto max-w-7xl">
-            <Link href="/" className="mb-10 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground transition hover:text-primary">← Back to platform</Link>
+            <Link href="/" className="mb-8 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground transition hover:text-primary sm:mb-10 sm:text-xs sm:tracking-[0.16em]">← Back to platform</Link>
             <div className="max-w-4xl">
-              <div className="mb-6 inline-flex rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-primary">Our Products</div>
-              <h1 className="font-display text-5xl font-bold leading-[0.94] md:text-8xl">EV Charging <span className="text-gradient-cyan">Solutions</span></h1>
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">Smart charging hardware built for connected mobility.</p>
+              <div className="mb-5 inline-flex rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-primary sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.2em]">Our Products</div>
+              <h1 className="font-display text-4xl font-bold leading-[0.96] sm:text-5xl md:text-8xl">EV Charging <span className="text-gradient-cyan">Solutions</span></h1>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg md:text-xl">Smart charging hardware built for connected mobility.</p>
             </div>
           </div>
         </section>
 
-        <section className="px-6 pb-24">
-          <div className="mx-auto max-w-7xl space-y-20">
+        <section className="px-4 pb-16 sm:px-6 sm:pb-24">
+          <div className="mx-auto max-w-7xl space-y-16 sm:space-y-20">
             <ProductFamily title="EV Charging Points" subtitle="1.3 kW – 10 kW" description="Smart AC charging points designed for homes, workplaces, apartments and public charging locations." products={chargingPoints} />
             <ProductFamily title="AC Chargers" subtitle="7.3 kW – 22 kW" description="Higher-power AC charging solutions for residential, commercial and destination charging." products={acChargers} />
           </div>
@@ -38,13 +38,13 @@ export default function Products() {
 function ProductFamily({ title, subtitle, description, products }: { title: string; subtitle: string; description: string; products: typeof import('@/data/products').products }) {
   return (
     <section>
-      <div className="mb-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+      <div className="mb-8 grid gap-5 sm:mb-10 sm:gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <div>
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Product family</div>
-          <h2 className="mt-3 font-display text-4xl font-bold md:text-5xl">{title}</h2>
+          <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl md:text-5xl">{title}</h2>
           <div className="mt-3 font-mono text-sm text-primary">{subtitle}</div>
         </div>
-        <p className="max-w-xl text-base leading-relaxed text-muted-foreground">{description}</p>
+        <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">{description}</p>
       </div>
       <div className={`grid gap-6 ${products.length === 2 ? 'lg:grid-cols-2' : products.length >= 4 ? 'lg:grid-cols-2 xl:grid-cols-4' : 'lg:grid-cols-3'}`}>
         {products.map((product) => <ProductCard key={product.id} product={product} />)}

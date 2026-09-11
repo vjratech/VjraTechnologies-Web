@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ExternalLink, Factory, Home, PlugZap, RefreshCw, ShieldCheck, Wifi, Zap } from 'lucide-react';
 import { Link } from 'wouter';
 import type { Product, ProductVariant } from '@/data/products';
@@ -9,14 +9,14 @@ import { Button } from '@/components/ui/button';
 
 export function ProductSiteHeader() {
   return (
-    <header className="relative z-40 border-b border-border/60 bg-background/80 px-4 py-4 sm:px-6 sm:py-5 backdrop-blur-xl">
+    <header className="relative z-40 border-b border-border/60 bg-background/80 px-4 py-3.5 backdrop-blur-xl sm:px-6 sm:py-5">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-6">
         <Link href="/" className="flex items-center gap-3" aria-label="Vjra Technologies home">
-          <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-10 w-auto object-contain" />
+          <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-8 w-auto object-contain sm:h-10" />
           <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VJRA TECHNOLOGIES</span>
         </Link>
         <nav className="flex items-center gap-3 sm:gap-5 text-sm text-muted-foreground">
-          <Link href="/" className="transition-colors hover:text-primary">Platform</Link>
+          <Link href="/" className="hidden transition-colors hover:text-primary sm:block">Platform</Link>
           <Link href="/products" className="text-primary">Products</Link>
           <a href="mailto:sales@vjratechnologies.com" className="hidden transition-colors hover:text-primary sm:block">Talk to sales</a>
         </nav>
@@ -27,13 +27,13 @@ export function ProductSiteHeader() {
 
 export function ProductSiteFooter() {
   return (
-    <footer className="border-t border-border/60 px-6 py-12">
+    <footer className="border-t border-border/60 px-4 py-10 sm:px-6 sm:py-12">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
+        <div className="text-center sm:text-left">
           <div className="font-display text-2xl font-bold text-gradient-cyan">Vjra Technologies LLP</div>
           <p className="mt-1 text-sm text-muted-foreground">The intelligence behind energy</p>
         </div>
-        <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">© 2026 VJRA TECHNOLOGIES LLP</div>
+        <div className="text-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground sm:text-left sm:text-xs sm:tracking-[0.16em]">© 2026 VJRA TECHNOLOGIES LLP</div>
       </div>
     </footer>
   );
@@ -50,17 +50,17 @@ export function ProductCard({ product, compact = false }: { product: Product; co
       transition={{ duration: 0.25 }}
       className={`group overflow-hidden rounded-3xl border border-border/70 bg-card/70 ${compact ? '' : 'h-full'}`}
     >
-      <div className={`relative overflow-hidden bg-gradient-to-br from-card via-background to-primary/5 ${compact ? 'h-44' : 'h-64'}`}>
-        <img src={product.image} alt={`${product.name} product visual`} className="h-full w-full object-contain p-8 opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100" />
+      <div className={`relative overflow-hidden bg-gradient-to-br from-card via-background to-primary/5 ${compact ? 'h-40 sm:h-44' : 'h-56 sm:h-64'}`}>
+        <img loading="lazy" decoding="async" src={product.image} alt={`${product.name} product visual`} className="h-full w-full object-contain p-4 opacity-85 transition duration-700 group-hover:scale-105 group-hover:opacity-100 sm:p-8" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/15 to-transparent" />
-        <div className="absolute left-5 top-5 rounded-full border border-primary/25 bg-background/80 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary backdrop-blur">
+        <div className="absolute left-3 top-3 rounded-full border border-primary/25 bg-background/80 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-primary backdrop-blur sm:left-5 sm:top-5 sm:px-3 sm:text-[10px] sm:tracking-[0.18em]">
           {product.category}
         </div>
-        <div className="absolute bottom-5 left-5 font-display text-4xl font-bold">{product.subtitle}</div>
+        <div className="absolute bottom-4 left-4 font-display text-3xl font-bold sm:bottom-5 sm:left-5 sm:text-4xl">{product.subtitle}</div>
       </div>
-      <div className="space-y-5 p-6">
+      <div className="space-y-5 p-4 sm:p-6">
         <div>
-          <h3 className="font-display text-2xl font-bold">{product.cardName}</h3>
+          <h3 className="font-display text-xl font-bold sm:text-2xl">{product.cardName}</h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{product.description}</p>
         </div>
         <ul className="grid gap-2 text-sm text-muted-foreground">
@@ -79,21 +79,26 @@ export function ProductCard({ product, compact = false }: { product: Product; co
 export function ProductGallery({ product, selectedVariant }: { product: Product; selectedVariant?: ProductVariant }) {
   const images = selectedVariant?.images?.length ? selectedVariant.images : product.images;
   const [activeImage, setActiveImage] = useState(images[0]);
+
+  useEffect(() => {
+    setActiveImage(images[0]);
+  }, [images]);
+
   const currentImages = images.includes(activeImage) ? images : [images[0]];
 
   return (
-    <div className="space-y-4">
-      <div className="relative flex min-h-[260px] items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-4 sm:min-h-[320px] sm:p-5 md:min-h-[520px] md:p-6">
+    <div className="w-full min-w-0 space-y-3 sm:space-y-4">
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-2xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-3 sm:aspect-auto sm:min-h-[360px] sm:rounded-3xl sm:p-5 md:min-h-[520px] md:p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,240,255,0.12),transparent_55%)]" />
-        <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative max-h-[260px] w-full object-contain transition-opacity duration-300 sm:max-h-[320px] md:max-h-[460px]"/>
-        <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur">
+        <img key={activeImage} fetchPriority="high" decoding="async" src={activeImage} alt={`${product.name} gallery view`} className="relative max-h-full max-w-full object-contain transition-opacity duration-300 sm:max-h-[320px] md:max-h-[460px]" />
+        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground backdrop-blur sm:bottom-5 sm:left-5 sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[10px] sm:tracking-[0.16em]">
           <RefreshCw className="h-3 w-3 text-primary" /> Product imagery
         </div>
       </div>
-      <div className="flex gap-3 overflow-x-auto pb-1">
+      <div className="flex snap-x gap-2 overflow-x-auto pb-1 sm:gap-3">
         {currentImages.map((image, index) => (
-          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-16 w-20 shrink-0 overflow-hidden rounded-xl border transition ${activeImage === image ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`} aria-label={`Show product image ${index + 1}`}>
-            <img src={image} alt="" className="h-full w-full object-cover" />
+          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-14 w-16 snap-start shrink-0 overflow-hidden rounded-lg border transition sm:h-20 sm:w-24 sm:rounded-xl ${activeImage === image ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`} aria-label={`Show product image ${index + 1}`}>
+            <img loading="lazy" decoding="async" src={image} alt="" className="h-full w-full object-cover" />
           </button>
         ))}
       </div>
@@ -119,13 +124,13 @@ export function ProductConfigurator({ product, onVariantChange }: { product: Pro
   const selectableConnectivity = [...new Set(product.variants.map((variant) => variant.connectivity).filter(Boolean))] as string[];
 
   return (
-    <div className="space-y-5 rounded-3xl border border-border/70 bg-card/60 p-4 sm:space-y-6 sm:p-6 md:p-8">
+    <div className="space-y-5 rounded-2xl border border-border/70 bg-card/60 p-4 sm:space-y-6 sm:rounded-3xl sm:p-6 md:p-8">
       <div className="flex flex-col gap-3 border-b border-border/60 pb-5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary">Selected configuration</div>
-          <h2 className="mt-2 font-display text-2xl font-bold">{selected.name}</h2>
+          <h2 className="mt-2 font-display text-xl font-bold sm:text-2xl">{selected.name}</h2>
         </div>
-        <div className="w-fit max-w-full rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] text-primary sm:text-xs">{selected.sku}</div>
+        <div className="w-fit max-w-full break-all rounded-full border border-primary/25 bg-primary/10 px-3 py-1 font-mono text-[10px] text-primary sm:text-xs">{selected.sku}</div>
       </div>
 
       {selectableCurrents.length > 0 && (
@@ -170,7 +175,7 @@ export function ProductConfigurator({ product, onVariantChange }: { product: Pro
           <div className="mt-1 font-display text-3xl font-bold text-primary">{placeholderPrice(selected.price)}</div>
           <div className="mt-1 text-xs text-muted-foreground">Final pricing supplied on request</div>
         </div>
-        <div className="text-right">
+        <div className="text-left sm:text-right">
           <div className="text-xs text-muted-foreground">Power</div>
           <div className="mt-1 font-mono text-sm">{selected.power ?? 'Configuration dependent'}</div>
         </div>

@@ -29,7 +29,7 @@ export default function Home() {
   `https://wa.me/918855094432?text=${encodeURIComponent(consultationMessage)}`;
 
   return (
-    <div ref={containerRef} className="relative min-h-screen">
+    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
       {/* Particle background */}
       <ParticleField />
 
@@ -51,7 +51,7 @@ export default function Home() {
           <img
             src={heroChargerImg}
             alt="VJRA EV Charger"
-            className="w-full h-full object-cover opacity-40"
+            className="h-full w-full object-cover opacity-40"
           />
         </motion.div>
 
@@ -61,13 +61,15 @@ export default function Home() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-6 text-center">
+        <div className="relative z-20 mx-auto max-w-7xl px-4 text-center sm:px-6">
 
                   <div className="flex items-center gap-3">
-  <img
+                <img
+                  loading="lazy"
+                  decoding="async"
     src="/logo-removebg-preview.png"
     alt="VJRA Technologies"
-   className="h-16 md:h-20 w-auto object-contain relative z-30"
+    className="relative z-30 h-12 w-auto object-contain sm:h-16 md:h-20"
   />
 
 </div>
@@ -83,7 +85,7 @@ export default function Home() {
           </motion.div>
 
           <motion.h1
-            className="font-display text-6xl md:text-8xl lg:text-9xl font-bold mb-6 leading-none"
+            className="mb-6 font-display text-5xl font-bold leading-none sm:text-6xl md:text-8xl lg:text-9xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -94,7 +96,7 @@ export default function Home() {
           </motion.h1>
 
           <motion.p
-            className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed"
+            className="mx-auto mb-10 max-w-3xl text-base leading-relaxed text-muted-foreground sm:mb-12 sm:text-xl md:text-2xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -104,13 +106,13 @@ export default function Home() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <button
-              className="group px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold flex items-center gap-2 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300"
+              className="group flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/50 sm:px-8 sm:py-4"
               data-testid="button-request-demo"
             >
               <a href="/products">
@@ -119,7 +121,7 @@ export default function Home() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
-              className="group px-8 py-4 glass-panel rounded-xl font-semibold flex items-center gap-2 hover:border-primary/50 transition-all duration-300"
+              className="group flex items-center justify-center gap-2 rounded-xl glass-panel px-6 py-3.5 font-semibold transition-all duration-300 hover:border-primary/50 sm:px-8 sm:py-4"
               data-testid="button-watch-video"
             >
               <Play className="w-5 h-5" />
@@ -134,7 +136,7 @@ export default function Home() {
 
           {/* Live stats */}
           <motion.div
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-3 sm:mt-20 sm:gap-6 md:grid-cols-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -147,13 +149,13 @@ export default function Home() {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                className="glass-panel p-6 rounded-2xl"
+                className="rounded-2xl glass-panel p-4 sm:p-6"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
                 whileHover={{ y: -4, borderColor: 'rgba(0, 240, 255, 0.3)' }}
               >
-                <div className="font-display text-3xl font-bold text-primary mb-1">
+                <div className="mb-1 font-display text-2xl font-bold text-primary sm:text-3xl">
                   {stat.value}
                 </div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
@@ -167,7 +169,7 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
+          className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 sm:bottom-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 10, 0] }}
           transition={{ opacity: { delay: 1 }, y: { duration: 2, repeat: Infinity } }}
@@ -183,7 +185,7 @@ export default function Home() {
       </motion.section>
 
       {/* Technology Stack Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative px-4 py-20 sm:px-6 sm:py-32">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -195,10 +197,10 @@ export default function Home() {
             <div className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
               <span className="text-xs font-mono text-secondary">Full-Stack Platform</span>
             </div>
-            <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="mb-6 font-display text-4xl font-bold sm:text-5xl md:text-6xl">
               Hardware to <span className="text-gradient-cyan">Cloud to AI</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-xl">
               Every layer of the energy ecosystem, engineered in-house for seamless integration
             </p>
           </motion.div>
@@ -218,10 +220,10 @@ export default function Home() {
       </section>
 
       {/* Product Showcase Section */}
-      <section className="relative py-32 px-6 overflow-hidden">
+      <section className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-32">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="text-center mb-20"
+            className="mb-12 text-center sm:mb-20"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
@@ -230,10 +232,10 @@ export default function Home() {
             <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
               <span className="text-xs font-mono text-primary">Hardware Portfolio</span>
             </div>
-            <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="mb-6 font-display text-4xl font-bold sm:text-5xl md:text-6xl">
               Precision <span className="text-gradient-cyan">Engineering</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-xl">
               EV charging stations designed for reliability, performance, and intelligence
             </p>
           </motion.div>
@@ -246,7 +248,7 @@ export default function Home() {
       </section>
 
       {/* Platform Intelligence Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative px-4 py-20 sm:px-6 sm:py-32">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -258,7 +260,7 @@ export default function Home() {
             <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
               <span className="text-xs font-mono text-primary">Live Analytics</span>
             </div>
-            <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="mb-6 font-display text-4xl font-bold sm:text-5xl md:text-6xl">
               Real-Time <span className="text-gradient-cyan">Energy Intelligence</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -288,7 +290,7 @@ export default function Home() {
               <div className="h-64">
                 <PowerChart />
               </div>
-              <div className="grid grid-cols-3 gap-4 mt-6">
+              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-1">Peak Demand</div>
                   <div className="font-display text-xl font-bold text-primary">89.2 kW</div>
@@ -325,7 +327,7 @@ export default function Home() {
               <div className="h-64 flex items-center justify-center">
                 <NetworkMap />
               </div>
-              <div className="grid grid-cols-3 gap-4 mt-6">
+              <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-primary" />
                   <div>
@@ -354,7 +356,7 @@ export default function Home() {
       </section>
 
       {/* Smart Grid Section */}
-      <section className="relative py-32 px-6 overflow-hidden">
+      <section className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-32">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -412,7 +414,7 @@ export default function Home() {
               />
             </div>
             <motion.div
-              className="absolute -bottom-8 -right-8 glass-panel p-6 rounded-2xl"
+            className="absolute -bottom-6 right-2 rounded-2xl glass-panel p-4 sm:-bottom-8 sm:-right-8 sm:p-6"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
@@ -427,7 +429,7 @@ export default function Home() {
       </section>
 
       {/* Use Cases Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative px-4 py-20 sm:px-6 sm:py-32">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -439,10 +441,10 @@ export default function Home() {
             <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
               <span className="text-xs font-mono text-primary">Made for India in India</span>
             </div>
-            <h2 className="font-display text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="mb-6 font-display text-4xl font-bold sm:text-5xl md:text-6xl">
               Real-World <span className="text-gradient-cyan">Deployment</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-xl">
               From commercial fleets to residential communities, VJRA powers diverse energy ecosystems
             </p>
           </motion.div>
@@ -479,6 +481,8 @@ export default function Home() {
               >
                 <div className="relative h-48 overflow-hidden">
                   <motion.img
+                    loading="lazy"
+                    decoding="async"
                     src={useCase.image}
                     alt={useCase.title}
                     className="w-full h-full object-cover"
@@ -501,18 +505,18 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-32 px-6 overflow-hidden">
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+      <section className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-32">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-display text-5xl md:text-7xl font-bold mb-6">
+            <h2 className="mb-6 font-display text-4xl font-bold sm:text-5xl md:text-7xl">
               Ready to Power <span className="text-gradient-cyan">Tomorrow</span>?
             </h2>
-            <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="mx-auto mb-10 max-w-2xl text-base text-muted-foreground sm:mb-12 sm:text-xl">
               Join the energy revolution. Partner with Vjra Technologies to deploy intelligent charging infrastructure
               that scales with your vision.
             </p>
@@ -545,8 +549,8 @@ export default function Home() {
             </div>
 
             {/* Contact info */}
-            <div className="glass-panel-strong p-8 rounded-2xl inline-block">
-              <div className="grid md:grid-cols-3 gap-8 text-left">
+            <div className="inline-block w-full max-w-3xl rounded-2xl glass-panel-strong p-5 sm:p-8">
+              <div className="grid gap-6 text-left sm:grid-cols-3 sm:gap-8">
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Email</div>
                   <div className="font-semibold text-primary">sales@vjratechnologies.com</div>
@@ -587,7 +591,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-border/50 py-12 px-6">
+      <footer className="relative border-t border-border/50 px-4 py-10 sm:px-6 sm:py-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
