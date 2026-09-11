@@ -553,7 +553,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Phone</div>
-                  <div className="font-semibold text-foreground">+91 9545092266</div>
+                  <div className="font-semibold text-foreground">+91 9545092266 | +91 8855094432</div>
                 </div>
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Location</div>
