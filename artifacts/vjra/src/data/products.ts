@@ -20,6 +20,8 @@ import threepoint_6a_i2 from '@/assets/productimages/threepoint_6a_i2.png';
 import common1 from '@/assets/common1.png';
 import common2 from '@/assets/common2.png';
 import common3 from '@/assets/common3.png';
+import singlepoint_common from '@/assets/singlepoint_common.jpeg';
+
 
 export type ProductVariant = {
   id: string;
@@ -44,6 +46,7 @@ export type Product = {
   description: string;
   image: string;
   images: string[];
+  overviewImage: string;
   features: string[];
   applications: string[];
   variants: ProductVariant[];
@@ -90,6 +93,7 @@ export const products: Product[] = [
     description: 'A compact connected AC charging point for everyday 6A charging.',
     image: singlePoint6AImages[0],
     images: singlePoint6AImages,
+     overviewImage: singlepoint_common,
     features: ['1 socket', '6A current', 'Wi-Fi / 4G', '1.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
     variants: connectivityVariants('single-point-6a', '6A', '1.3 kW', singlePoint6AImages),
@@ -111,6 +115,7 @@ export const products: Product[] = [
     description: 'A compact connected AC charging point for higher-power 16A charging.',
     image: singlePoint16AImages[0],
     images: singlePoint16AImages,
+     overviewImage: singlepoint_common,
     features: ['1 socket', '16A current', 'Wi-Fi / 4G', '3.3 kW', 'Suitable for 2, 3 and 4 wheelers depending on configuration'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Homes', 'Workplaces'],
     variants: connectivityVariants('single-point-16a', '16A', '3.3 kW', singlePoint16AImages),
@@ -132,6 +137,7 @@ export const products: Product[] = [
     description: 'A connected three-output AC charging point for simultaneous 6A charging.',
     image: threePoint6AImages[0],
     images: threePoint6AImages,
+     overviewImage: singlepoint_common,
     features: ['3 sockets', '6A per socket', 'Wi-Fi / 4G', '3 kW', 'Suitable for simultaneous charging'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
     variants: connectivityVariants('three-point-6a', '6A', '3 kW', threePoint6AImages),
@@ -153,6 +159,7 @@ export const products: Product[] = [
     description: 'A connected three-output AC charging point for simultaneous 16A charging.',
     image: threePoint16AImages[0],
     images: threePoint16AImages,
+    overviewImage: singlepoint_common,
     features: ['3 sockets', '16A per socket', 'Wi-Fi / 4G', '10 kW', 'Suitable for simultaneous charging'],
     applications: ['2 Wheelers', '3 Wheelers', '4 Wheelers', 'Apartments', 'Public Charging', 'Fleet Charging'],
     variants: connectivityVariants('three-point-16a', '16A', '10 kW', threePoint16AImages),
@@ -174,6 +181,7 @@ export const products: Product[] = [
     description: 'A higher-power AC charger for residential, commercial and destination charging.',
     image: heroChargerImg,
     images: [heroChargerImg, circuitDetailImg, evChargingSceneImg, smartGridImg],
+     overviewImage: singlepoint_common,
     features: ['Single phase', 'Single gun / dual gun', 'Wi-Fi / 4G'],
     applications: ['Homes', 'Workplaces', 'Apartments', 'Destination Charging'],
     variants: [
@@ -200,6 +208,7 @@ export const products: Product[] = [
     description: 'A three-phase AC charger with a focused single-gun configuration.',
     image: heroChargerImg,
     images: [heroChargerImg, evChargingSceneImg, circuitDetailImg, smartGridImg],
+     overviewImage: singlepoint_common,
     features: ['Three phase', 'Single gun', 'Wi-Fi / 4G'],
     applications: ['Homes', 'Workplaces', 'Apartments', 'Destination Charging'],
     variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '11 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-11-SINGLE' }],
@@ -223,6 +232,7 @@ export const products: Product[] = [
     description: 'A high-power three-phase AC charger with a single-gun configuration.',
     image: heroChargerImg,
     images: [heroChargerImg, smartGridImg, circuitDetailImg, evChargingSceneImg],
+     overviewImage: singlepoint_common,
     features: ['Three phase', 'Single gun', 'Wi-Fi / 4G'],
     applications: ['Workplaces', 'Apartments', 'Public Charging', 'Fleet Charging'],
     variants: [{ id: 'three-phase-single-gun', name: 'Three Phase — Single Gun', configuration: 'Three Phase — Single Gun', power: '22 kW', connectivity: 'Wi-Fi / 4G', price: 0, sku: 'VJRA-AC-22-SINGLE' }],
