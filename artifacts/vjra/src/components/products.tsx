@@ -85,7 +85,7 @@ export function ProductGallery({ product, selectedVariant }: { product: Product;
   const currentImages = images.includes(activeImage) ? images : [images[0]];
 
   return (
-    <div className="space-y-4">
+    <div className="min-w-0 w-full max-w-full space-y-4">
       <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-4 sm:aspect-[16/11] sm:p-5 md:aspect-auto md:min-h-[520px] md:p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,240,255,0.12),transparent_55%)]" />
         <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative h-full max-h-[220px] w-auto max-w-[88%] object-contain transition-opacity duration-300 sm:max-h-[280px] sm:max-w-[90%] md:h-auto md:max-h-[460px] md:w-full md:max-w-none"/>
@@ -93,14 +93,27 @@ export function ProductGallery({ product, selectedVariant }: { product: Product;
           <RefreshCw className="h-3 w-3 text-primary" /> Product imagery
         </div>
       </div>
-      <div className="flex gap-3 overflow-x-auto pb-1">
-        {currentImages.map((image, index) => (
-          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-14 w-[72px] shrink-0 overflow-hidden rounded-xl border transition sm:h-16 sm:w-20 md:h-20 md:w-24 ${ activeImage === image
-    ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`}>
-            <img src={image} alt="" className="h-full w-full  object-contain bg-background/40 p-1.5" />
-          </button>
-        ))}
-      </div>
+<div className="grid w-full min-w-0 grid-cols-4 gap-2 sm:grid-cols-5 sm:gap-3 md:flex md:flex-nowrap md:gap-3 md:overflow-x-auto md:pb-1">
+  {currentImages.map((image, index) => (
+    <button
+      key={`${image}-${index}`}
+      type="button"
+      onClick={() => setActiveImage(image)}
+      className={`aspect-square w-full min-w-0 overflow-hidden rounded-xl border transition md:h-20 md:w-24 md:shrink-0 md:aspect-auto ${
+        activeImage === image
+          ? 'border-primary ring-2 ring-primary/20'
+          : 'border-border/70 opacity-70 hover:opacity-100'
+      }`}
+      aria-label={`Show product image ${index + 1}`}
+    >
+      <img
+        src={image}
+        alt=""
+        className="h-full w-full object-contain bg-background/40 p-1.5"
+      />
+    </button>
+  ))}
+</div>
     </div>
   );
 }
