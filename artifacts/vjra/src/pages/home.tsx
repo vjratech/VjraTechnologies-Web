@@ -559,7 +559,8 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-xs font-mono text-muted-foreground mb-2">Location</div>
-                  <div className="font-semibold text-foreground">Pune, Maharashtra, India</div>
+                  <div className="font-semibold text-foreground">Vjra Technologies LLP</div>
+                  <div className="font-semibold text-foreground">Janki Corner, Sadashiv Peth, Pune-411030</div>
                 </div>
               </div>
             </div>
