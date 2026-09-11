@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ExternalLink, Factory, Home, PlugZap, RefreshCw, ShieldCheck, Wifi, Zap } from 'lucide-react';
 import { Link } from 'wouter';
 import type { Product, ProductVariant } from '@/data/products';
@@ -79,21 +79,25 @@ export function ProductCard({ product, compact = false }: { product: Product; co
 export function ProductGallery({ product, selectedVariant }: { product: Product; selectedVariant?: ProductVariant }) {
   const images = selectedVariant?.images?.length ? selectedVariant.images : product.images;
   const [activeImage, setActiveImage] = useState(images[0]);
+  useEffect(() => {
+  setActiveImage(images[0]);
+}, [images]);
   const currentImages = images.includes(activeImage) ? images : [images[0]];
 
   return (
     <div className="space-y-4">
-      <div className="relative flex min-h-[260px] items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-4 sm:min-h-[320px] sm:p-5 md:min-h-[520px] md:p-6">
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-4 sm:aspect-[16/11] sm:p-5 md:aspect-auto md:min-h-[520px] md:p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,240,255,0.12),transparent_55%)]" />
-        <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative max-h-[260px] w-full object-contain transition-opacity duration-300 sm:max-h-[320px] md:max-h-[460px]"/>
-        <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur">
+        <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative h-full max-h-[220px] w-auto max-w-[88%] object-contain transition-opacity duration-300 sm:max-h-[280px] sm:max-w-[90%] md:h-auto md:max-h-[460px] md:w-full md:max-w-none"/>
+        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur">
           <RefreshCw className="h-3 w-3 text-primary" /> Product imagery
         </div>
       </div>
       <div className="flex gap-3 overflow-x-auto pb-1">
         {currentImages.map((image, index) => (
-          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-16 w-20 shrink-0 overflow-hidden rounded-xl border transition ${activeImage === image ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`} aria-label={`Show product image ${index + 1}`}>
-            <img src={image} alt="" className="h-full w-full object-cover" />
+          <button key={`${image}-${index}`} type="button" onClick={() => setActiveImage(image)} className={`h-14 w-[72px] shrink-0 overflow-hidden rounded-xl border transition sm:h-16 sm:w-20 md:h-20 md:w-24 ${ activeImage === image
+    ? 'border-primary ring-2 ring-primary/20' : 'border-border/70 opacity-70 hover:opacity-100'}`}>
+            <img src={image} alt="" className="h-full w-full  object-contain bg-background/40 p-1.5" />
           </button>
         ))}
       </div>
