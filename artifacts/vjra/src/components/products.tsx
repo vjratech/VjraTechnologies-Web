@@ -89,9 +89,6 @@ export function ProductGallery({ product, selectedVariant }: { product: Product;
       <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-background to-primary/5 p-4 sm:aspect-[16/11] sm:p-5 md:aspect-auto md:min-h-[520px] md:p-6">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,240,255,0.12),transparent_55%)]" />
         <img key={activeImage} src={activeImage} alt={`${product.name} gallery view`} className="relative h-full max-h-[220px] w-auto max-w-[88%] object-contain transition-opacity duration-300 sm:max-h-[280px] sm:max-w-[90%] md:h-auto md:max-h-[460px] md:w-full md:max-w-none"/>
-        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur">
-          <RefreshCw className="h-3 w-3 text-primary" /> Product imagery
-        </div>
       </div>
 <div className="grid w-full min-w-0 grid-cols-4 gap-2 sm:grid-cols-5 sm:gap-3 md:flex md:flex-nowrap md:gap-3 md:overflow-x-auto md:pb-1">
   {currentImages.map((image, index) => (
