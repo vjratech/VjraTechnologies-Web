@@ -450,3 +450,35 @@
     inset: -1px;
   }
 }
+
+
+/* Why Vjra page: page-scoped light theme and motion accessibility. */
+.why-vjra-page[data-theme='light'] {
+  --background: 210 40% 98%;
+  --foreground: 220 25% 13%;
+  --border: 214 28% 86%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 25% 13%;
+  --card-border: 214 28% 82%;
+  --muted: 210 30% 93%;
+  --muted-foreground: 215 16% 42%;
+  --primary: 188 82% 34%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 262 55% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 188 82% 34%;
+  --accent-foreground: 0 0% 100%;
+  --input: 214 28% 82%;
+  --ring: 188 82% 34%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-vjra-page *,
+  .why-vjra-page *::before,
+  .why-vjra-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

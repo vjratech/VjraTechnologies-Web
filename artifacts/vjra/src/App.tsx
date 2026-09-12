@@ -5,6 +5,7 @@ import NotFound from '@/pages/not-found';
 import Home from '@/pages/home';
 import Products from '@/pages/products';
 import ProductDetail from '@/pages/product-detail';
+import WhyVjra from '@/pages/why-vjra';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 
 const queryClient = new QueryClient();
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/products" component={Products} />
       <Route path="/products/:category/:slug" component={ProductDetail} />
+      <Route path="/why-vjra" component={WhyVjra} />
       <Route component={NotFound} />
     </Switch>
   );
