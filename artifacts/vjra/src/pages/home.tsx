@@ -120,14 +120,13 @@ export default function Home() {
             </button>
             <button
               className="group px-8 py-4 glass-panel rounded-xl font-semibold flex items-center gap-2 hover:border-primary/50 transition-all duration-300"
-              data-testid="button-watch-video"
+             
             >
               <Play className="w-5 h-5" />
               <a
-              href={brochurePdf}
-              download
+              href="/why-vjra"
             >
-              Download Brochure
+              Why Vjra?
             </a>
             </button>
           </motion.div>
