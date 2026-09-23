@@ -67,7 +67,7 @@ export default function Home() {
   <img
     src="/logo-removebg-preview.png"
     alt="VJRA Technologies"
-   className="h-16 md:h-20 w-auto object-contain relative z-30"
+   className="h-10 w-auto object-contain"
   />
 
 </div>
