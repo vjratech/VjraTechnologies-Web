@@ -23,7 +23,7 @@ export default function Home() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
   const consultationMessage =
-  "Hello Vjra, I’m interested in your products and services and would like to know more.";
+  "Hello VIZ, I’m interested in your products and services and would like to know more.";
 
   const consultationWhatsAppUrl =
   `https://wa.me/918855094432?text=${encodeURIComponent(consultationMessage)}`;
@@ -50,7 +50,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background z-10" />
           <img
             src={heroChargerImg}
-            alt="VJRA EV Charger"
+            alt="VIZ EV Charger"
             className="w-full h-full object-cover opacity-40"
           />
         </motion.div>
@@ -124,9 +124,9 @@ export default function Home() {
             >
               
               <a
-              href="/why-vjra"
+              href="/why-VIZ"
             >
-              Why Vjra?
+              Why VIZ?
             </a>
             </button>
           </motion.div>
@@ -442,7 +442,7 @@ export default function Home() {
               Real-World <span className="text-gradient-cyan">Deployment</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From commercial fleets to residential communities, VJRA powers diverse energy ecosystems
+              From commercial fleets to residential communities, VIZ powers diverse energy ecosystems
             </p>
           </motion.div>
 
@@ -590,7 +590,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-              <div className="font-display text-3xl font-bold text-gradient-cyan mb-2">Vjra Technologies LLP</div>
+              <div className="font-display text-3xl font-bold text-gradient-cyan mb-2">VIZ - Smart Charging</div>
               <p className="text-sm text-muted-foreground">The intelligence behind energy</p>
             </div>
             <div className="text-sm text-muted-foreground font-mono">

@@ -13,7 +13,7 @@ export function ProductSiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-6">
         <Link href="/" className="flex items-center gap-3" aria-label="Vjra Technologies home">
           <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-10 w-auto object-contain" />
-          <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VJRA TECHNOLOGIES</span>
+          <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VIZ - Smart Charging</span>
         </Link>
         <nav className="flex items-center gap-3 sm:gap-5 text-sm text-muted-foreground">
           <Link href="/" className="transition-colors hover:text-primary">Platform</Link>
@@ -30,7 +30,7 @@ export function ProductSiteFooter() {
     <footer className="border-t border-border/60 px-6 py-12">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="font-display text-2xl font-bold text-gradient-cyan">Vjra Technologies LLP</div>
+          <div className="font-display text-2xl font-bold text-gradient-cyan">VIZ - Smart Charging</div>
           <p className="mt-1 text-sm text-muted-foreground">The intelligence behind energy</p>
         </div>
         <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">© 2026 VJRA TECHNOLOGIES LLP</div>
@@ -118,9 +118,9 @@ export function ProductGallery({ product, selectedVariant }: { product: Product;
 export function ProductConfigurator({ product, onVariantChange }: { product: Product; onVariantChange: (variant: ProductVariant) => void }) {
   const [selectedId, setSelectedId] = useState(product.variants[0].id);
   const selected = product.variants.find((variant) => variant.id === selectedId) ?? product.variants[0];
-  const buyMessage = `Hello Vjra, I’m interested in purchasing ${product.name}${selected.name ? `, ${selected.name}` : ''}.`;
+  const buyMessage = `Hello VIZ, I’m interested in purchasing ${product.name}${selected.name ? `, ${selected.name}` : ''}.`;
 
-  const quoteMessage = `Hello Vjra, I’d like a quote for ${product.name}${selected.name ? `, ${selected.name}` : ''}.`;
+  const quoteMessage = `Hello VIZ, I’d like a quote for ${product.name}${selected.name ? `, ${selected.name}` : ''}.`;
 
   const buyWhatsAppUrl = `https://wa.me/918855094432?text=${encodeURIComponent(buyMessage)}`;
 

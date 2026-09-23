@@ -113,12 +113,12 @@ const copy: Record<Lang, {
 }> = {
   en: {
     language: 'English',
-    eyebrow: 'WHY VJRA?',
+    eyebrow: 'WHY VIZ?',
     heroTitle: 'EV charging is not just about the charger.',
     heroBody: 'India already has electricity. What is missing is the infrastructure that safely gets that electricity to the right place, at the right capacity, and keeps it running reliably.',
     heroBridge: "That's where we come in.",
     solve: 'See How We Solve It',
-    brochure: 'Get the Vjra Brochure',
+    brochure: 'Get the VIZ Brochure',
     problemEyebrow: 'THE REAL BOTTLENECK',
     problemTitle: 'The problem nobody talks about enough.',
     problemBody: 'A charger can be ready to install while the site is not ready to power it. Sanctioned load, transformer capacity, cable runs, protection and monitoring all decide whether a charging point works well after launch.',
@@ -149,7 +149,7 @@ const copy: Record<Lang, {
     uptimeBody: 'Our goal is simple: keep every charging point available when users need it.',
     uptimeLabel: 'Uptime target / reliability mindset',
     uptimeFoot: 'You should not have to discover that your charger is offline from an angry customer. We want to know before you do.',
-    alerts: ['Charger goes offline', 'System detects it', 'Red alert reaches Vjra', 'Team investigates', 'Remote recovery / field intervention', 'Charger comes back online'],
+    alerts: ['Charger goes offline', 'System detects it', 'Red alert reaches VIZ', 'Team investigates', 'Remote recovery / field intervention', 'Charger comes back online'],
     hardwareEyebrow: 'MADE IN INDIA',
     hardwareTitle: 'Built by people who know what is inside.',
     hardwareBody: 'Our hardware is 100% made in India. We know the hardware we sell, control the firmware running on it, and control the software connected to it. When something needs to be fixed, improved or optimised, we know where to look.',
@@ -161,9 +161,9 @@ const copy: Record<Lang, {
     privacyBody: 'We design our ecosystem with control over the hardware, firmware and software stack so we can maintain better visibility into how the system works and how information moves through it.',
     privacyQuote: 'We prefer transparency over mystery. You should know what hardware is installed, what software is running it, and who is responsible for maintaining it.',
     compareEyebrow: 'A CLEARER WAY TO WORK',
-    compareTitle: 'Why work with Vjra?',
+    compareTitle: 'Why work with VIZ?',
     typical: 'Typical approach',
-    vjra: 'Vjra approach',
+    vjra: 'VIZ approach',
     compareRows: [
       ['Charger hardware', 'Charger supplied', 'Complete EV-ready site solution'],
       ['Electrical planning', 'Handled separately', 'Planned around the site and charging demand'],
@@ -174,7 +174,7 @@ const copy: Record<Lang, {
       ['Offline alerts', 'Support when contacted', 'Proactive alert + service response'],
       ['After-sales support', 'Post-installation ticket', 'Long-term support and accountability'],
     ],
-    philosophyEyebrow: 'THE VJRA PHILOSOPHY',
+    philosophyEyebrow: 'THE VIZ PHILOSOPHY',
     philosophyTitle: 'We are not in the business of selling boxes.',
     philosophyBody: 'We are in the business of making EV charging dependable. A good charger, electrical system, software and service all matter. But the real product is reliability.',
     philosophyWords: ['Hardware', 'Infrastructure', 'Software', 'Monitoring', 'Support'],
@@ -188,19 +188,19 @@ const copy: Record<Lang, {
     email: 'Email',
     location: 'Site / Location',
     message: 'Message',
-    submit: 'Talk to the Vjra Team',
+    submit: 'Talk to the VIZ Team',
     whatsapp: 'Prefer WhatsApp? Talk to us directly.',
     submitted: 'Opening WhatsApp with your project details…',
     back: 'Back to platform',
   },
   mr: {
     language: 'मराठी',
-    eyebrow: 'VJRA का?',
+    eyebrow: 'VIZ का?',
     heroTitle: 'EV charging म्हणजे फक्त charger नाही.',
     heroBody: 'भारतात वीज आहे. पण ती योग्य ठिकाणी, योग्य क्षमतेने आणि सुरक्षितपणे पोहोचवणारी infrastructure व्यवस्था तयार करणे हे खरे काम आहे.',
     heroBridge: 'इथेच आम्ही कामी येतो.',
     solve: 'आम्ही कसे सोडवतो ते पाहा',
-    brochure: 'Vjra brochure मिळवा',
+    brochure: 'VIZ brochure मिळवा',
     problemEyebrow: 'खरी अडचण',
     problemTitle: 'ज्या समस्येबद्दल पुरेसे बोलले जात नाही.',
     problemBody: 'Charger बसवायला तयार असला तरी site त्याला वीज देण्यासाठी तयार असेलच असे नाही. Sanctioned load, transformer, cabling, protection आणि monitoring यावर charging point किती विश्वासार्ह चालेल ते ठरते.',
@@ -231,7 +231,7 @@ const copy: Record<Lang, {
     uptimeBody: 'आमचे ध्येय सोपे आहे: customer ला गरज असेल तेव्हा प्रत्येक charging point available ठेवणे.',
     uptimeLabel: 'Uptime target / reliability mindset',
     uptimeFoot: 'तुमचा charger offline आहे हे angry customer कडून कळायला नको. आम्हाला तुमच्याआधी कळायला हवे.',
-    alerts: ['Charger offline होतो', 'System ते detect करते', 'Vjra ला red alert येतो', 'Team तपासते', 'Remote recovery / field intervention', 'Charger पुन्हा online होतो'],
+    alerts: ['Charger offline होतो', 'System ते detect करते', 'VIZ ला red alert येतो', 'Team तपासते', 'Remote recovery / field intervention', 'Charger पुन्हा online होतो'],
     hardwareEyebrow: 'भारतात बनवलेले',
     hardwareTitle: 'आत काय आहे हे माहीत असलेल्या लोकांनी बनवलेले.',
     hardwareBody: 'आमचे hardware 100% भारतात बनते. आम्ही विकत असलेले hardware, त्यावरचे firmware आणि त्याला जोडलेले software समजतो. काही fix किंवा improve करायचे असल्यास कुठे पाहायचे हे आम्हाला माहीत असते.',
@@ -243,9 +243,9 @@ const copy: Record<Lang, {
     privacyBody: 'Hardware, firmware आणि software stack वर control ठेवून ecosystem तयार करतो, त्यामुळे system कसे काम करते आणि माहिती कशी फिरते याची visibility चांगली राहते.',
     privacyQuote: 'गूढतेपेक्षा transparency. कोणते hardware आहे, कोणते software चालते आणि maintenance ची जबाबदारी कोणाची आहे हे तुम्हाला माहीत असावे.',
     compareEyebrow: 'काम करण्याची स्पष्ट पद्धत',
-    compareTitle: 'Vjra सोबत का काम करावे?',
+    compareTitle: 'VIZ सोबत का काम करावे?',
     typical: 'सामान्य पद्धत',
-    vjra: 'Vjra ची पद्धत',
+    vjra: 'VIZ ची पद्धत',
     compareRows: [
       ['Charger hardware', 'Charger supplied', 'Complete EV-ready site solution'],
       ['Electrical planning', 'वेगवेगळे handle केले जाते', 'Site आणि charging demand नुसार planning'],
@@ -256,7 +256,7 @@ const copy: Record<Lang, {
       ['Offline alerts', 'Customer सांगेल तेव्हा support', 'Proactive alert + service response'],
       ['After-sales support', 'Post-installation ticket', 'Long-term support आणि accountability'],
     ],
-    philosophyEyebrow: 'VJRA ची भूमिका',
+    philosophyEyebrow: 'VIZ ची भूमिका',
     philosophyTitle: 'आम्ही boxes विकण्याच्या business मध्ये नाही.',
     philosophyBody: 'आम्ही dependable EV charging तयार करण्याच्या business मध्ये आहोत. Charger, electrical system, software आणि service सगळे महत्त्वाचे; पण खरे product म्हणजे reliability.',
     philosophyWords: ['Hardware', 'Infrastructure', 'Software', 'Monitoring', 'Support'],
@@ -270,19 +270,19 @@ const copy: Record<Lang, {
     email: 'Email',
     location: 'Site / Location',
     message: 'Message',
-    submit: 'Vjra team शी बोला',
+    submit: 'VIZ team शी बोला',
     whatsapp: 'WhatsApp आवडते? थेट बोला.',
     submitted: 'तुमच्या project details सह WhatsApp उघडत आहे…',
     back: 'Platform वर परत',
   },
   hi: {
     language: 'हिंदी',
-    eyebrow: 'VJRA क्यों?',
+    eyebrow: 'VIZ क्यों?',
     heroTitle: 'EV charging सिर्फ charger के बारे में नहीं है।',
     heroBody: 'भारत में electricity है। असली जरूरत है ऐसी infrastructure की, जो उसे सही जगह, सही capacity और सुरक्षित तरीके से पहुंचाए — और भरोसेमंद तरीके से चलाती रहे।',
     heroBridge: 'यहीं हम काम आते हैं।',
     solve: 'हम कैसे solve करते हैं देखें',
-    brochure: 'Vjra brochure लें',
+    brochure: 'VIZ brochure लें',
     problemEyebrow: 'असल bottleneck',
     problemTitle: 'जिस problem की बात कम होती है।',
     problemBody: 'Charger install करने के लिए तैयार हो सकता है, लेकिन site उसे power देने के लिए तैयार हो यह जरूरी नहीं। Sanctioned load, transformer, cable runs, protection और monitoring reliability तय करते हैं।',
@@ -313,7 +313,7 @@ const copy: Record<Lang, {
     uptimeBody: 'हमारा goal simple है: जब user को जरूरत हो, तब हर charging point available रहे।',
     uptimeLabel: 'Uptime target / reliability mindset',
     uptimeFoot: 'आपको यह नहीं पता चलना चाहिए कि charger offline है किसी नाराज customer से। हम आपसे पहले जानना चाहते हैं।',
-    alerts: ['Charger offline होता है', 'System detect करता है', 'Vjra को red alert मिलता है', 'Team जांच करती है', 'Remote recovery / field intervention', 'Charger वापस online होता है'],
+    alerts: ['Charger offline होता है', 'System detect करता है', 'VIZ को red alert मिलता है', 'Team जांच करती है', 'Remote recovery / field intervention', 'Charger वापस online होता है'],
     hardwareEyebrow: 'MADE IN INDIA',
     hardwareTitle: 'उन्हीं लोगों ने बनाया है जो अंदर की चीज जानते हैं।',
     hardwareBody: 'हमारा hardware 100% India में बना है। हम अपने hardware, उसके firmware और उससे जुड़े software को जानते हैं। कुछ fix, improve या optimise करना हो तो हमें पता होता है कि कहां देखना है।',
@@ -325,9 +325,9 @@ const copy: Record<Lang, {
     privacyBody: 'Hardware, firmware और software stack पर control के साथ ecosystem बनाते हैं, ताकि system कैसे काम करता है और information कैसे move करती है इसकी visibility बेहतर रहे।',
     privacyQuote: 'Mystery से बेहतर transparency. कौन सा hardware लगा है, कौन सा software चल रहा है और maintenance की जिम्मेदारी किसकी है — आपको पता होना चाहिए।',
     compareEyebrow: 'काम करने का साफ तरीका',
-    compareTitle: 'Vjra के साथ क्यों काम करें?',
+    compareTitle: 'VIZ के साथ क्यों काम करें?',
     typical: 'Typical approach',
-    vjra: 'Vjra approach',
+    vjra: 'VIZ approach',
     compareRows: [
       ['Charger hardware', 'Charger supplied', 'Complete EV-ready site solution'],
       ['Electrical planning', 'अलग से handle', 'Site और charging demand के हिसाब से plan'],
@@ -338,7 +338,7 @@ const copy: Record<Lang, {
       ['Offline alerts', 'Contact करने पर support', 'Proactive alert + service response'],
       ['After-sales support', 'Post-installation ticket', 'Long-term support और accountability'],
     ],
-    philosophyEyebrow: 'VJRA की सोच',
+    philosophyEyebrow: 'VIZ की सोच',
     philosophyTitle: 'हम boxes बेचने के business में नहीं हैं।',
     philosophyBody: 'हम dependable EV charging बनाने के business में हैं। अच्छा charger, electrical system, software और service सभी जरूरी हैं। लेकिन असली product reliability है।',
     philosophyWords: ['Hardware', 'Infrastructure', 'Software', 'Monitoring', 'Support'],
@@ -352,19 +352,19 @@ const copy: Record<Lang, {
     email: 'Email',
     location: 'Site / Location',
     message: 'Message',
-    submit: 'Vjra team से बात करें',
+    submit: 'VIZ team से बात करें',
     whatsapp: 'WhatsApp पसंद है? सीधे बात करें।',
     submitted: 'आपके project details के साथ WhatsApp खुल रहा है…',
     back: 'Platform पर वापस',
   },
   hinglish: {
     language: 'Hinglish',
-    eyebrow: 'WHY VJRA?',
+    eyebrow: 'WHY VIZ?',
     heroTitle: 'EV charging sirf charger lagane ka naam nahi hai.',
     heroBody: 'India mein electricity hai. Real challenge hai us power ko right location, right capacity aur safely deliver karna — phir system ko reliably running rakhna.',
-    heroBridge: 'Yahin Vjra ka kaam start hota hai.',
+    heroBridge: 'Yahin VIZ ka kaam start hota hai.',
     solve: 'Dekhiye hum kaise solve karte hain',
-    brochure: 'Vjra brochure lo',
+    brochure: 'VIZ brochure lo',
     problemEyebrow: 'REAL BOTTLENECK',
     problemTitle: 'Problem charger ki nahi, poori electrical chain ki hai.',
     problemBody: 'Charger ready ho sakta hai, par site usko power dene ke liye ready ho zaroori nahi. Sanctioned load, transformer, cable runs, protection aur monitoring milke reliability decide karte hain.',
@@ -395,7 +395,7 @@ const copy: Record<Lang, {
     uptimeBody: 'Goal simple hai: jab user ko need ho, har charging point available rahe.',
     uptimeLabel: 'Uptime target / reliability mindset',
     uptimeFoot: 'Aapko charger offline hone ki news angry customer se nahi milni chahiye. Humein aapse pehle pata chalna chahiye.',
-    alerts: ['Charger offline hota hai', 'System detect karta hai', 'Vjra ko red alert milta hai', 'Team investigate karti hai', 'Remote recovery / field intervention', 'Charger back online hota hai'],
+    alerts: ['Charger offline hota hai', 'System detect karta hai', 'VIZ ko red alert milta hai', 'Team investigate karti hai', 'Remote recovery / field intervention', 'Charger back online hota hai'],
     hardwareEyebrow: 'MADE IN INDIA',
     hardwareTitle: 'Jo andar hai, usko jaane wale logon ne banaya hai.',
     hardwareBody: 'Hamara hardware 100% India mein bana hai. Hardware, firmware aur connected software hum control karte hain. Kuch fix, improve ya optimise karna ho to humein pata hota hai kahan dekhna hai.',
@@ -407,9 +407,9 @@ const copy: Record<Lang, {
     privacyBody: 'Hardware, firmware aur software stack par control ke saath ecosystem design karte hain, so system kaise kaam karta hai aur information kaise move hoti hai — visibility clear rahe.',
     privacyQuote: 'Mystery se better transparency. Kaunsa hardware installed hai, kaunsa software run ho raha hai aur maintenance ki responsibility kiski hai — aapko pata hona chahiye.',
     compareEyebrow: 'CLEARER WAY TO WORK',
-    compareTitle: 'Vjra ke saath kaam kyun karein?',
+    compareTitle: 'VIZ ke saath kaam kyun karein?',
     typical: 'Typical approach',
-    vjra: 'Vjra approach',
+    vjra: 'VIZ approach',
     compareRows: [
       ['Charger hardware', 'Charger supplied', 'Complete EV-ready site solution'],
       ['Electrical planning', 'Alag handle hota hai', 'Site aur charging demand ke around plan'],
@@ -420,7 +420,7 @@ const copy: Record<Lang, {
       ['Offline alerts', 'Contact karne par support', 'Proactive alert + service response'],
       ['After-sales support', 'Post-installation ticket', 'Long-term support aur accountability'],
     ],
-    philosophyEyebrow: 'VJRA PHILOSOPHY',
+    philosophyEyebrow: 'VIZ PHILOSOPHY',
     philosophyTitle: 'Hum boxes sell karne ke business mein nahi hain.',
     philosophyBody: 'Hum dependable EV charging banane ke business mein hain. Charger, electrical system, software aur service sab important hain. But real product reliability hai.',
     philosophyWords: ['Hardware', 'Infrastructure', 'Software', 'Monitoring', 'Support'],
@@ -434,7 +434,7 @@ const copy: Record<Lang, {
     email: 'Email',
     location: 'Site / Location',
     message: 'Message',
-    submit: 'Vjra team se baat karein',
+    submit: 'VIZ team se baat karein',
     whatsapp: 'WhatsApp prefer karte hain? Direct baat karein.',
     submitted: 'Aapke project details ke saath WhatsApp open ho raha hai…',
     back: 'Platform par wapas',
@@ -471,7 +471,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; 
   );
 }
 
-export default function WhyVjra() {
+export default function WhyVIZ() {
   const [lang, setLang] = useState<Lang>(() => {
     const stored = sessionStorage.getItem('vjra-why-language');
     return stored === 'mr' || stored === 'hi' || stored === 'hinglish' ? stored : 'en';
@@ -484,8 +484,8 @@ export default function WhyVjra() {
 
   useEffect(() => {
     sessionStorage.setItem('vjra-why-language', lang);
-    document.title = 'Why Vjra | End-to-End EV Charging Infrastructure Solutions';
-    const description = 'Vjra Technologies helps businesses and communities become EV-ready with end-to-end electrical infrastructure, EV charging, monitoring, firmware, software and after-sales support.';
+    document.title = 'Why VIZ | End-to-End EV Charging Infrastructure Solutions';
+    const description = 'VIZ - Smart Charging helps businesses and communities become EV-ready with end-to-end electrical infrastructure, EV charging, monitoring, firmware, software and after-sales support.';
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
@@ -504,7 +504,7 @@ export default function WhyVjra() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const message = [
-      'Hello Vjra, I want to make my site EV-ready.',
+      'Hello VIZ, I want to make my site EV-ready.',
       `Name: ${data.get('name') || ''}`,
       `Company: ${data.get('company') || ''}`,
       `Phone: ${data.get('phone') || ''}`,
@@ -679,7 +679,7 @@ export default function WhyVjra() {
                 })}
               </div>
               <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-36 w-36 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-primary/60 bg-background shadow-xl shadow-primary/10 lg:flex">
-                <span className="font-display text-2xl font-bold text-gradient-cyan">VJRA</span>
+                <span className="font-display text-2xl font-bold text-gradient-cyan">VIZ</span>
               </div>
             </Reveal>
           </div>

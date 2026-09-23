@@ -453,7 +453,7 @@
 
 
 /* Why Vjra page: page-scoped light theme and motion accessibility. */
-.why-vjra-page[data-theme='light'] {
+.why-VIZ-page[data-theme='light'] {
   --background: 210 40% 98%;
   --foreground: 220 25% 13%;
   --border: 214 28% 86%;
@@ -473,9 +473,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .why-vjra-page *,
-  .why-vjra-page *::before,
-  .why-vjra-page *::after {
+  .why-VIZ-page *,
+  .why-VIZ-page *::before,
+  .why-VIZ-page *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
