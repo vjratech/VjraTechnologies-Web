@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ExternalLink, Factory, Home, PlugZap, RefreshCw, ShieldCheck, Wifi, Zap } from 'lucide-react';
 import { Link } from 'wouter';
 import type { Product, ProductVariant } from '@/data/products';
-import { productHref } from '@/data/products';
+import { productCategories, productHref, products } from '@/data/products';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 
@@ -51,18 +51,136 @@ export function ProductSiteHeader() {
 
 export function ProductSiteFooter() {
   return (
-    <footer className="border-t border-border/60 px-6 py-12">
-      <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <div className="font-display text-2xl font-bold text-gradient-cyan">VIZ - Smart Charging</div>
-          <p className="mt-1 text-sm text-muted-foreground">The intelligence behind energy</p>
+    <footer className="border-t border-border/60">
+      {/* Sitemap / Navigation */}
+      <div className="border-b border-border/60 px-6 py-14 sm:py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            
+            {/* Main Pages */}
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+                Explore
+              </div>
+
+              <div className="mt-5 flex flex-col gap-3">
+                <Link
+                  href="/"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Home
+                </Link>
+
+                <Link
+                  href="/products"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Products
+                </Link>
+
+                <Link
+                  href="/why-VIZ"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Why VIZ
+                </Link>
+
+                <Link
+                  href="/blog"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  VIZ Insights
+                </Link>
+              </div>
+            </div>
+
+            {/* Product Categories */}
+            {productCategories.map((category) => (
+              <div key={category.categorySlug}>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+                  {category.name}
+                </div>
+
+                <div className="mt-5 flex flex-col gap-3">
+                  {products
+                    .filter(
+                      (product) =>
+                        product.categorySlug === category.categorySlug
+                    )
+                    .map((product) => (
+                          <Link
+                            key={product.slug}
+                            href={productHref(product)}
+                            className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                          >
+                        {product.name}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            ))}
+
+            {/* Contact / Resources */}
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+                Resources
+              </div>
+
+              <div className="mt-5 flex flex-col gap-3">
+                <Link
+                  href="/blog"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  VIZ Insights
+                </Link>
+
+                <a
+                  href="mailto:sales@vjratechnologies.com"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Contact Sales
+                </a>
+
+                <a
+                  href="mailto:info@vjratechnologies.com"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Contact Us
+                </a>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">© 2026 VJRA TECHNOLOGIES LLP</div>
+      </div>
+
+      {/* Existing Brand Footer */}
+      <div className="px-6 py-12">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="font-display text-2xl font-bold text-gradient-cyan">
+              VIZ - Smart Charging
+            </div>
+
+            <p className="mt-1 text-sm text-muted-foreground">
+              The intelligence behind energy
+            </p>
+
+            <p className="mt-2 text-sm text-muted-foreground">
+              VJRA Technologies LLP
+            </p>
+          </div>
+
+          <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+            © 2026 VJRA TECHNOLOGIES LLP
+            <span className="mx-2">·</span>
+            All rights reserved.
+          </div>
+        </div>
       </div>
     </footer>
   );
 }
-
 function placeholderPrice(price?: number) {
   return price ? `₹${price.toLocaleString('en-IN')}` : '₹XX,XXX';
 }

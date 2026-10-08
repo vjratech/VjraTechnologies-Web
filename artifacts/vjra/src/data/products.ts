@@ -255,6 +255,17 @@ export const products: Product[] = [
   },
 ];
 
+export const productCategories = [
+  {
+    name: 'EV Charging Points',
+    categorySlug: 'ev-charging-point',
+  },
+  {
+    name: 'AC Chargers',
+    categorySlug: 'ac-charger',
+  },
+];
+
 export function getProduct(category: string, slug: string) {
   return products.find((product) => product.categorySlug === category && product.slug === slug);
 }
