@@ -44,9 +44,10 @@ export function ProductSiteHeader() {
           </Link>
 
           <a
-            href="mailto:sales@vjratechnologies.com"
-            className="hidden transition-colors hover:text-primary sm:block"
-          >
+          href={consultationWhatsAppUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
             Talk to sales
           </a>
         </nav>
