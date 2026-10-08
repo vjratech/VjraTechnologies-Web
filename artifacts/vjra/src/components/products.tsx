@@ -51,9 +51,9 @@ export function ProductSiteHeader() {
 
 export function ProductSiteFooter() {
   return (
-    <footer className="border-t border-border/60">
+    <footer className="border-t border-border/60 bg-card/30">
       {/* Sitemap / Navigation */}
-      <div className="border-b border-border/60 px-6 py-14 sm:py-16">
+      <div className="border-b border-border/60 bg-card/20 px-6 py-14 sm:py-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             
@@ -164,10 +164,6 @@ export function ProductSiteFooter() {
 
             <p className="mt-1 text-sm text-muted-foreground">
               The intelligence behind energy
-            </p>
-
-            <p className="mt-2 text-sm text-muted-foreground">
-              VJRA Technologies LLP
             </p>
           </div>
 
