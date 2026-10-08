@@ -7,6 +7,12 @@ import { productCategories, productHref, products } from '@/data/products';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 
+  const consultationMessage =
+  "Hello VIZ, I’m interested in your products and services and would like to know more.";
+
+  const consultationWhatsAppUrl =
+  `https://wa.me/918855094432?text=${encodeURIComponent(consultationMessage)}`;
+
 export function ProductSiteHeader() {
   return (
     <header className="relative z-40 border-b border-border/60 bg-background/80 px-4 py-4 sm:px-6 sm:py-5 backdrop-blur-xl">
@@ -134,17 +140,22 @@ export function ProductSiteFooter() {
                   VIZ Insights
                 </Link>
 
+
                 <a
-                  href="mailto:sales@vjratechnologies.com"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
+                href={consultationWhatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                
+
                   Contact Sales
                 </a>
 
                 <a
-                  href="mailto:info@vjratechnologies.com"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
+                href={consultationWhatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                   Contact Us
                 </a>
               </div>
