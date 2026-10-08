@@ -541,15 +541,15 @@ export default function Home() {
               Download Brochure
             </a>
               </button>
-                          <button
-              className="group px-8 py-4 glass-panel rounded-xl font-semibold flex items-center gap-2 hover:border-primary/50 transition-all duration-300"
-             
-            >
+              <button
+                className="px-10 py-5 glass-panel rounded-xl font-semibold text-lg hover:border-primary/50 transition-all duration-300"
+                data-testid="button-download-whitepaper"
+              >
               
               <a
               href="/blog"
             >
-              Knowledge Centre
+              VIZ Knowledge Hub
             </a>
             </button>
             </div>
