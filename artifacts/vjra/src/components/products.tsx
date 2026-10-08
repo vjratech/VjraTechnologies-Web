@@ -144,8 +144,7 @@ export function ProductSiteFooter() {
 
                 <a
                 href={consultationWhatsAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 
 
@@ -154,8 +153,7 @@ export function ProductSiteFooter() {
 
                 <a
                 href={consultationWhatsAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                   Contact Us
                 </a>
