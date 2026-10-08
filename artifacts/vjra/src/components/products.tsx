@@ -15,10 +15,34 @@ export function ProductSiteHeader() {
           <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-10 w-auto object-contain" />
           <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VIZ - Smart Charging</span>
         </Link>
-        <nav className="flex items-center gap-3 sm:gap-5 text-sm text-muted-foreground">
-          <Link href="/" className="transition-colors hover:text-primary">Platform</Link>
-          <Link href="/products" className="text-primary">Products</Link>
-          <a href="mailto:sales@vjratechnologies.com" className="hidden transition-colors hover:text-primary sm:block">Talk to sales</a>
+        <nav className="flex items-center gap-3 text-sm text-muted-foreground sm:gap-5">
+          <Link
+            href="/"
+            className="transition-colors hover:text-primary"
+          >
+            Platform
+          </Link>
+
+          <Link
+            href="/products"
+            className="transition-colors hover:text-primary"
+          >
+            Products
+          </Link>
+
+          <Link
+            href="/blog"
+            className="transition-colors hover:text-primary"
+          >
+            Blog
+          </Link>
+
+          <a
+            href="mailto:sales@vjratechnologies.com"
+            className="hidden transition-colors hover:text-primary sm:block"
+          >
+            Talk to sales
+          </a>
         </nav>
       </div>
     </header>

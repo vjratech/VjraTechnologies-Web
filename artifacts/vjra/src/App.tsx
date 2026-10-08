@@ -6,6 +6,9 @@ import Home from '@/pages/home';
 import Products from '@/pages/products';
 import ProductDetail from '@/pages/product-detail';
 import WhyVIZ from '@/pages/why-VIZ';
+import Blog from '@/pages/blog';
+import BlogDetail from '@/pages/blog-detail';
+
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 
 const queryClient = new QueryClient();
@@ -17,6 +20,8 @@ function Router() {
       <Route path="/products" component={Products} />
       <Route path="/products/:category/:slug" component={ProductDetail} />
       <Route path="/why-VIZ" component={WhyVIZ} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogDetail} />
       <Route component={NotFound} />
     </Switch>
   );
