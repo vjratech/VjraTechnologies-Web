@@ -541,6 +541,17 @@ export default function Home() {
               Download Brochure
             </a>
               </button>
+                          <button
+              className="group px-8 py-4 glass-panel rounded-xl font-semibold flex items-center gap-2 hover:border-primary/50 transition-all duration-300"
+             
+            >
+              
+              <a
+              href="/blog"
+            >
+              Knowledge Centre
+            </a>
+            </button>
             </div>
 
             {/* Contact info */}
