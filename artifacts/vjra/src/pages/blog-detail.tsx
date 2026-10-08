@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import SEO from '@/components/seo';
 import { ArrowLeft, Moon, Sun } from 'lucide-react';
 import { Link, useParams } from 'wouter';
 import {
@@ -22,25 +23,11 @@ export default function BlogDetail() {
       : 'dark'
   );
 
-  useEffect(() => {
-    if (!blog) return;
-
-    document.title = blog.seoTitle;
-
-    let meta = document.querySelector('meta[name="description"]');
-
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-
-    meta.setAttribute('content', blog.seoDescription);
-  }, [blog]);
-
   if (!blog) {
     return <NotFound />;
   }
+
+  const canonicalUrl = `https://eviz.in/blog/${blog.slug}`;
 
   const relatedBlogs = blogs
     .filter(
@@ -55,6 +42,39 @@ export default function BlogDetail() {
       className="blog-page min-h-screen overflow-hidden bg-background text-foreground"
       data-theme={theme}
     >
+        <SEO
+  title={blog.seoTitle}
+  description={blog.seoDescription}
+  canonical={canonicalUrl}
+  image={blog.image}
+  type="article"
+  publishedAt={blog.publishedAt}
+  updatedAt={blog.updatedAt}
+  author={blog.author}
+  articleSection={blog.category}
+  tags={blog.tags}
+  breadcrumbs={[
+    {
+      name: 'Home',
+      url: 'https://eviz.in/',
+    },
+    {
+      name: 'Blog',
+      url: 'https://eviz.in/blog',
+    },
+    {
+      name: blog.category,
+      url: `https://eviz.in/blog/category/${blog.category
+        .toLowerCase()
+        .replace(/\s+/g, '-')}`,
+    },
+    {
+      name: blog.title,
+      url: canonicalUrl,
+    },
+  ]}
+/>
+
       <ProductSiteHeader />
 
       <div className="sticky top-0 z-30 border-b border-border/60 bg-background/85 px-4 py-3 backdrop-blur-xl sm:px-6">
@@ -137,7 +157,13 @@ export default function BlogDetail() {
               <div className="mt-7 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                 <span>{blog.author}</span>
                 <span className="h-1 w-1 rounded-full bg-border" />
-                <span>{blog.publishedAt}</span>
+                <time dateTime={blog.publishedAt}>
+                    {new Date(blog.publishedAt).toLocaleDateString('en-IN', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                    })}
+                    </time>
                 <span className="h-1 w-1 rounded-full bg-border" />
                 <span>{blog.readingTime}</span>
               </div>
@@ -148,7 +174,7 @@ export default function BlogDetail() {
             <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-border/70 bg-card/60">
               <img
                 src={blog.image}
-                alt={blog.title}
+                alt={blog.imageAlt}
                 className="h-[260px] w-full object-cover sm:h-[420px] lg:h-[520px]"
               />
             </div>

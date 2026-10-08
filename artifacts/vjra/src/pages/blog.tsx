@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import SEO from '@/components/seo';
 import { Moon, Sun } from 'lucide-react';
 import { Link } from 'wouter';
 import {
@@ -24,29 +25,20 @@ export default function Blog() {
   const featured = getFeaturedBlogs()[0];
   const latest = getLatestBlogs();
 
-  useEffect(() => {
-    document.title =
-      'EV Charging Blog | EV Charging Infrastructure & Smart Charging | VIZ';
-
-    const description =
-      'Explore practical guides and insights about EV charging stations, smart EV sockets, AC and DC chargers, EV infrastructure and charging solutions in India.';
-
-    let meta = document.querySelector('meta[name="description"]');
-
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'description');
-      document.head.appendChild(meta);
-    }
-
-    meta.setAttribute('content', description);
-  }, []);
 
   return (
     <div
       className="blog-page min-h-screen overflow-hidden bg-background text-foreground"
       data-theme={theme}
     >
+
+    <SEO
+        title="EV Charging Blog | EV Charging Infrastructure & Smart Charging | VIZ"
+        description="Explore practical guides about EV charging stations, EV charging infrastructure, smart EV sockets, AC and DC chargers, load management and electric mobility in India."
+        canonical="https://eviz.in/blog"
+        image="/blog/ev-charging-station-india.png"
+    />
+
       <ProductSiteHeader />
 
       <div className="sticky top-0 z-30 border-b border-border/60 bg-background/85 px-4 py-3 backdrop-blur-xl sm:px-6">

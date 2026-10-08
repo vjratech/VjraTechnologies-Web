@@ -15,6 +15,7 @@ export type BlogArticle = {
   updatedAt?: string;
   readingTime: string;
   image: string;
+  imageAlt: string;
   featured?: boolean;
   tags: string[];
   content: BlogSection[];
@@ -41,6 +42,7 @@ export const blogs: BlogArticle[] = [
     updatedAt: '2026-10-08',
     readingTime: '8 min read',
     image: '/blog/ev-charging-station-india.png',
+    imageAlt: 'EV charging station infrastructure with electric vehicle charging points in India',
     featured: true,
     tags: [
       'EV charging station',
@@ -55,7 +57,7 @@ export const blogs: BlogArticle[] = [
       'EV charging for malls',
     ],
     seoTitle:
-      'Complete Guide to Setting Up an EV Charging Station in India | VIZ',
+      'EV Charging Station in India: Complete Setup Guide | VIZ',
     seoDescription:
       'Learn how to set up an EV charging station in India, including smart sockets, AC chargers, DC fast chargers, electrical load planning, installation and charging infrastructure for societies, hotels, malls, offices and public locations.',
     content: [
@@ -113,7 +115,7 @@ export const blogs: BlogArticle[] = [
         ]
       },
       {
-        heading: 'Why slow charging should become normal EV charging',
+        heading: 'Why Slow EV Charging Is Important for Daily Charging',
         paragraphs: [
           'Fast charging is useful, but it does not have to be the default charging method for every EV.',
           'For daily charging, regular AC or slow charging can be a practical choice when the vehicle is parked for several hours.',
@@ -201,7 +203,7 @@ export const blogs: BlogArticle[] = [
         ]
       },
       {
-        heading: 'Electrical infrastructure comes before the charger',
+        heading: 'Electrical Requirements for an EV Charging Station',
         paragraphs: [
           'One of the most common mistakes is choosing the charger first and checking the electrical infrastructure later.',
           'A professional EV charging installation should start with the site.'
@@ -234,7 +236,7 @@ export const blogs: BlogArticle[] = [
         ]
       },
       {
-        heading: 'A smarter vision for EV charging in India',
+        heading: 'The Future of EV Charging Infrastructure in India',
         paragraphs: [
           'India does not necessarily need a DC fast charger at every parking location.',
           'What we need is charging where people already spend time.',

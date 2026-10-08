@@ -24,7 +24,7 @@ export function BlogCard({
 
         <img
           src={blog.image}
-          alt={blog.title}
+          alt={blog.imageAlt}
           className="relative h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
         />
 
