@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'wouter';
 import { ArrowRight, Play, Mail } from 'lucide-react';
 import { ParticleField } from '@/components/ParticleField';
 import { EnergyFlow } from '@/components/EnergyFlow';
@@ -12,6 +13,7 @@ import circuitDetailImg from '@/assets/circuit-detail.jpg';
 import smartGridImg from '@/assets/smart-grid.jpg';
 import evChargingSceneImg from '@/assets/ev-charging-scene.jpg';
 import brochurePdf from '@/assets/Brochure_VjraTechnologies.pdf';
+import { ProductSiteFooter } from '@/components/products';
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -113,9 +115,9 @@ export default function Home() {
               className="group px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold flex items-center gap-2 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300"
               data-testid="button-request-demo"
             >
-              <a href="/products">
-              View Products
-            </a>
+              <Link href="/products">
+                View Products
+              </Link>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
@@ -123,11 +125,9 @@ export default function Home() {
              
             >
               
-              <a
-              href="/why-VIZ"
-            >
+            <Link href="/why-VIZ">
               Why VIZ?
-            </a>
+            </Link>
             </button>
           </motion.div>
 
@@ -546,11 +546,9 @@ export default function Home() {
                 data-testid="button-download-whitepaper"
               >
               
-              <a
-              href="/blog"
-            >
-              VIZ Knowledge Hub
-            </a>
+              <Link href="/blog">
+                VIZ Knowledge Hub
+              </Link>
             </button>
             </div>
 
@@ -597,19 +595,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-border/50 py-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-              <div className="font-display text-3xl font-bold text-gradient-cyan mb-2">VIZ - Smart Charging</div>
-              <p className="text-sm text-muted-foreground">The intelligence behind energy</p>
-            </div>
-            <div className="text-sm text-muted-foreground font-mono">
-              © 2026 VJRA TECHNOLOGIES LLP. All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
+<ProductSiteFooter />
     </div>
   );
 }
