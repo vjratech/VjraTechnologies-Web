@@ -112,6 +112,38 @@ export function BlogArticleContent({
               ))}
             </ul>
           )}
+          {section.links && section.links.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              {section.links.map((link) => (
+                <Link
+                  key={`${link.text}-${link.href}`}
+                  href={link.href}
+                  className="inline-flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition hover:border-primary hover:bg-primary/10"
+                >
+                  {link.text}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              ))}
+              {section.faqs && section.faqs.length > 0 && (
+              <div className="mt-8 space-y-6">
+                {section.faqs.map((faq) => (
+                  <div
+                    key={faq.question}
+                    className="rounded-2xl border border-border/70 bg-card/50 p-5 sm:p-6"
+                  >
+                    <h3 className="font-display text-xl font-bold leading-tight text-foreground">
+                      {faq.question}
+                    </h3>
+
+                    <p className="mt-3 text-base leading-7 text-muted-foreground sm:text-lg">
+                      {faq.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            </div>
+          )}
         </section>
       ))}
     </div>

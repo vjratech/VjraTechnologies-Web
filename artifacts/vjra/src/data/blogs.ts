@@ -23,10 +23,22 @@ export type BlogArticle = {
   seoDescription: string;
 };
 
+export type BlogLink = {
+  text: string;
+  href: string;
+};
+
+export type BlogFaq = {
+  question: string;
+  answer: string;
+};
+
 export type BlogSection = {
   heading?: string;
   paragraphs?: string[];
   bullets?: string[];
+  links?: BlogLink[];
+  faqs?: BlogFaq[];
 };
 
 export const blogs: BlogArticle[] = [
@@ -112,7 +124,17 @@ export const blogs: BlogArticle[] = [
           'Malls and cinema halls',
           'Tourist destinations and hill stations',
           'Workplaces and commercial buildings'
-        ]
+        ],
+        links: [
+            {
+                text: 'Explore VIZ EV Charging Points →',
+                href: '/products/ev-charging-point/single-point-6a',
+            },
+            {
+                text: 'Explore the 16A Charging Point →',
+                href: '/products/ev-charging-point/single-point-16a',
+            },
+            ]
       },
       {
         heading: 'Why Slow EV Charging Is Important for Daily Charging',
@@ -138,7 +160,21 @@ export const blogs: BlogArticle[] = [
           'Commercial buildings',
           'Workplaces',
           'Destination charging locations'
-        ]
+        ],
+        links: [
+            {
+                text: 'Explore VIZ AC Chargers →',
+                href: '/products/ac-charger/7-3kw',
+            },
+            {
+                text: 'View 11 kW AC Charger →',
+                href: '/products/ac-charger/11kw',
+            },
+            {
+                text: 'View 22 kW AC Charger →',
+                href: '/products/ac-charger/22kw',
+            },
+            ]
       },
       {
         heading: '3. DC fast charging — when speed really matters',
@@ -203,6 +239,18 @@ export const blogs: BlogArticle[] = [
         ]
       },
       {
+        heading: 'A practical EV charger selection framework',
+        paragraphs: [
+            'Choosing an EV charger should start with the use case rather than the charger rating alone. Consider parking duration, expected daily energy demand, number of vehicles, electrical capacity and whether the site needs public or controlled access.'
+        ],
+        bullets: [
+            'Long parking duration + many vehicles → smart sockets or AC charging can support destination charging efficiently.',
+            'Moderate parking duration + predictable daily demand → AC charging is often a practical fit.',
+            'Short parking duration + high vehicle turnover → DC fast charging becomes more relevant.',
+            'Mixed parking duration → combine smart sockets, AC chargers and DC charging according to the site.'
+        ],
+        },
+      {
         heading: 'Electrical Requirements for an EV Charging Station',
         paragraphs: [
           'One of the most common mistakes is choosing the charger first and checking the electrical infrastructure later.',
@@ -236,6 +284,23 @@ export const blogs: BlogArticle[] = [
         ]
       },
       {
+        heading: 'How much does an EV charging station cost?',
+        paragraphs: [
+            'The cost of an EV charging station project depends on much more than the charger itself. Installation cost can include the charger or charging point, electrical protection, cabling, distribution equipment, civil work, metering, communication, software and commissioning.',
+            'A small smart charging point may require significantly less infrastructure than a high-power public DC charging installation. The correct budget should therefore be prepared after evaluating the site electrical capacity and expected charging demand.'
+        ],
+        bullets: [
+            'Charging hardware',
+            'Electrical panel and protection',
+            'Cabling and installation',
+            'Earthing and safety infrastructure',
+            'Civil work and mounting',
+            'Metering and energy monitoring',
+            'Connectivity and software',
+            'Commissioning and maintenance'
+        ],
+        },
+      {
         heading: 'The Future of EV Charging Infrastructure in India',
         paragraphs: [
           'India does not necessarily need a DC fast charger at every parking location.',
@@ -266,7 +331,37 @@ export const blogs: BlogArticle[] = [
           'Plan maintenance and remote monitoring',
           'Keep the system ready for future expansion'
         ]
-      }
+      },
+      {
+        heading: 'Frequently asked questions about EV charging stations',
+        faqs: [
+            {
+            question: 'What is required to install an EV charging station in India?',
+            answer:
+                'The project normally requires an appropriate charging solution, suitable electrical capacity, protection equipment, correctly sized cabling, earthing, metering and installation suitable for the site and intended use.',
+            },
+            {
+            question: 'Which EV charger is suitable for an apartment society?',
+            answer:
+                'The right solution depends on parking duration, available electrical capacity and the number of residents likely to charge. Smart charging points and AC chargers can be useful where vehicles remain parked for several hours.',
+            },
+            {
+            question: 'What is the difference between AC and DC EV charging?',
+            answer:
+                'AC charging supplies alternating current to the vehicle, where the vehicle onboard charger converts it for battery charging. DC fast charging supplies DC power through the charging system and can support much faster charging where the vehicle and charger are compatible.',
+            },
+            {
+            question: 'How much electrical load is required for EV charging?',
+            answer:
+                'The required electrical capacity depends on charger power, number of charging points, simultaneous usage and the site load profile. A proper load assessment should be completed before finalizing the installation.',
+            },
+            {
+            question: 'Can multiple EV chargers share the same electrical infrastructure?',
+            answer:
+                'Yes, multiple charging points can be designed around available site capacity, provided the electrical infrastructure is appropriately sized and the charging system uses suitable load management where required.',
+            },
+        ],
+        }
     ]
   }
 ];
@@ -274,7 +369,28 @@ export const blogs: BlogArticle[] = [
 export function getBlogBySlug(slug: string) {
   return blogs.find((blog) => blog.slug === slug);
 }
+export function getBlogsByCategory(category: BlogCategory) {
+  return blogs.filter((blog) => blog.category === category);
+}
+export function getBlogsByTag(tag: string) {
+  const normalizedTag = tag.toLowerCase();
 
+  return blogs.filter((blog) =>
+    blog.tags.some(
+      (blogTag) => blogTag.toLowerCase() === normalizedTag
+    )
+  );
+}
+export function getAllBlogCategories(): BlogCategory[] {
+  return [...new Set(blogs.map((blog) => blog.category))];
+}
+export function getAllBlogTags(): string[] {
+  return [
+    ...new Set(
+      blogs.flatMap((blog) => blog.tags)
+    ),
+  ];
+}
 export function getFeaturedBlogs() {
   return blogs.filter((blog) => blog.featured);
 }
@@ -286,3 +402,22 @@ export function getLatestBlogs() {
       new Date(a.publishedAt).getTime()
   );
 }
+
+export function blogCategorySlug(
+  category: BlogCategory
+) {
+  return category
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function blogTagSlug(tag: string) {
+  return tag
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+

@@ -5,6 +5,7 @@ import { getProduct, products, type ProductVariant } from '@/data/products';
 import { ApplicationSection, FeatureHighlights, ProductConfigurator, ProductFaq, ProductGallery, ProductSiteFooter, ProductSiteHeader, RelatedProducts, SpecificationTable, VariantComparison } from '@/components/products';
 import NotFound from '@/pages/not-found';
 import brochurePdf from '@/assets/Brochure_VjraTechnologies.pdf';
+import { getLatestBlogs } from '@/data/blogs';
 
 export default function ProductDetail() {
   const params = useParams<{ category: string; slug: string }>();
@@ -18,6 +19,26 @@ export default function ProductDetail() {
   if (!product) return <NotFound />;
 
   const related = products.filter((candidate) => candidate.id !== product.id).slice(0, 3);
+
+  const relevantBlogs = getLatestBlogs()
+  .filter((blog) => {
+    if (product.category === 'EV Charging Points') {
+      return (
+        blog.category === 'EV Charging' ||
+        blog.category === 'Smart Charging'
+      );
+    }
+
+    if (product.category === 'AC Chargers') {
+      return (
+        blog.category === 'EV Charging' ||
+        blog.category === 'EV Infrastructure'
+      );
+    }
+
+    return true;
+  })
+  .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,7 +108,54 @@ export default function ProductDetail() {
             <ProductFaq product={product} />
           </div>
         </section>
+        
+          {relevantBlogs.length > 0 && (
+            <section className="border-t border-border/60 px-6 py-20 sm:py-24">
+              <div className="mx-auto max-w-7xl">
+                <SectionHeading
+                  eyebrow="Charging guides"
+                  title="Learn more about EV charging."
+                  description="Practical guides to help you choose and plan the right charging setup."
+                />
 
+                <div className="grid gap-6 md:grid-cols-3">
+                  {relevantBlogs.map((blog) => (
+                    <Link
+                      key={blog.id}
+                      href={`/blog/${blog.slug}`}
+                      className="group overflow-hidden rounded-2xl border border-border/70 bg-card/60 transition hover:-translate-y-1 hover:border-primary/40"
+                    >
+                      <div className="aspect-[16/9] overflow-hidden">
+                        <img
+                          src={blog.image}
+                          alt={blog.imageAlt}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        />
+                      </div>
+
+                      <div className="p-6">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
+                          {blog.category}
+                        </div>
+
+                        <h3 className="mt-3 font-display text-xl font-bold leading-tight">
+                          {blog.title}
+                        </h3>
+
+                        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                          {blog.excerpt}
+                        </p>
+
+                        <div className="mt-5 text-sm font-semibold text-primary">
+                          Read guide →
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
         <section className="bg-card/20 px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <SectionHeading eyebrow="Related products" title="Keep building your setup." />
