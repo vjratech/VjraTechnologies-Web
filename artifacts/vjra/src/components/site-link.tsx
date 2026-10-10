@@ -1,28 +1,31 @@
+import type { AnchorHTMLAttributes } from 'react';
 
-import type { AnchorHTMLAttributes, ReactNode } from 'react';
-import { Link as WouterLink } from 'wouter';
-
-type SiteLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+type SiteLinkProps = Omit<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  'href'
+> & {
   href: string;
-  children: ReactNode;
 };
 
 export function Link({
   href,
-  children,
   target,
   rel,
   ...props
 }: SiteLinkProps) {
+  const isInPageLink = href.startsWith('#');
+
+  const isAppLink = /^(tel:|mailto:|javascript:)/i.test(href);
+
   const shouldOpenNewTab =
-    href !== '' &&
-    !href.startsWith('#') &&
-    !href.startsWith('tel:') &&
-    !href.startsWith('mailto:') &&
+    href.trim() !== '' &&
+    !isInPageLink &&
+    !isAppLink &&
     target !== '_self';
 
   return (
-    <WouterLink
+    <a
+      {...props}
       href={href}
       target={shouldOpenNewTab ? '_blank' : target}
       rel={
@@ -30,9 +33,6 @@ export function Link({
           ? 'noopener noreferrer'
           : rel
       }
-      {...props}
-    >
-      {children}
-    </WouterLink>
+    />
   );
 }

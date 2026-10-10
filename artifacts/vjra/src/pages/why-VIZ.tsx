@@ -551,7 +551,7 @@ export default function WhyVIZ() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a href="#solve" className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-primary-foreground transition hover:shadow-lg hover:shadow-primary/25">{t.solve}<ArrowRight className="h-4 w-4" /></a>
                 <a target="_blank"
-rel="noopener noreferrer" href={brochurePdf} download className="inline-flex items-center justify-center rounded-xl border border-border bg-card/60 px-6 py-3.5 font-semibold transition hover:border-primary hover:text-primary">{t.brochure}</a>
+rel="noopener noreferrer" href={brochurePdf}  className="inline-flex items-center justify-center rounded-xl border border-border bg-card/60 px-6 py-3.5 font-semibold transition hover:border-primary hover:text-primary">{t.brochure}</a>
               </div>
             </Reveal>
 

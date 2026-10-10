@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Download} from 'lucide-react';
-import { Link, useParams } from 'wouter';
+import { Link } from '@/components/site-link';
+import { useParams } from 'wouter';
 import { getProduct, products, type ProductVariant } from '@/data/products';
 import { ApplicationSection, FeatureHighlights, ProductConfigurator, ProductFaq, ProductGallery, ProductSiteFooter, ProductSiteHeader, RelatedProducts, SpecificationTable, VariantComparison } from '@/components/products';
 import NotFound from '@/pages/not-found';
