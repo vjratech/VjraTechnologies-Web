@@ -39,7 +39,7 @@ export function ProductSiteHeader() {
 
             <Link
               href="/roi-calculator"
-              className="hidden transition-colors hover:text-primary md:inline-flex"
+              className="transition-colors hover:text-primary md:inline-flex"
             >
               <span className="hidden sm:inline">ROI Calculator</span>
               <span className="sm:hidden">ROI</span>
@@ -47,7 +47,7 @@ export function ProductSiteHeader() {
 
             <Link
               href="/blog"
-              className="hidden transition-colors hover:text-primary md:inline-flex"
+              className="transition-colors hover:text-primary md:inline-flex"
             >
               Blog
             </Link>

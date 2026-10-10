@@ -359,7 +359,7 @@ export default function RoiCalculator() {
               <div className="vizroi-section-divider" />
 
               <div className="vizroi-section-head">
-                <h2>Vehicles per day</h2>
+                <h2>Estimated vehicle charging per day</h2>
               </div>
 
               <RangeField
