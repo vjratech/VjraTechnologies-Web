@@ -130,7 +130,7 @@ function RangeField({
 }
 
 export default function RoiCalculator() {
-  const [twoWheelers, setTwoWheelers] = useState(3);
+  const [twoWheelers, setTwoWheelers] = useState(4);
   const [fourWheelers, setFourWheelers] = useState(1);
 
   const [customerRate, setCustomerRate] = useState(15);

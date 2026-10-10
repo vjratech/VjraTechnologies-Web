@@ -1,0 +1,473 @@
+
+.viz-gallery-page {
+  --gallery-bg: #f7fafb;
+  --gallery-surface: #ffffff;
+  --gallery-text: #172b3a;
+  --gallery-muted: #667784;
+  --gallery-line: #dfe8ec;
+  --gallery-accent: #00a9bd;
+
+  min-height: 100vh;
+  color: var(--gallery-text);
+  background: var(--gallery-bg);
+}
+
+.viz-gallery {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 0 5.5% 64px;
+}
+
+.viz-gallery-hero {
+  padding: clamp(58px, 9vw, 112px) 0 54px;
+}
+
+.viz-gallery-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--gallery-accent);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.viz-gallery-hero h1 {
+  margin: 23px 0 18px;
+  font-size: clamp(36px, 6vw, 76px);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  font-weight: 750;
+}
+
+.viz-gallery-hero h1 span {
+  color: var(--gallery-accent);
+}
+
+.viz-gallery-hero > p {
+  max-width: 590px;
+  margin: 0;
+  color: var(--gallery-muted);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.8;
+}
+
+.viz-gallery-content {
+  padding-top: 12px;
+}
+
+.viz-gallery-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.viz-gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.viz-gallery-filters button,
+.viz-gallery-play,
+.viz-gallery-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid var(--gallery-line);
+  border-radius: 999px;
+  color: var(--gallery-text);
+  background: var(--gallery-surface);
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.viz-gallery-filters button {
+  padding: 0 17px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.viz-gallery-filters button:hover,
+.viz-gallery-arrow:hover,
+.viz-gallery-play:hover {
+  border-color: var(--gallery-accent);
+}
+
+.viz-gallery-filters button.active {
+  color: #ffffff;
+  border-color: var(--gallery-accent);
+  background: var(--gallery-accent);
+}
+
+.viz-gallery-controls {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.viz-gallery-play,
+.viz-gallery-arrow {
+  width: 42px;
+  padding: 0;
+}
+
+.viz-gallery-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 2px 18px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gallery-line) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.viz-gallery-card {
+  flex: 0 0 auto;
+  min-width: 0;
+  scroll-snap-align: start;
+  animation: vizGalleryEnter 400ms ease both;
+}
+
+.viz-gallery-card.landscape {
+  width: clamp(280px, 43vw, 560px);
+}
+
+.viz-gallery-card.portrait {
+  width: clamp(220px, 27vw, 350px);
+}
+
+.viz-gallery-image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: clamp(240px, 35vw, 410px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--gallery-line);
+  border-radius: 18px;
+  background: var(--gallery-surface);
+  cursor: zoom-in;
+  text-align: left;
+}
+
+.viz-gallery-card.portrait .viz-gallery-image-button {
+  height: clamp(310px, 43vw, 490px);
+}
+
+.viz-gallery-image-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.viz-gallery-image-button:hover img {
+  transform: scale(1.045);
+}
+
+.viz-gallery-image-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px;
+  color: white;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 20, 28, .35),
+    transparent 35%,
+    transparent 50%,
+    rgba(7, 20, 28, .68)
+  );
+  transition: opacity 220ms ease;
+}
+
+.viz-gallery-image-button:hover .viz-gallery-image-overlay,
+.viz-gallery-image-button:focus-visible .viz-gallery-image-overlay {
+  opacity: 1;
+}
+
+.viz-gallery-image-category {
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 999px;
+  background: rgba(10, 25, 32, .35);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.viz-gallery-image-open {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.viz-gallery-caption {
+  padding: 14px 3px 4px;
+}
+
+.viz-gallery-caption h3 {
+  margin: 0 0 5px;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.viz-gallery-caption p {
+  margin: 0;
+  color: var(--gallery-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.viz-gallery-hint {
+  margin: 8px 0 0;
+  color: var(--gallery-muted);
+  font-size: 12px;
+}
+
+.viz-gallery-empty {
+  padding: 40px 0;
+  color: var(--gallery-muted);
+}
+
+.viz-gallery-bottom {
+  margin-top: 90px;
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid var(--gallery-line);
+  border-radius: 22px;
+  background: var(--gallery-surface);
+}
+
+.viz-gallery-bottom > span {
+  color: var(--gallery-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.viz-gallery-bottom h2 {
+  margin: 12px 0;
+  font-size: clamp(25px, 4vw, 42px);
+  letter-spacing: -0.035em;
+}
+
+.viz-gallery-bottom p {
+  max-width: 600px;
+  margin: 0;
+  color: var(--gallery-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.viz-gallery-lightbox {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 56px 20px 24px;
+  overflow-y: auto;
+  background: rgba(5, 12, 18, .94);
+  animation: vizGalleryFade 180ms ease;
+}
+
+.viz-gallery-lightbox > img {
+  display: block;
+  max-width: min(100%, 1200px);
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.viz-gallery-lightbox-close {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+  cursor: pointer;
+}
+
+.viz-gallery-lightbox-caption {
+  width: min(100%, 800px);
+  color: white;
+  text-align: center;
+}
+
+.viz-gallery-lightbox-caption > span {
+  color: #5be0e9;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.viz-gallery-lightbox-caption h2 {
+  margin: 8px 0;
+  font-size: 22px;
+}
+
+.viz-gallery-lightbox-caption p {
+  margin: 0;
+  color: #c1cbd2;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@keyframes vizGalleryEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vizGalleryFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Dark theme: supports common existing dark-mode class names. */
+.dark .viz-gallery-page,
+html.dark .viz-gallery-page,
+[data-theme='dark'] .viz-gallery-page {
+  --gallery-bg: #101a21;
+  --gallery-surface: #17252e;
+  --gallery-text: #edf5f7;
+  --gallery-muted: #a2b2bc;
+  --gallery-line: #2c3d47;
+  --gallery-accent: #36c7d5;
+}
+
+@media (max-width: 700px) {
+  .viz-gallery {
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-bottom: 42px;
+  }
+
+  .viz-gallery-hero {
+    padding-top: 54px;
+    padding-bottom: 36px;
+  }
+
+  .viz-gallery-hero h1 {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+
+  .viz-gallery-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .viz-gallery-filters {
+    width: 100%;
+    gap: 7px;
+  }
+
+  .viz-gallery-filters button {
+    min-height: 39px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .viz-gallery-controls {
+    align-self: flex-end;
+  }
+
+  .viz-gallery-track {
+    gap: 12px;
+    margin-right: -18px;
+    padding-right: 18px;
+  }
+
+  .viz-gallery-card.landscape {
+    width: 82vw;
+  }
+
+  .viz-gallery-card.portrait {
+    width: 66vw;
+  }
+
+  .viz-gallery-card.landscape .viz-gallery-image-button {
+    height: 57vw;
+    max-height: 330px;
+    min-height: 220px;
+  }
+
+  .viz-gallery-card.portrait .viz-gallery-image-button {
+    height: 94vw;
+    max-height: 430px;
+    min-height: 300px;
+  }
+
+  .viz-gallery-image-overlay {
+    opacity: 1;
+    padding: 11px;
+    background: linear-gradient(
+      180deg,
+      rgba(7, 20, 28, .28),
+      transparent 35%,
+      transparent 55%,
+      rgba(7, 20, 28, .45)
+    );
+  }
+
+  .viz-gallery-image-open {
+    font-size: 12px;
+  }
+
+  .viz-gallery-bottom {
+    margin-top: 55px;
+    border-radius: 17px;
+  }
+
+  .viz-gallery-lightbox {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .viz-gallery-lightbox > img {
+    max-height: 65vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-gallery *,
+  .viz-gallery-lightbox {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
