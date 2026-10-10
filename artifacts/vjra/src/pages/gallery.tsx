@@ -9,9 +9,16 @@ import {
   X,
 } from 'lucide-react';
 
-import { ProductSiteHeader, ProductSiteFooter } from '@/components/products';
-import { galleryImages, type GalleryImage } from '@/data/gallery';
-import type { CSSProperties } from 'react';
+import {
+  ProductSiteHeader,
+  ProductSiteFooter,
+} from '@/components/products';
+
+import {
+  galleryImages,
+  type GalleryImage,
+} from '@/data/gallery';
+
 import './gallery.css';
 
 type GalleryFilter = 'All' | 'Residential' | 'Commercial';
@@ -22,6 +29,18 @@ const filters: GalleryFilter[] = [
   'Commercial',
 ];
 
+// Fisher-Yates shuffle: randomizes the order without changing gallery.ts.
+function shuffleImages(images: GalleryImage[]): GalleryImage[] {
+  const shuffled = [...images];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
 export default function GalleryPage() {
   const [activeFilter, setActiveFilter] =
     useState<GalleryFilter>('All');
@@ -31,9 +50,15 @@ export default function GalleryPage() {
 
   const [isPlaying, setIsPlaying] = useState(true);
 
+  // Shuffle once when the page loads.
+  const [shuffledImages] = useState<GalleryImage[]>(() =>
+    shuffleImages(galleryImages)
+  );
+
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const visibleImages = galleryImages.filter(
+  // Filter the shuffled list so the order remains randomized.
+  const visibleImages = shuffledImages.filter(
     (image) =>
       activeFilter === 'All' ||
       image.category === activeFilter
@@ -55,7 +80,10 @@ export default function GalleryPage() {
         track.scrollLeft + track.clientWidth >=
         track.scrollWidth - 8
       ) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
+        track.scrollTo({
+          left: 0,
+          behavior: 'smooth',
+        });
       } else {
         track.scrollBy({
           left: Math.max(track.clientWidth * 0.7, 220),
@@ -86,7 +114,10 @@ export default function GalleryPage() {
     trackRef.current?.scrollBy({
       left:
         direction *
-        Math.max((trackRef.current?.clientWidth ?? 300) * 0.7, 220),
+        Math.max(
+          (trackRef.current?.clientWidth ?? 300) * 0.7,
+          220
+        ),
       behavior: 'smooth',
     });
   };
@@ -119,7 +150,10 @@ export default function GalleryPage() {
           aria-label="Installation gallery"
         >
           <div className="viz-gallery-toolbar">
-            <div className="viz-gallery-filters" aria-label="Filter installations">
+            <div
+              className="viz-gallery-filters"
+              aria-label="Filter installations"
+            >
               {filters.map((filter) => (
                 <button
                   type="button"
@@ -130,12 +164,11 @@ export default function GalleryPage() {
                   aria-pressed={activeFilter === filter}
                   onClick={() => {
                     setActiveFilter(filter);
-                    if (trackRef.current) {
-                      trackRef.current.scrollTo({
-                        left: 0,
-                        behavior: 'smooth',
-                      });
-                    }
+
+                    trackRef.current?.scrollTo({
+                      left: 0,
+                      behavior: 'smooth',
+                    });
                   }}
                 >
                   {filter === 'All'
@@ -149,7 +182,9 @@ export default function GalleryPage() {
               <button
                 type="button"
                 className="viz-gallery-play"
-                onClick={() => setIsPlaying((value) => !value)}
+                onClick={() =>
+                  setIsPlaying((value) => !value)
+                }
                 aria-label={
                   isPlaying
                     ? 'Pause automatic scrolling'
@@ -195,7 +230,11 @@ export default function GalleryPage() {
             onMouseLeave={() => setIsPlaying(true)}
             onFocus={() => setIsPlaying(false)}
             onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
+              if (
+                !event.currentTarget.contains(
+                  event.relatedTarget as Node | null
+                )
+              ) {
                 setIsPlaying(true);
               }
             }}
@@ -204,9 +243,6 @@ export default function GalleryPage() {
               <article
                 className={`viz-gallery-card ${image.orientation}`}
                 key={image.id}
-                style={{
-                  '--gallery-index': index,
-                } as React.CSSProperties}
               >
                 <button
                   type="button"
@@ -225,18 +261,17 @@ export default function GalleryPage() {
                     <span className="viz-gallery-image-category">
                       {image.category}
                     </span>
+
                     <span className="viz-gallery-image-open">
                       View image <ArrowRight size={16} />
                     </span>
                   </span>
                 </button>
 
-                {(image.title || image.description) && (
+                {/* Only show the description below the image. */}
+                {image.description && (
                   <div className="viz-gallery-caption">
-                    {image.title && <h3>{image.title}</h3>}
-                    {image.description && (
-                      <p>{image.description}</p>
-                    )}
+                    <p>{image.description}</p>
                   </div>
                 )}
               </article>
@@ -256,7 +291,9 @@ export default function GalleryPage() {
 
         <section className="viz-gallery-bottom">
           <span>Built for real-world charging needs.</span>
+
           <h2>Let’s electrify your parking space.</h2>
+
           <p>
             From residential societies to commercial parking
             facilities, VIZ helps bring EV charging closer to users.
@@ -294,7 +331,9 @@ export default function GalleryPage() {
 
           <div className="viz-gallery-lightbox-caption">
             <span>{selectedImage.category}</span>
+
             <h2>{selectedImage.title}</h2>
+
             {selectedImage.description && (
               <p>{selectedImage.description}</p>
             )}
