@@ -187,8 +187,8 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
               </div>
             </div>
 
-            {/* Replace this placeholder with your sales-team image later. */}
-            <div className="relative">
+            
+            {/* <div className="relative">
               <div className="absolute -inset-4 rounded-[2rem] bg-primary/10 blur-2xl" />
               <div className="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden rounded-[1.75rem] border border-border/70 bg-card p-8 text-center sm:min-h-[440px]">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,190,205,0.13),transparent_52%)]" />
@@ -209,7 +209,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   Real people. Practical solutions.
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 
@@ -295,12 +295,9 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
                   Corporate office
                 </p>
-                <h3 className="mt-2 font-display text-2xl font-bold">
-                  Visit VJRA
-                </h3>
                 <p className="mt-4 leading-7 text-muted-foreground">
                   <strong className="text-foreground">
-                    VJRA Technologies LLP
+                    Vjra Technologies LLP
                   </strong>
                   <br />
                   204, Janki Corner, Sadashiv Peth,
@@ -336,20 +333,6 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 and get back to you.
               </p>
 
-              <div className="mt-8 rounded-2xl border border-border bg-card p-5">
-                <div className="flex items-start gap-3">
-                  <div className="rounded-lg bg-primary/10 p-2 text-primary">
-                    <CheckCircle2 className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold">What happens next?</p>
-                    <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                      You'll be redirected to WhatsApp with your enquiry details
-prefilled. Review the message and press Send to contact our team.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <form

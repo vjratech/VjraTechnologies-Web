@@ -25,19 +25,37 @@ type SelectedCharger = {
   price: number;
 };
 
+
 const chargerOptions: ChargerOption[] = products.flatMap((product) =>
   product.variants
-    .filter(
-      (variant) =>
-        variant.connectivity === 'Wi-Fi' &&
-        product.category === 'EV Charging Points'
-    )
+    .filter((variant) => {
+      // Include Wi-Fi socket variants.
+      if (
+        product.category === 'EV Charging Points' &&
+        variant.connectivity === 'Wi-Fi'
+      ) {
+        return true;
+      }
+
+      // Include AC charger variants that explicitly support Wi-Fi.
+      if (
+        product.category === 'AC Chargers' &&
+        variant.connectivity?.includes('Wi-Fi')
+      ) {
+        return true;
+      }
+
+      return false;
+    })
     .map((variant) => ({
       key: `${product.id}::${variant.id}`,
-      name: product.cardName,
+      name: product.category === 'AC Chargers'
+        ? `${product.cardName} — ${variant.name}`
+        : product.cardName,
       price: variant.price ?? 0,
     }))
 );
+
 
 const optionMap = new Map(
   chargerOptions.map((option) => [option.key, option])
@@ -136,6 +154,7 @@ export default function RoiCalculator() {
   const [chargerChoice, setChargerChoice] = useState(
     defaultOption?.key ?? ''
   );
+  const [chargerMenuOpen, setChargerMenuOpen] = useState(false);
 
   // Daily and monthly energy.
   const dailyKwh =
@@ -246,34 +265,91 @@ export default function RoiCalculator() {
                   Add a charger
                 </label>
 
-                <div className="vizroi-charger-select-row">
-                  <select
-                    id="vizroi-charger"
-                    value={chargerChoice}
-                    onChange={(event) =>
-                      setChargerChoice(event.target.value)
-                    }
-                  >
-                    {chargerOptions.map((option) => (
-                      <option
-                        key={option.key}
-                        value={option.key}
-                      >
-                        {option.name} — {money(option.price)}
-                      </option>
-                    ))}
-                  </select>
 
-                  <button
+                <div className="vizroi-charger-select-row">
+                <div className="vizroi-custom-select">
+                    <button
+                    type="button"
+                    className={`vizroi-select-trigger ${
+                        chargerMenuOpen ? 'is-open' : ''
+                    }`}
+                    onClick={() => setChargerMenuOpen((open) => !open)}
+                    aria-expanded={chargerMenuOpen}
+                    aria-haspopup="listbox"
+                    >
+                    <span className="vizroi-select-current">
+                        <span className="vizroi-select-name">
+                        {optionMap.get(chargerChoice)?.name ?? 'Select a charger'}
+                        </span>
+                        <span className="vizroi-select-price">
+                        {optionMap.has(chargerChoice)
+                            ? money(optionMap.get(chargerChoice)!.price)
+                            : ''}
+                        </span>
+                    </span>
+
+                    <ChevronDown
+                        size={18}
+                        className={`vizroi-select-chevron ${
+                        chargerMenuOpen ? 'is-open' : ''
+                        }`}
+                    />
+                    </button>
+
+                    {chargerMenuOpen && (
+                    <>
+                        <button
+                        type="button"
+                        className="vizroi-menu-backdrop"
+                        aria-label="Close charger menu"
+                        onClick={() => setChargerMenuOpen(false)}
+                        />
+
+                        <div className="vizroi-select-menu" role="listbox">
+                        {chargerOptions.map((option) => (
+                            <button
+                            type="button"
+                            role="option"
+                            aria-selected={chargerChoice === option.key}
+                            className={`vizroi-select-option ${
+                                chargerChoice === option.key ? 'is-selected' : ''
+                            }`}
+                            key={option.key}
+                            onClick={() => {
+                                setChargerChoice(option.key);
+                                setChargerMenuOpen(false);
+                            }}
+                            >
+                            <span className="vizroi-option-copy">
+                                <span className="vizroi-option-name">
+                                {option.name}
+                                </span>
+                                <span className="vizroi-option-price">
+                                {money(option.price)}
+                                </span>
+                            </span>
+
+                            {chargerChoice === option.key && (
+                                <span className="vizroi-option-check">✓</span>
+                            )}
+                            </button>
+                        ))}
+                        </div>
+                    </>
+                    )}
+                </div>
+
+                <button
                     type="button"
                     className="vizroi-add-button"
                     onClick={addCharger}
                     disabled={!chargerChoice}
                     aria-label="Add selected charger"
-                  >
+                >
                     <Plus size={17} />
-                  </button>
+                </button>
                 </div>
+
 
                 {selectedChargers.length > 0 && (
                   <div className="vizroi-selected-list">

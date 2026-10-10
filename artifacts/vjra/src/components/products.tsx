@@ -97,7 +97,7 @@ export function ProductSiteFooter() {
                   href="/why-VIZ"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Why VIZ
+                  Why VIZ?
                 </Link>
 
                  <Link

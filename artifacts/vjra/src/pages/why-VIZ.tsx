@@ -484,7 +484,7 @@ export default function WhyVIZ() {
 
   useEffect(() => {
     sessionStorage.setItem('vjra-why-language', lang);
-    document.title = 'Why VIZ | End-to-End EV Charging Infrastructure Solutions';
+    document.title = 'Why VIZ? | End-to-End EV Charging Infrastructure Solutions';
     const description = 'VIZ - Smart Charging helps businesses and communities become EV-ready with end-to-end electrical infrastructure, EV charging, monitoring, firmware, software and after-sales support.';
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
