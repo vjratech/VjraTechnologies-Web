@@ -21,35 +21,44 @@ export function ProductSiteHeader() {
           <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-10 w-auto object-contain" />
           <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VIZ - Smart Charging</span>
         </Link>
-        <nav className="flex items-center gap-3 text-sm text-muted-foreground sm:gap-5">
-          <Link
-            href="/"
-            className="transition-colors hover:text-primary"
-          >
-            Platform
-          </Link>
+          <nav className="flex items-center gap-3 text-sm text-muted-foreground sm:gap-5">
+            <Link
+              href="/"
+              className="transition-colors hover:text-primary"
+            >
+              <span className="hidden sm:inline">Platform</span>
+              <span className="sm:hidden">Home</span>
+            </Link>
 
-          <Link
-            href="/products"
-            className="transition-colors hover:text-primary"
-          >
-            Products
-          </Link>
+            <Link
+              href="/products"
+              className="transition-colors hover:text-primary"
+            >
+              Products
+            </Link>
 
-          <Link
-            href="/blog"
-            className="transition-colors hover:text-primary"
-          >
-            Blog
-          </Link>
+            <Link
+              href="/roi-calculator"
+              className="font-semibold text-primary transition-colors hover:text-primary"
+            >
+              <span className="hidden sm:inline">ROI Calculator</span>
+              <span className="sm:hidden">ROI</span>
+            </Link>
 
-          <Link
-            href="/contact"
-            className="transition-colors hover:text-primary"
-          >
-            Contact Us
-          </Link>
-        </nav>
+            <Link
+              href="/blog"
+              className="hidden transition-colors hover:text-primary md:inline-flex"
+            >
+              Blog
+            </Link>
+
+            <Link
+              href="/contact"
+              className="transition-colors hover:text-primary"
+            >
+              Contact Us
+            </Link>
+          </nav>
       </div>
     </header>
   );
@@ -68,6 +77,12 @@ export function ProductSiteFooter() {
               <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
                 Explore
               </div>
+                <Link
+                  href="/roi-calculator"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  ROI Calculator
+                </Link>
 
               <div className="mt-5 flex flex-col gap-3">
                 <Link
