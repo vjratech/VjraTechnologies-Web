@@ -284,9 +284,6 @@ export default function GalleryPage() {
             )}
           </div>
 
-          <p className="viz-gallery-hint">
-            Swipe or scroll to explore more installations.
-          </p>
         </section>
 
         <section className="viz-gallery-bottom">

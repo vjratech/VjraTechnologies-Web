@@ -120,6 +120,13 @@ export function ProductSiteFooter() {
                 >
                   VIZ Insights
                 </Link>
+                
+                <Link
+                  href="/gallery"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Gallery
+                </Link>
                 <Link
                   href="/contact"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
