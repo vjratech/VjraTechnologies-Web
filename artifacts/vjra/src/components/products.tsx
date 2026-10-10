@@ -39,7 +39,7 @@ export function ProductSiteHeader() {
 
             <Link
               href="/roi-calculator"
-              className="font-semibold text-primary transition-colors hover:text-primary"
+              className="hidden transition-colors hover:text-primary md:inline-flex"
             >
               <span className="hidden sm:inline">ROI Calculator</span>
               <span className="sm:hidden">ROI</span>
@@ -77,12 +77,6 @@ export function ProductSiteFooter() {
               <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
                 Explore
               </div>
-                <Link
-                  href="/roi-calculator"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  ROI Calculator
-                </Link>
 
               <div className="mt-5 flex flex-col gap-3">
                 <Link
@@ -104,6 +98,13 @@ export function ProductSiteFooter() {
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   Why VIZ
+                </Link>
+
+                 <Link
+                  href="/roi-calculator"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  ROI Calculator
                 </Link>
 
                 <Link
@@ -161,17 +162,6 @@ export function ProductSiteFooter() {
                   VIZ Insights
                 </Link>
 
-
-                <a
-                href={consultationWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                className="text-sm text-muted-foreground transition-colors hover:text-primary"
-              >
-                
-
-                  Contact Sales
-                </a>
 
                 <a
                 href={consultationWhatsAppUrl}
