@@ -1,731 +1,129 @@
 
-/* =========================================================
-   VIZ ROI CALCULATOR
-   Scoped styles: does not modify the rest of the website.
-========================================================= */
+/* VIZ ROI calculator — light, clean and responsive */
 
 .vizroi-page {
-  --vr-bg: #080f1b;
-  --vr-panel: #101c2b;
-  --vr-panel-soft: #142337;
-  --vr-border: rgba(171, 199, 226, 0.14);
-  --vr-text: #f4f8ff;
-  --vr-muted: #9aabc0;
-  --vr-cyan: #42e3dc;
-  --vr-blue: #71aaff;
-  --vr-green: #70e4b5;
-  --vr-red: #ff9c9c;
+  --roi-ink: #172b3a;
+  --roi-muted: #687b89;
+  --roi-line: #e4ebef;
+  --roi-surface: #ffffff;
+  --roi-page: #f6f9fa;
+  --roi-cyan: #00a9bd;
+  --roi-cyan-dark: #008b9d;
+  --roi-mint: #e9f8f7;
 
   min-height: 100vh;
-  overflow-x: clip;
-  color: var(--vr-text);
-  background: var(--vr-bg);
-  font-family: var(--app-font-sans, 'DM Sans', system-ui, sans-serif);
+  color: var(--roi-ink);
+  background: var(--roi-page);
+  font-family: inherit;
 }
 
-.vizroi-page *,
-.vizroi-page *::before,
-.vizroi-page *::after {
+.vizroi-page * {
   box-sizing: border-box;
 }
 
-.vizroi-page button,
-.vizroi-page input,
-.vizroi-page select {
-  font: inherit;
-}
-
-.vizroi-page button {
-  -webkit-tap-highlight-color: transparent;
-}
-
 .vizroi-main {
-  min-height: 70vh;
-  padding: 32px 20px 42px;
-  background:
-    radial-gradient(
-      ellipse at 12% 0%,
-      rgba(66, 227, 220, 0.09),
-      transparent 38%
-    ),
-    radial-gradient(
-      ellipse at 95% 28%,
-      rgba(71, 130, 239, 0.08),
-      transparent 35%
-    ),
-    var(--vr-bg);
+  padding: 38px 22px 60px;
 }
 
 .vizroi-shell {
-  width: 100%;
-  max-width: 1120px;
+  width: min(1080px, 100%);
   margin: 0 auto;
 }
 
-/* =========================================================
-   PAGE HEADING
-========================================================= */
-
 .vizroi-heading {
-  max-width: 760px;
-  margin: 0 auto 28px;
-  text-align: center;
-}
-
-.vizroi-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  color: var(--vr-cyan);
-  font-family: var(--app-font-mono, monospace);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  margin: 0 0 24px;
 }
 
 .vizroi-heading h1 {
-  margin: 12px 0 10px;
-  color: var(--vr-text);
-  font-family: var(--font-display, 'Clash Display', sans-serif);
-  font-size: clamp(31px, 4.5vw, 50px);
-  font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.08;
+  margin: 0;
+  color: var(--roi-ink);
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
 }
-
-.vizroi-heading h1 span {
-  display: block;
-  color: var(--vr-cyan);
-}
-
-.vizroi-heading > p {
-  max-width: 550px;
-  margin: 0 auto;
-  color: var(--vr-muted);
-  font-size: 14px;
-  line-height: 1.65;
-}
-
-/* =========================================================
-   TWO-COLUMN LAYOUT
-========================================================= */
 
 .vizroi-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(290px, 0.92fr);
   align-items: start;
-  gap: 18px;
+  gap: 22px;
 }
 
 .vizroi-card,
-.vizroi-results {
-  min-width: 0;
-  border: 1px solid var(--vr-border);
-  border-radius: 21px;
-  background: linear-gradient(
-    155deg,
-    rgba(20, 35, 55, 0.96),
-    rgba(13, 25, 41, 0.98)
-  );
-  box-shadow:
-    0 16px 45px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+.vizroi-result-card {
+  background: var(--roi-surface);
+  border: 1px solid var(--roi-line);
+  border-radius: 18px;
+  box-shadow: 0 8px 26px rgba(26, 57, 73, 0.035);
 }
 
-.vizroi-card {
-  padding: 22px;
+.vizroi-input-card {
+  padding: 24px;
 }
 
-.vizroi-results {
-  padding: 22px;
+.vizroi-section-head {
+  margin-bottom: 15px;
 }
 
-/* =========================================================
-   CARD HEADING
-========================================================= */
-
-.vizroi-card-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.vizroi-icon-box {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
-  place-items: center;
-  border: 1px solid rgba(66, 227, 220, 0.18);
-  border-radius: 13px;
-  background: rgba(66, 227, 220, 0.08);
-  color: var(--vr-cyan);
-}
-
-.vizroi-card-title h2,
-.vizroi-results-heading h2 {
+.vizroi-section-head h2 {
   margin: 0;
-  color: var(--vr-text);
-  font-family: var(--font-display, 'Clash Display', sans-serif);
-  font-size: 19px;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-}
-
-.vizroi-card-title p,
-.vizroi-results-heading p {
-  margin: 4px 0 0;
-  color: var(--vr-muted);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-/* =========================================================
-   DEFAULT CHARGER CARD
-========================================================= */
-
-.vizroi-device {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 13px;
-  border: 1px solid rgba(171, 199, 226, 0.13);
-  border-radius: 15px;
-  background: rgba(5, 14, 26, 0.38);
-}
-
-.vizroi-device-image {
-  display: grid;
-  width: 82px;
-  height: 82px;
-  flex-shrink: 0;
-  place-items: center;
-  overflow: hidden;
-  border: 1px solid rgba(171, 199, 226, 0.1);
-  border-radius: 12px;
-  background: #f7f9fc;
-}
-
-.vizroi-device-image img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 5px;
-  object-fit: contain;
-}
-
-.vizroi-device-copy {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-
-.vizroi-device-label {
-  color: var(--vr-cyan);
-  font-family: var(--app-font-mono, monospace);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-}
-
-.vizroi-device-copy > strong {
-  color: var(--vr-text);
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-.vizroi-device-copy > span:not(.vizroi-device-label) {
-  color: var(--vr-muted);
-  font-size: 11px;
-}
-
-.vizroi-text-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 2px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--vr-cyan);
-  font-size: 11px !important;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.vizroi-text-button:hover {
-  color: #a3fffa;
-}
-
-.vizroi-divider {
-  height: 1px;
-  margin: 21px 0;
-  background: var(--vr-border);
-}
-
-/* =========================================================
-   USAGE CONTROLS
-========================================================= */
-
-.vizroi-section-label {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 13px;
-  color: var(--vr-text);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.vizroi-live-tag {
-  padding: 5px 7px;
-  border: 1px solid rgba(66, 227, 220, 0.15);
-  border-radius: 6px;
-  background: rgba(66, 227, 220, 0.06);
-  color: var(--vr-cyan);
-  font-family: var(--app-font-mono, monospace);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  white-space: nowrap;
-}
-
-.vizroi-usage-summary {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 17px;
-  padding: 13px 14px;
-  border: 1px solid rgba(66, 227, 220, 0.15);
-  border-radius: 13px;
-  background: linear-gradient(
-    110deg,
-    rgba(66, 227, 220, 0.075),
-    rgba(82, 147, 255, 0.045)
-  );
-}
-
-.vizroi-usage-summary > div:not(.vizroi-usage-dot) {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.vizroi-usage-summary strong {
-  color: var(--vr-text);
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-}
-
-.vizroi-usage-summary span {
-  color: var(--vr-muted);
-  font-size: 10px;
-  line-height: 1.35;
-}
-
-.vizroi-usage-dot {
-  width: 1px;
-  height: 37px;
-  flex-shrink: 0;
-  background: var(--vr-border);
-}
-
-.vizroi-stepper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--vr-border);
-}
-
-.vizroi-stepper-copy {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.vizroi-stepper-copy > span {
-  color: var(--vr-text);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.vizroi-stepper-copy small {
-  color: var(--vr-muted);
-  font-size: 10px;
-}
-
-.vizroi-stepper-control {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.vizroi-stepper-control button {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-  place-items: center;
-  border: 1px solid rgba(171, 199, 226, 0.18);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.035);
-  color: var(--vr-text);
-  font-size: 22px !important;
-  font-weight: 400;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    border-color 0.18s ease,
-    background 0.18s ease,
-    color 0.18s ease,
-    transform 0.18s ease;
-}
-
-.vizroi-stepper-control button:hover:not(:disabled) {
-  border-color: var(--vr-cyan);
-  background: rgba(66, 227, 220, 0.1);
-  color: var(--vr-cyan);
-}
-
-.vizroi-stepper-control button:active:not(:disabled) {
-  transform: scale(0.95);
-}
-
-.vizroi-stepper-control button:disabled {
-  opacity: 0.28;
-  cursor: not-allowed;
-}
-
-.vizroi-stepper-control strong {
-  min-width: 33px;
-  color: var(--vr-cyan);
+  color: var(--roi-ink);
   font-size: 17px;
-  font-weight: 700;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  letter-spacing: -0.02em;
 }
 
-.vizroi-energy-note {
+/* Charger selection */
+
+.vizroi-charger-select > label,
+.vizroi-installation-row > label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--roi-muted);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.vizroi-charger-select-row {
   display: flex;
-  align-items: flex-start;
   gap: 8px;
-  margin-top: 13px;
-  padding: 10px 11px;
+}
+
+.vizroi-charger-select-row select {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  color: var(--roi-ink);
+  background: #ffffff;
+  border: 1px solid #d8e3e8;
   border-radius: 10px;
-  background: rgba(66, 227, 220, 0.055);
-  color: var(--vr-muted);
-  font-size: 10px;
-  line-height: 1.55;
-}
-
-.vizroi-energy-note svg {
-  flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--vr-cyan);
-}
-
-.vizroi-energy-note strong {
-  color: var(--vr-text);
-  font-weight: 700;
-}
-
-/* =========================================================
-   COLLAPSIBLE SECTIONS
-========================================================= */
-
-.vizroi-disclosure {
-  margin-top: 14px;
-  overflow: hidden;
-  border: 1px solid var(--vr-border);
-  border-radius: 12px;
-  background: rgba(5, 14, 26, 0.22);
-}
-
-.vizroi-disclosure > summary {
-  display: flex;
-  min-height: 47px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 11px 13px;
-  color: var(--vr-text);
-  font-size: 11px;
-  font-weight: 700;
-  list-style: none;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.18s ease;
-}
-
-.vizroi-disclosure > summary::-webkit-details-marker {
-  display: none;
-}
-
-.vizroi-disclosure > summary:hover {
-  background: rgba(255, 255, 255, 0.035);
-}
-
-.vizroi-disclosure > summary > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.vizroi-disclosure > summary > span svg {
-  color: var(--vr-cyan);
-}
-
-.vizroi-chevron {
-  flex-shrink: 0;
-  color: var(--vr-muted);
-  transition: transform 0.2s ease;
-}
-
-.vizroi-disclosure[open] .vizroi-chevron {
-  transform: rotate(180deg);
-}
-
-.vizroi-disclosure-body {
-  padding: 0 13px 13px;
-  border-top: 1px solid var(--vr-border);
-}
-
-.vizroi-edit-field {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--vr-border);
-}
-
-.vizroi-edit-field > label {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 4px;
-  color: var(--vr-text);
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.vizroi-edit-field > label small {
-  color: var(--vr-muted);
-  font-size: 9px;
-  font-weight: 400;
-  line-height: 1.4;
-}
-
-.vizroi-input-with-unit {
-  display: flex;
-  min-width: 105px;
-  height: 35px;
-  align-items: center;
-  gap: 5px;
-  padding: 0 8px;
-  border: 1px solid var(--vr-border);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
-  color: var(--vr-muted);
-}
-
-.vizroi-input-with-unit:focus-within {
-  border-color: var(--vr-cyan);
-  box-shadow: 0 0 0 2px rgba(66, 227, 220, 0.08);
-}
-
-.vizroi-input-with-unit > span {
-  font-size: 11px;
-}
-
-.vizroi-input-with-unit input {
-  width: 66px;
-  min-width: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--vr-text);
-  font-size: 12px;
-  font-weight: 700;
-  text-align: right;
-}
-
-.vizroi-input-with-unit > small {
-  color: var(--vr-muted);
-  font-size: 9px;
-  white-space: nowrap;
-}
-
-.vizroi-fixed-rates {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 7px;
-  padding-top: 12px;
-}
-
-.vizroi-fixed-rates > div {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 5px;
-  padding: 9px 7px;
-  border: 1px solid rgba(66, 227, 220, 0.12);
-  border-radius: 9px;
-  background: rgba(66, 227, 220, 0.045);
-}
-
-.vizroi-fixed-rates span {
-  color: var(--vr-muted);
-  font-size: 9px;
-}
-
-.vizroi-fixed-rates strong {
-  color: var(--vr-cyan);
-  font-size: 11px;
-  line-height: 1.3;
-}
-
-.vizroi-reset {
-  display: block;
-  margin: 12px auto 0;
-  padding: 6px 10px;
-  border: 0;
-  background: transparent;
-  color: var(--vr-muted);
-  font-size: 10px !important;
-  cursor: pointer;
-}
-
-.vizroi-reset:hover {
-  color: var(--vr-cyan);
-}
-
-/* =========================================================
-   CHARGER CONFIGURATION
-========================================================= */
-
-.vizroi-setup-panel {
-  margin-top: 12px;
-  padding: 13px;
-  border: 1px solid rgba(66, 227, 220, 0.17);
-  border-radius: 13px;
-  background: rgba(5, 14, 26, 0.45);
-  animation: vizroi-appear 0.2s ease-out;
-}
-
-@keyframes vizroi-appear {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.vizroi-setup-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.vizroi-setup-heading strong {
-  color: var(--vr-text);
-  font-size: 12px;
-}
-
-.vizroi-setup-heading p {
-  margin: 4px 0 0;
-  color: var(--vr-muted);
-  font-size: 10px;
-  line-height: 1.45;
-}
-
-.vizroi-close-button {
-  display: grid;
-  width: 29px;
-  height: 29px;
-  flex-shrink: 0;
-  place-items: center;
-  border: 1px solid var(--vr-border);
-  border-radius: 8px;
-  background: transparent;
-  color: var(--vr-muted);
-  cursor: pointer;
-}
-
-.vizroi-close-button:hover {
-  color: var(--vr-text);
-}
-
-.vizroi-field-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--vr-muted);
-  font-size: 10px;
-}
-
-.vizroi-select-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 7px;
-}
-
-.vizroi-select-row select {
-  width: 100%;
-  min-width: 0;
-  min-height: 37px;
-  padding: 0 9px;
-  border: 1px solid var(--vr-border);
-  border-radius: 8px;
-  outline: none;
-  background: #142337;
-  color: var(--vr-text);
-  font-size: 10px;
-}
-
-.vizroi-select-row select:focus {
-  border-color: var(--vr-cyan);
+  font: inherit;
+  font-size: 13px;
 }
 
 .vizroi-add-button {
   display: inline-flex;
+  flex: 0 0 44px;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  min-height: 37px;
-  padding: 0 11px;
-  border: 1px solid var(--vr-cyan);
-  border-radius: 8px;
-  background: var(--vr-cyan);
-  color: #06191c;
-  font-size: 10px !important;
-  font-weight: 700;
+  width: 44px;
+  height: 44px;
+  color: #ffffff;
+  background: var(--roi-cyan);
+  border: 0;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
 }
 
-.vizroi-add-button:hover:not(:disabled) {
-  background: #a0fff9;
+.vizroi-add-button:hover {
+  background: var(--roi-cyan-dark);
+}
+
+.vizroi-add-button:active {
+  transform: scale(0.97);
 }
 
 .vizroi-add-button:disabled {
@@ -733,851 +131,447 @@
   cursor: not-allowed;
 }
 
-.vizroi-charger-list {
-  margin-top: 10px;
+.vizroi-selected-list {
+  display: grid;
+  gap: 7px;
+  margin-top: 9px;
 }
 
-.vizroi-charger-row {
-  padding: 11px 0;
-  border-top: 1px solid var(--vr-border);
-}
-
-.vizroi-charger-row-title {
+.vizroi-selected-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
+  padding: 9px 10px;
+  border: 1px solid #edf1f3;
+  border-radius: 10px;
 }
 
-.vizroi-charger-row-title > div {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
+.vizroi-selected-name {
+  display: grid;
   gap: 3px;
+  min-width: 0;
 }
 
-.vizroi-charger-row-title strong {
-  color: var(--vr-text);
+.vizroi-selected-name span {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.vizroi-selected-name small {
+  color: var(--roi-muted);
   font-size: 11px;
 }
 
-.vizroi-charger-row-title small {
-  color: var(--vr-muted);
-  font-size: 9px;
+.vizroi-selected-controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 7px;
 }
 
-.vizroi-remove-button {
-  display: grid;
-  width: 29px;
-  height: 29px;
-  flex-shrink: 0;
-  place-items: center;
-  border: 1px solid rgba(255, 156, 156, 0.18);
-  border-radius: 8px;
-  background: rgba(255, 156, 156, 0.05);
-  color: var(--vr-red);
+.vizroi-selected-controls > button:not(.vizroi-delete-button) {
+  width: 26px;
+  height: 26px;
+  color: var(--roi-ink);
+  background: #ffffff;
+  border: 1px solid var(--roi-line);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.vizroi-selected-controls > button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.vizroi-selected-controls > span {
+  min-width: 14px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.vizroi-selected-controls .vizroi-delete-button {
+  display: inline-flex;
+  padding: 4px;
+  color: #8a9aa4;
+  background: transparent;
+  border: 0;
   cursor: pointer;
 }
 
-.vizroi-remove-button:hover {
-  background: rgba(255, 156, 156, 0.12);
+.vizroi-selected-controls .vizroi-delete-button:hover {
+  color: #cc4f4f;
 }
 
-.vizroi-charger-edit-grid {
-  display: grid;
-  grid-template-columns: 75px minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.vizroi-charger-edit-grid label {
+.vizroi-investment-line {
   display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 5px;
-  color: var(--vr-muted);
-  font-size: 9px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 13px;
+  padding: 12px 2px 1px;
 }
 
-.vizroi-charger-edit-grid input {
+.vizroi-investment-line span {
+  color: var(--roi-muted);
+  font-size: 13px;
+}
+
+.vizroi-investment-line strong {
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.vizroi-section-divider {
+  height: 1px;
+  margin: 23px 0;
+  background: var(--roi-line);
+}
+
+/* Sliders */
+
+.vizroi-range-field {
+  padding: 0 0 21px;
+}
+
+.vizroi-range-field:last-child {
+  padding-bottom: 0;
+}
+
+.vizroi-range-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.vizroi-range-top label {
+  color: var(--roi-ink);
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.vizroi-range-top output {
+  min-width: 43px;
+  padding: 5px 9px;
+  color: var(--roi-ink);
+  background: #f2f7f8;
+  border: 1px solid #e9eff2;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.vizroi-range-field input[type="range"] {
+  display: block;
   width: 100%;
-  min-width: 0;
-  height: 32px;
-  padding: 0 7px;
-  border: 1px solid var(--vr-border);
-  border-radius: 7px;
-  outline: none;
-  background: rgba(255, 255, 255, 0.035);
-  color: var(--vr-text);
-  font-size: 11px;
+  height: 5px;
+  margin: 0;
+  accent-color: var(--roi-cyan);
+  cursor: pointer;
 }
 
-.vizroi-charger-edit-grid input:focus {
-  border-color: var(--vr-cyan);
-}
-
-.vizroi-line-total {
+.vizroi-range-limits {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding-bottom: 5px;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #93a2ab;
+  font-size: 10px;
 }
 
-.vizroi-line-total span {
-  color: var(--vr-muted);
-  font-size: 9px;
+/* Collapsible assumptions */
+
+.vizroi-assumptions {
+  margin-top: 5px;
+  border-top: 1px solid var(--roi-line);
+  border-bottom: 1px solid var(--roi-line);
 }
 
-.vizroi-line-total strong {
-  color: var(--vr-cyan);
-  font-size: 11px;
+.vizroi-assumptions > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  color: var(--roi-ink);
+  list-style: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.vizroi-assumptions > summary::-webkit-details-marker {
+  display: none;
+}
+
+.vizroi-chevron {
+  color: var(--roi-muted);
+  transition: transform 0.2s ease;
+}
+
+.vizroi-assumptions[open] .vizroi-chevron {
+  transform: rotate(180deg);
+}
+
+.vizroi-assumption-body {
+  padding: 7px 0 16px;
+  animation: roiReveal 0.18s ease-out;
+}
+
+.vizroi-assumption-body .vizroi-range-field {
+  padding-bottom: 20px;
+}
+
+.vizroi-assumption-body .vizroi-range-top {
+  align-items: flex-start;
+}
+
+.vizroi-assumption-body .vizroi-range-top label {
+  max-width: 48%;
+  font-size: 13px;
+}
+
+.vizroi-assumption-body .vizroi-range-top output {
+  padding: 0;
+  color: var(--roi-cyan-dark);
+  background: transparent;
+  border: 0;
+  text-align: right;
+  font-size: 13px;
   white-space: nowrap;
 }
 
-.vizroi-empty {
-  margin: 10px 0;
-  color: var(--vr-muted);
-  font-size: 10px;
-  line-height: 1.5;
-}
-
-.vizroi-equipment-total {
+.vizroi-fixed-line {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  min-height: 39px;
+  border-top: 1px solid #f0f3f5;
+}
+
+.vizroi-fixed-line span {
+  color: var(--roi-muted);
+  font-size: 12px;
+}
+
+.vizroi-fixed-line strong {
+  color: var(--roi-ink);
+  text-align: right;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.vizroi-installation-row {
+  padding: 12px 0;
+  border-top: 1px solid #f0f3f5;
+}
+
+.vizroi-installation-row > label {
+  color: var(--roi-muted);
+  font-size: 12px;
+}
+
+.vizroi-amount-input {
+  display: flex;
+  align-items: center;
   gap: 8px;
-  margin-top: 9px;
-  padding-top: 11px;
-  border-top: 1px solid var(--vr-border);
-}
-
-.vizroi-equipment-total span {
-  color: var(--vr-muted);
-  font-size: 11px;
-}
-
-.vizroi-equipment-total strong {
-  color: var(--vr-text);
-  font-size: 16px;
-}
-
-/* =========================================================
-   RESULTS
-========================================================= */
-
-.vizroi-results-heading {
-  margin-bottom: 18px;
-}
-
-.vizroi-results-heading .vizroi-eyebrow {
-  justify-content: flex-start;
-  font-size: 9px;
-}
-
-.vizroi-results-heading h2 {
-  margin-top: 8px;
-  font-size: 22px;
-}
-
-.vizroi-results-heading p {
-  font-size: 11px;
-}
-
-.vizroi-hero-result {
-  position: relative;
-  overflow: hidden;
-  padding: 20px;
-  border: 1px solid rgba(66, 227, 220, 0.23);
-  border-radius: 17px;
-  background:
-    radial-gradient(
-      ellipse at 100% 0%,
-      rgba(66, 227, 220, 0.15),
-      transparent 48%
-    ),
-    linear-gradient(130deg, #142d3c, #102131 70%);
-}
-
-.vizroi-hero-result::after {
-  position: absolute;
-  top: -36px;
-  right: -28px;
-  width: 125px;
-  height: 125px;
-  border: 1px solid rgba(66, 227, 220, 0.09);
-  border-radius: 50%;
-  content: '';
-  pointer-events: none;
-}
-
-.vizroi-result-label {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: #c3d4e5;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.vizroi-result-label svg {
-  color: var(--vr-muted);
-}
-
-.vizroi-hero-amount {
-  margin-top: 11px;
-  color: var(--vr-cyan);
-  font-family: var(--font-display, 'Clash Display', sans-serif);
-  font-size: clamp(35px, 4vw, 49px);
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1.08;
-  overflow-wrap: anywhere;
-  font-variant-numeric: tabular-nums;
-}
-
-.vizroi-result-caption {
-  margin-top: 7px;
-  color: var(--vr-muted);
-  font-size: 10px;
-}
-
-.vizroi-result-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 20px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(171, 199, 226, 0.14);
-}
-
-.vizroi-result-footer span {
-  color: #c3d4e5;
-  font-size: 11px;
-}
-
-.vizroi-result-footer strong {
-  color: var(--vr-text);
-  font-size: 15px;
-  font-weight: 700;
-}
-
-/* =========================================================
-   PROFIT + PAYBACK CARDS
-========================================================= */
-
-.vizroi-profit-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 11px;
-}
-
-.vizroi-profit-card {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 14px;
-  border: 1px solid rgba(112, 228, 181, 0.16);
-  border-radius: 13px;
-  background: rgba(112, 228, 181, 0.045);
-}
-
-.vizroi-profit-icon {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  margin-bottom: 10px;
-  place-items: center;
-  border: 1px solid rgba(112, 228, 181, 0.17);
+  height: 42px;
+  padding: 0 11px;
+  background: #ffffff;
+  border: 1px solid #dbe5e9;
   border-radius: 9px;
-  background: rgba(112, 228, 181, 0.08);
-  color: var(--vr-green);
 }
 
-.vizroi-profit-card > span {
-  color: #c2d2e2;
-  font-size: 10px;
-  line-height: 1.4;
+.vizroi-amount-input > span {
+  color: var(--roi-muted);
+  font-size: 13px;
 }
 
-.vizroi-profit-card > strong {
-  margin-top: 7px;
-  color: var(--vr-green);
-  font-family: var(--font-display, 'Clash Display', sans-serif);
-  font-size: clamp(19px, 2.2vw, 26px);
+.vizroi-amount-input input {
+  width: 100%;
+  min-width: 0;
+  color: var(--roi-ink);
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  font-size: 14px;
+}
+
+/* Results */
+
+.vizroi-results {
+  display: grid;
+  gap: 13px;
+}
+
+.vizroi-result-card {
+  padding: 22px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.vizroi-result-title {
+  display: block;
+  color: var(--roi-muted);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.vizroi-result-card > strong {
+  display: block;
+  margin-top: 11px;
+  color: var(--roi-ink);
+  font-size: clamp(27px, 3vw, 34px);
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.15;
+  font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
-  font-variant-numeric: tabular-nums;
 }
 
-.vizroi-profit-card > strong.is-negative {
-  color: var(--vr-red);
+.vizroi-revenue-card {
+  border-top: 3px solid var(--roi-cyan);
 }
 
-.vizroi-profit-card > small {
-  margin-top: 6px;
-  color: var(--vr-muted);
-  font-size: 9px;
-  line-height: 1.45;
+.vizroi-revenue-card > strong {
+  color: var(--roi-cyan-dark);
 }
 
-.vizroi-payback-tile {
-  border-color: rgba(113, 170, 255, 0.17);
-  background: rgba(113, 170, 255, 0.045);
-}
-
-.vizroi-payback-tile .vizroi-profit-icon {
-  border-color: rgba(113, 170, 255, 0.17);
-  background: rgba(113, 170, 255, 0.08);
-  color: var(--vr-blue);
-}
-
-.vizroi-payback-tile > strong {
-  color: var(--vr-blue);
-}
-
-/* =========================================================
-   MONTHLY BREAKDOWN
-========================================================= */
-
-.vizroi-cost-disclosure {
-  margin-top: 12px;
-}
-
-.vizroi-breakdown-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--vr-border);
-}
-
-.vizroi-breakdown-row:first-child {
-  margin-top: 2px;
-}
-
-.vizroi-breakdown-row span {
-  color: var(--vr-muted);
-  font-size: 10px;
-  line-height: 1.45;
-}
-
-.vizroi-breakdown-row strong {
-  flex-shrink: 0;
-  color: var(--vr-text);
-  font-size: 11px;
-  font-weight: 600;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.vizroi-breakdown-final {
-  border-bottom: 0;
-}
-
-.vizroi-breakdown-final span,
-.vizroi-breakdown-final strong {
-  color: var(--vr-green);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-/* =========================================================
-   RESULT FOOTNOTES
-========================================================= */
-
-.vizroi-result-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 11px 12px;
-  border: 1px solid rgba(66, 227, 220, 0.11);
-  border-radius: 10px;
-  background: rgba(66, 227, 220, 0.04);
-}
-
-.vizroi-result-note svg {
-  flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--vr-cyan);
-}
-
-.vizroi-result-note p {
-  margin: 0;
-  color: var(--vr-muted);
-  font-size: 10px;
-  line-height: 1.55;
-}
-
-.vizroi-annual-note {
+.vizroi-result-subrow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 12px;
-  padding: 12px 2px 0;
-  border-top: 1px solid var(--vr-border);
+  margin-top: 17px;
+  padding-top: 14px;
+  border-top: 1px solid var(--roi-line);
 }
 
-.vizroi-annual-note span {
-  color: var(--vr-muted);
-  font-size: 10px;
+.vizroi-result-subrow span {
+  color: var(--roi-muted);
+  font-size: 13px;
 }
 
-.vizroi-annual-note strong {
-  color: var(--vr-text);
+.vizroi-result-subrow strong {
+  color: var(--roi-ink);
   font-size: 15px;
   font-weight: 700;
-  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
-.vizroi-page-footnote {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 18px;
-  color: var(--vr-muted);
-  font-size: 10px;
+.vizroi-profit-card {
+  background: var(--roi-mint);
+  border-color: #d7efed;
 }
 
-.vizroi-page-footnote > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+.vizroi-profit-card > strong {
+  color: #087c71;
 }
 
-.vizroi-page-footnote svg {
-  color: var(--vr-cyan);
+.vizroi-result-card > strong.is-negative {
+  color: #c44040;
 }
 
-.vizroi-page-footnote button {
-  padding: 5px 0 5px 8px;
-  border: 0;
-  background: transparent;
-  color: var(--vr-cyan);
-  font-size: 10px;
-  cursor: pointer;
+.vizroi-roi-card > strong {
+  font-size: clamp(23px, 2.6vw, 30px);
 }
 
-/* =========================================================
-   TABLET
-========================================================= */
+@keyframes roiReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-@media (max-width: 960px) {
+/* Mobile: inputs first, results directly below */
+
+@media (max-width: 760px) {
   .vizroi-main {
-    padding: 27px 15px 34px;
+    padding: 23px 13px 40px;
+  }
+
+  .vizroi-heading {
+    margin-bottom: 17px;
+  }
+
+  .vizroi-heading h1 {
+    font-size: 25px;
   }
 
   .vizroi-layout {
     grid-template-columns: minmax(0, 1fr);
-    max-width: 660px;
-    margin: 0 auto;
-  }
-
-  .vizroi-heading {
-    margin-bottom: 23px;
-  }
-
-  .vizroi-results {
-    order: 2;
+    gap: 14px;
   }
 
   .vizroi-input-card {
-    order: 1;
+    padding: 17px;
   }
 
-  .vizroi-hero-amount {
-    font-size: clamp(38px, 7vw, 50px);
+  .vizroi-results {
+    gap: 10px;
   }
 
-  .vizroi-profit-card > strong {
-    font-size: clamp(21px, 4vw, 28px);
+  .vizroi-result-card {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .vizroi-result-card > strong {
+    font-size: 30px;
+  }
+
+  .vizroi-roi-card > strong {
+    font-size: 25px;
   }
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
+@media (max-width: 380px) {
   .vizroi-main {
-    padding: 21px 12px 28px;
+    padding-right: 9px;
+    padding-left: 9px;
   }
 
-  .vizroi-heading {
-    margin-bottom: 19px;
+  .vizroi-input-card {
+    padding: 14px;
   }
 
-  .vizroi-heading .vizroi-eyebrow {
-    font-size: 9px;
+  .vizroi-selected-row {
+    align-items: flex-start;
   }
 
-  .vizroi-heading h1 {
-    margin-top: 10px;
-    font-size: clamp(30px, 8.4vw, 40px);
-    line-height: 1.08;
-  }
-
-  .vizroi-heading > p {
-    max-width: 340px;
-    font-size: 12px;
-    line-height: 1.55;
-  }
-
-  .vizroi-layout {
-    gap: 12px;
-  }
-
-  .vizroi-card,
-  .vizroi-results {
-    padding: 15px;
-    border-radius: 17px;
-  }
-
-  .vizroi-card-title {
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-
-  .vizroi-icon-box {
-    width: 37px;
-    height: 37px;
-    border-radius: 11px;
-  }
-
-  .vizroi-card-title h2,
-  .vizroi-results-heading h2 {
-    font-size: 17px;
-  }
-
-  .vizroi-card-title p,
-  .vizroi-results-heading p {
-    font-size: 11px;
-  }
-
-  .vizroi-device {
-    gap: 11px;
-    padding: 10px;
-    border-radius: 13px;
-  }
-
-  .vizroi-device-image {
-    width: 69px;
-    height: 69px;
-  }
-
-  .vizroi-device-copy > strong {
-    font-size: 13px;
-  }
-
-  .vizroi-device-copy > span:not(.vizroi-device-label) {
-    font-size: 10px;
-  }
-
-  .vizroi-text-button {
-    font-size: 10px !important;
-  }
-
-  .vizroi-divider {
-    margin: 16px 0;
-  }
-
-  .vizroi-section-label {
-    margin-bottom: 10px;
-    font-size: 12px;
-  }
-
-  .vizroi-usage-summary {
-    gap: 10px;
-    margin-bottom: 12px;
-    padding: 11px;
-  }
-
-  .vizroi-usage-summary strong {
-    font-size: 22px;
-  }
-
-  .vizroi-usage-summary span {
-    font-size: 9px;
-  }
-
-  .vizroi-stepper {
-    gap: 8px;
-    padding: 10px 0;
-  }
-
-  .vizroi-stepper-copy > span {
-    font-size: 11px;
-  }
-
-  .vizroi-stepper-copy small {
-    font-size: 9px;
-  }
-
-  .vizroi-stepper-control {
-    gap: 8px;
-  }
-
-  .vizroi-stepper-control button {
-    width: 33px;
-    height: 33px;
-  }
-
-  .vizroi-stepper-control strong {
-    min-width: 27px;
-    font-size: 15px;
-  }
-
-  .vizroi-energy-note {
-    gap: 7px;
-    margin-top: 11px;
-    padding: 9px;
-    font-size: 9px;
-  }
-
-  .vizroi-disclosure {
-    margin-top: 11px;
-  }
-
-  .vizroi-disclosure > summary {
-    min-height: 44px;
-    padding: 10px;
-    font-size: 10px;
-  }
-
-  .vizroi-disclosure-body {
-    padding: 0 10px 10px;
-  }
-
-  .vizroi-edit-field {
-    gap: 8px;
-    padding: 10px 0;
-  }
-
-  .vizroi-edit-field > label {
-    font-size: 10px;
-  }
-
-  .vizroi-edit-field > label small {
-    font-size: 8px;
-  }
-
-  .vizroi-input-with-unit {
-    min-width: 99px;
-    height: 33px;
+  .vizroi-selected-controls {
     gap: 4px;
-    padding: 0 6px;
   }
 
-  .vizroi-input-with-unit input {
-    width: 57px;
-    font-size: 11px;
+  .vizroi-result-card {
+    padding: 15px;
   }
 
-  .vizroi-fixed-rates {
-    gap: 5px;
-  }
-
-  .vizroi-fixed-rates > div {
-    padding: 8px 6px;
-  }
-
-  .vizroi-fixed-rates span {
-    font-size: 8px;
-  }
-
-  .vizroi-fixed-rates strong {
-    font-size: 10px;
-  }
-
-  .vizroi-results-heading {
-    margin-bottom: 13px;
-  }
-
-  .vizroi-results-heading h2 {
-    margin-top: 7px;
-  }
-
-  .vizroi-hero-result {
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .vizroi-result-label {
-    font-size: 10px;
-  }
-
-  .vizroi-hero-amount {
-    margin-top: 10px;
-    font-size: clamp(36px, 10vw, 45px);
-  }
-
-  .vizroi-result-caption {
-    font-size: 9px;
-  }
-
-  .vizroi-result-footer {
-    margin-top: 15px;
-    padding-top: 10px;
-  }
-
-  .vizroi-result-footer span {
-    font-size: 10px;
-  }
-
-  .vizroi-result-footer strong {
-    font-size: 14px;
-  }
-
-  .vizroi-profit-grid {
-    gap: 8px;
-    margin-top: 9px;
-  }
-
-  .vizroi-profit-card {
-    padding: 11px;
-    border-radius: 11px;
-  }
-
-  .vizroi-profit-icon {
-    width: 27px;
-    height: 27px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-  }
-
-  .vizroi-profit-card > span {
-    font-size: 9px;
-  }
-
-  .vizroi-profit-card > strong {
-    margin-top: 6px;
-    font-size: clamp(19px, 5.6vw, 25px);
-  }
-
-  .vizroi-profit-card > small {
-    margin-top: 5px;
-    font-size: 8px;
-  }
-
-  .vizroi-result-note {
-    gap: 7px;
-    margin-top: 11px;
-    padding: 9px;
-  }
-
-  .vizroi-result-note p {
-    font-size: 9px;
-  }
-
-  .vizroi-annual-note {
-    margin-top: 10px;
-    padding-top: 10px;
-  }
-
-  .vizroi-annual-note span {
-    font-size: 9px;
-  }
-
-  .vizroi-annual-note strong {
-    font-size: 14px;
-  }
-
-  .vizroi-page-footnote {
-    margin-top: 13px;
-    font-size: 9px;
-  }
-
-  .vizroi-page-footnote button {
-    font-size: 9px;
+  .vizroi-result-card > strong {
+    font-size: 27px;
   }
 }
 
-/* =========================================================
-   NARROW PHONES
-========================================================= */
-
-@media (max-width: 370px) {
-  .vizroi-main {
-    padding-right: 8px;
-    padding-left: 8px;
-  }
-
-  .vizroi-card,
-  .vizroi-results {
-    padding: 12px;
-  }
-
-  .vizroi-device-image {
-    width: 59px;
-    height: 59px;
-  }
-
-  .vizroi-device-copy > strong {
-    font-size: 12px;
-  }
-
-  .vizroi-stepper-control {
-    gap: 5px;
-  }
-
-  .vizroi-stepper-control button {
-    width: 30px;
-    height: 30px;
-  }
-
-  .vizroi-stepper-control strong {
-    min-width: 24px;
-    font-size: 14px;
-  }
-
-  .vizroi-usage-summary {
-    gap: 7px;
-    padding: 9px;
-  }
-
-  .vizroi-usage-summary strong {
-    font-size: 20px;
-  }
-
-  .vizroi-usage-summary span {
-    font-size: 8px;
-  }
-
-  .vizroi-profit-card {
-    padding: 9px;
-  }
-
-  .vizroi-charger-edit-grid {
-    grid-template-columns: 59px minmax(0, 1fr);
-  }
-
-  .vizroi-line-total {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 0 0;
-  }
-}
-
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
+/* Keyboard accessibility and reduced motion */
 
 .vizroi-page button:focus-visible,
 .vizroi-page input:focus-visible,
 .vizroi-page select:focus-visible,
 .vizroi-page summary:focus-visible {
-  outline: 2px solid var(--vr-cyan);
+  outline: 2px solid var(--roi-cyan);
   outline-offset: 3px;
 }
 
@@ -1585,9 +579,7 @@
   .vizroi-page *,
   .vizroi-page *::before,
   .vizroi-page *::after {
-    scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
