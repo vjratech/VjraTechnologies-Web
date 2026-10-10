@@ -1,10 +1,10 @@
+
 import { useMemo, useState } from 'react';
 import {
-  ArrowDownRight,
-  Calculator,
+  ArrowUpRight,
   Check,
   ChevronDown,
-  CircleDollarSign,
+  CircleHelp,
   Plus,
   Settings2,
   Trash2,
@@ -17,24 +17,12 @@ import { ProductSiteFooter, ProductSiteHeader } from '@/components/products';
 
 import './roi-calculator.css';
 
-/* -------------------------------------------------------
-   FIXED COMMERCIAL ASSUMPTIONS
-   These values are deliberately not editable by visitors.
-------------------------------------------------------- */
-
 const GST_RATE = 18;
 const OPERATING_DAYS = 30;
-const VIZ_MARGIN_PER_KWH = 2;
-
-/* -------------------------------------------------------
-   PRODUCT CATALOGUE
-   Prices come from src/data/products.ts, per variant.
-------------------------------------------------------- */
+const VIZ_MARGIN = 2;
 
 type ChargerOption = {
   key: string;
-  productId: string;
-  variantId: string;
   name: string;
   variantName: string;
   power: string;
@@ -42,243 +30,186 @@ type ChargerOption = {
   image: string;
 };
 
-type SelectedCharger = {
+type Charger = {
   key: string;
   quantity: number;
-  unitPrice: number;
+  price: number;
 };
 
-const CHARGER_OPTIONS: ChargerOption[] = products.flatMap((product) =>
-  product.variants.map((variant) => ({
-    key: `${product.id}::${variant.id}`,
-    productId: product.id,
-    variantId: variant.id,
-    name: product.cardName,
-    variantName: variant.name,
-    power: variant.power ?? product.subtitle,
-    price: variant.price ?? 0,
-    image: product.image,
-  })),
+const chargerOptions: ChargerOption[] = products.flatMap((product) =>
+  product.variants
+    .filter((variant) => variant.connectivity === 'Wi-Fi')
+    .map((variant) => ({
+      key: `${product.id}::${variant.id}`,
+      name: product.cardName,
+      variantName: variant.name,
+      power: variant.power ?? product.subtitle,
+      price: variant.price ?? 0,
+      image: product.image,
+    })),
 );
 
-const OPTION_BY_KEY = new Map(
-  CHARGER_OPTIONS.map((option) => [option.key, option]),
+const optionMap = new Map(
+  chargerOptions.map((option) => [option.key, option]),
 );
 
-/* -------------------------------------------------------
-   FORMATTERS AND VALIDATION
-------------------------------------------------------- */
+const defaultOption =
+  chargerOptions.find(
+    (option) =>
+      option.key === 'single-point-6a::single-point-6a-wifi',
+  ) ?? chargerOptions[0];
 
-const currencyFormatter = new Intl.NumberFormat('en-IN', {
-  style: 'currency',
-  currency: 'INR',
-  maximumFractionDigits: 0,
-});
+const money = (value: number) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(Number.isFinite(value) ? value : 0);
 
-const numberFormatter = new Intl.NumberFormat('en-IN', {
-  maximumFractionDigits: 1,
-});
+const rupees = (value: number) =>
+  new Intl.NumberFormat('en-IN', {
+    maximumFractionDigits: 2,
+  }).format(Number.isFinite(value) ? value : 0);
 
-function money(value: number): string {
-  return currencyFormatter.format(Number.isFinite(value) ? value : 0);
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, Number.isFinite(value) ? value : min));
 }
 
-function numberText(value: number): string {
-  return numberFormatter.format(Number.isFinite(value) ? value : 0);
-}
-
-function clamp(value: number, min: number, max: number): number {
-  if (!Number.isFinite(value)) return min;
-  return Math.min(max, Math.max(min, value));
-}
-
-function toInputNumber(value: string, min: number, max: number): number {
-  if (value.trim() === '') return min;
-
-  const parsed = Number(value);
-  return clamp(parsed, min, max);
-}
-
-/* -------------------------------------------------------
-   REUSABLE SLIDER + NUMERIC INPUT
-------------------------------------------------------- */
-
-type RangeFieldProps = {
-  label: string;
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  unit?: string;
-  onChange: (value: number) => void;
-};
-
-function RangeField({
+function Stepper({
   label,
   value,
   min,
   max,
-  step,
-  unit = '',
+  step = 1,
+  suffix,
   onChange,
-}: RangeFieldProps) {
-  const id = `roi-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  suffix: string;
+  onChange: (value: number) => void;
+}) {
+  const decrease = () => onChange(clamp(value - step, min, max));
+  const increase = () => onChange(clamp(value + step, min, max));
 
   return (
-    <div className="roi-control">
-      <div className="roi-control-heading">
-        <label htmlFor={`${id}-number`}>{label}</label>
-
-        <div className="roi-control-value">
-          <input
-            id={`${id}-number`}
-            type="number"
-            min={min}
-            max={max}
-            step={step}
-            value={value}
-            onChange={(event) =>
-              onChange(toInputNumber(event.target.value, min, max))
-            }
-            aria-label={label}
-          />
-          {unit && <span>{unit}</span>}
-        </div>
+    <div className="vizroi-stepper">
+      <div className="vizroi-stepper-copy">
+        <span>{label}</span>
+        <small>{suffix}</small>
       </div>
 
-      <input
-        className="roi-range"
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(event) => onChange(Number(event.target.value))}
-        aria-label={`${label} slider`}
-      />
+      <div className="vizroi-stepper-control">
+        <button
+          type="button"
+          onClick={decrease}
+          disabled={value <= min}
+          aria-label={`Decrease ${label}`}
+        >
+          −
+        </button>
+
+        <strong>{rupees(value)}</strong>
+
+        <button
+          type="button"
+          onClick={increase}
+          disabled={value >= max}
+          aria-label={`Increase ${label}`}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
 
-/* -------------------------------------------------------
-   MAIN PAGE
-------------------------------------------------------- */
-
 export default function RoiCalculator() {
-  /* Charging demand */
-  const [bikesPerDay, setBikesPerDay] = useState(5);
-  const [carsPerDay, setCarsPerDay] = useState(1);
-  const [bikeKwh, setBikeKwh] = useState(2.5);
-  const [carKwh, setCarKwh] = useState(20);
+  const [sessionsPerDay, setSessionsPerDay] = useState(6);
+  const [kwhPerSession, setKwhPerSession] = useState(2.5);
 
-  /* Editable tariff assumptions */
-  const [endUserRate, setEndUserRate] = useState(15);
-  const [greenMeterTariff, setGreenMeterTariff] = useState(7.33);
-
-  /* Investment */
-  const [selectedChargers, setSelectedChargers] = useState<
-    SelectedCharger[]
-  >([]);
+  const [customerRate, setCustomerRate] = useState(15);
+  const [electricityRate, setElectricityRate] = useState(7.33);
   const [installationCost, setInstallationCost] = useState(0);
 
-  /* Charger selector modal */
-  const [showChargerModal, setShowChargerModal] = useState(false);
-  const [optionToAdd, setOptionToAdd] = useState(
-    CHARGER_OPTIONS[0]?.key ?? '',
+  const [chargers, setChargers] = useState<Charger[]>(
+    defaultOption
+      ? [
+          {
+            key: defaultOption.key,
+            quantity: 1,
+            price: defaultOption.price,
+          },
+        ]
+      : [],
   );
+
+  const [showChargerSetup, setShowChargerSetup] = useState(false);
+  const [newChargerKey, setNewChargerKey] = useState(
+    defaultOption?.key ?? '',
+  );
+
+  const totalKwhPerDay = sessionsPerDay * kwhPerSession;
+  const totalKwhPerMonth = totalKwhPerDay * OPERATING_DAYS;
+
+  // Customer tariff is GST-inclusive. Extract GST from the total.
+  const dailyRevenue = totalKwhPerDay * customerRate;
+  const monthlyRevenue = dailyRevenue * OPERATING_DAYS;
+  const dailyGst = dailyRevenue * (GST_RATE / (100 + GST_RATE));
+  const monthlyGst = dailyGst * OPERATING_DAYS;
+
+  const dailyElectricityCost = totalKwhPerDay * electricityRate;
+  const monthlyElectricityCost =
+    dailyElectricityCost * OPERATING_DAYS;
+
+  const dailyVizCost = totalKwhPerDay * VIZ_MARGIN;
+  const monthlyVizCost = dailyVizCost * OPERATING_DAYS;
+
+  const dailyProfit =
+    dailyRevenue - dailyGst - dailyElectricityCost - dailyVizCost;
+
+  const monthlyProfit = dailyProfit * OPERATING_DAYS;
 
   const equipmentCost = useMemo(
     () =>
-      selectedChargers.reduce(
-        (total, charger) =>
-          total + charger.quantity * charger.unitPrice,
+      chargers.reduce(
+        (sum, charger) => sum + charger.price * charger.quantity,
         0,
       ),
-    [selectedChargers],
+    [chargers],
   );
 
   const totalInvestment = equipmentCost + installationCost;
 
-  const selectedUnitCount = selectedChargers.reduce(
-    (total, charger) => total + charger.quantity,
-    0,
-  );
-
-  /* -----------------------------------------------------
-     LIVE FINANCIAL CALCULATIONS
-
-     Daily energy = bikes × bike kWh + cars × car kWh
-
-     Customer rate INCLUDES GST.
-     GST component = gross collections × 18 / 118
-
-     Operator profit =
-       gross collections
-       - GST component
-       - electricity cost
-       - fixed VIZ margin
-  ----------------------------------------------------- */
-
-  const energyPerDay =
-    bikesPerDay * bikeKwh + carsPerDay * carKwh;
-
-  const dailyRevenue = energyPerDay * endUserRate;
-  const monthlyRevenue = dailyRevenue * OPERATING_DAYS;
-
-  // Extract GST from the GST-inclusive customer collections.
-  const dailyGst = dailyRevenue * (GST_RATE / (100 + GST_RATE));
-  const monthlyGst = dailyGst * OPERATING_DAYS;
-
-  const dailyElectricityCost = energyPerDay * greenMeterTariff;
-  const monthlyElectricityCost =
-    dailyElectricityCost * OPERATING_DAYS;
-
-  const dailyVizMargin = energyPerDay * VIZ_MARGIN_PER_KWH;
-  const monthlyVizMargin = dailyVizMargin * OPERATING_DAYS;
-
-  const dailyOperatorProfit =
-    dailyRevenue -
-    dailyGst -
-    dailyElectricityCost -
-    dailyVizMargin;
-
-  const monthlyOperatorProfit = dailyOperatorProfit * OPERATING_DAYS;
-
-  const annualOperatorProfit = monthlyOperatorProfit * 12;
-
   const paybackMonths =
-    monthlyOperatorProfit > 0
-      ? totalInvestment / monthlyOperatorProfit
+    monthlyProfit > 0 && totalInvestment > 0
+      ? totalInvestment / monthlyProfit
       : null;
 
-  const hasSelectedChargers = selectedChargers.length > 0;
-
-  const paybackText = !hasSelectedChargers
-    ? 'Select charger'
-    : totalInvestment <= 0
-      ? 'No upfront cost'
-      : monthlyOperatorProfit <= 0
-        ? 'No break-even'
-        : `${numberText(paybackMonths ?? 0)} months`;
-
-  /* -----------------------------------------------------
-     CHARGER SELECTION HELPERS
-  ----------------------------------------------------- */
+  const paybackLabel =
+    totalInvestment <= 0
+      ? 'No upfront investment'
+      : monthlyProfit <= 0
+        ? 'Not profitable yet'
+        : paybackMonths !== null
+          ? `${rupees(paybackMonths)} months`
+          : '—';
 
   function addCharger() {
-    const option = OPTION_BY_KEY.get(optionToAdd);
+    const option = optionMap.get(newChargerKey);
     if (!option) return;
 
-    setSelectedChargers((current) => {
-      const existing = current.find(
-        (charger) => charger.key === option.key,
-      );
+    setChargers((current) => {
+      const existing = current.find((item) => item.key === option.key);
 
       if (existing) {
-        return current.map((charger) =>
-          charger.key === option.key
-            ? { ...charger, quantity: charger.quantity + 1 }
-            : charger,
+        return current.map((item) =>
+          item.key === option.key
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
         );
       }
 
@@ -287,561 +218,491 @@ export default function RoiCalculator() {
         {
           key: option.key,
           quantity: 1,
-          unitPrice: option.price,
+          price: option.price,
         },
       ];
     });
   }
 
-  function updateCharger(
-    key: string,
-    updates: Partial<SelectedCharger>,
-  ) {
-    setSelectedChargers((current) =>
-      current.map((charger) =>
-        charger.key === key ? { ...charger, ...updates } : charger,
+  function updateCharger(key: string, updates: Partial<Charger>) {
+    setChargers((current) =>
+      current.map((item) =>
+        item.key === key ? { ...item, ...updates } : item,
       ),
     );
   }
 
-  function removeCharger(key: string) {
-    setSelectedChargers((current) =>
-      current.filter((charger) => charger.key !== key),
-    );
-  }
-
   function resetCalculator() {
-    setBikesPerDay(5);
-    setCarsPerDay(1);
-    setBikeKwh(2.5);
-    setCarKwh(20);
-    setEndUserRate(15);
-    setGreenMeterTariff(7.33);
+    setSessionsPerDay(6);
+    setKwhPerSession(2.5);
+    setCustomerRate(15);
+    setElectricityRate(7.33);
     setInstallationCost(0);
-    setSelectedChargers([]);
-    setOptionToAdd(CHARGER_OPTIONS[0]?.key ?? '');
+    setChargers(
+      defaultOption
+        ? [{ key: defaultOption.key, quantity: 1, price: defaultOption.price }]
+        : [],
+    );
+    setNewChargerKey(defaultOption?.key ?? '');
+    setShowChargerSetup(false);
   }
 
   return (
-    <div className="roi-calculator-page">
+    <div className="vizroi-page">
       <ProductSiteHeader />
 
-      <main className="roi-screen">
-        <div className="roi-workspace">
-          {/* PAGE TITLE */}
-          <div className="roi-page-heading">
-            <div>
-              <div className="roi-eyebrow">
-                <Zap size={13} />
-                VIZ SMART CHARGING
-              </div>
-
-              <h1>ROI Calculator</h1>
-
-              <p>
-                Estimate charging revenue, operator profit and payback.
-              </p>
+      <main className="vizroi-main">
+        <div className="vizroi-shell">
+          <header className="vizroi-heading">
+            <div className="vizroi-eyebrow">
+              <Zap size={14} />
+              VIZ SMART CHARGING
             </div>
 
-            <button
-              type="button"
-              className="roi-reset-button"
-              onClick={resetCalculator}
-            >
-              Reset
-            </button>
-          </div>
+            <h1>
+              See how much your
+              <span> charger could earn.</span>
+            </h1>
 
-          {/* CHARGER SELECTION BAR */}
-          <section className="roi-charger-toolbar">
-            <div className="roi-toolbar-icon">
-              <Settings2 size={20} />
-            </div>
+            <p>
+              Choose your charging activity and see your estimated earnings,
+              profit and break-even time.
+            </p>
+          </header>
 
-            <div className="roi-toolbar-text">
-              <strong>
-                {selectedUnitCount > 0
-                  ? `${selectedUnitCount} charger ${
-                      selectedUnitCount === 1 ? 'unit' : 'units'
-                    } selected`
-                  : 'Select your chargers'}
-              </strong>
-
-              <span>
-                Equipment: {money(equipmentCost)}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              className="roi-primary-button"
-              onClick={() => setShowChargerModal(true)}
-            >
-              <Plus size={16} />
-              Configure
-            </button>
-          </section>
-
-          {/* INPUTS + RESULTS */}
-          <div className="roi-calculator-grid">
-            {/* LEFT: INPUTS */}
-            <section className="roi-panel roi-input-panel">
-              <div className="roi-panel-heading">
-                <div className="roi-panel-icon roi-icon-blue">
-                  <Calculator size={17} />
+          <div className="vizroi-layout">
+            {/* INPUT SIDE */}
+            <section className="vizroi-card vizroi-input-card">
+              <div className="vizroi-card-title">
+                <div className="vizroi-icon-box">
+                  <Settings2 size={19} />
                 </div>
+
                 <div>
-                  <h2>Charging assumptions</h2>
-                  <p>Adjust daily usage and tariffs</p>
+                  <h2>Your charging setup</h2>
+                  <p>Start with one charger. Change any value.</p>
                 </div>
               </div>
 
-              {/* DEMAND */}
-              <div className="roi-section">
-                <div className="roi-section-title">
-                  <span>Daily charging demand</span>
+              <div className="vizroi-device">
+                <div className="vizroi-device-image">
+                  {defaultOption && (
+                    <img src={defaultOption.image} alt="VIZ Single Point 6A" />
+                  )}
                 </div>
 
-                <div className="roi-control-grid">
-                  <RangeField
-                    label="Bikes / scooters"
-                    value={bikesPerDay}
-                    min={0}
-                    max={100}
-                    step={1}
-                    unit="/ day"
-                    onChange={setBikesPerDay}
-                  />
-
-                  <RangeField
-                    label="kWh per bike"
-                    value={bikeKwh}
-                    min={0.5}
-                    max={10}
-                    step={0.5}
-                    unit="kWh"
-                    onChange={setBikeKwh}
-                  />
-
-                  <RangeField
-                    label="Cars"
-                    value={carsPerDay}
-                    min={0}
-                    max={50}
-                    step={1}
-                    unit="/ day"
-                    onChange={setCarsPerDay}
-                  />
-
-                  <RangeField
-                    label="kWh per car"
-                    value={carKwh}
-                    min={5}
-                    max={150}
-                    step={1}
-                    unit="kWh"
-                    onChange={setCarKwh}
-                  />
+                <div className="vizroi-device-copy">
+                  <span className="vizroi-device-label">YOUR CHARGER</span>
+                  <strong>Single Point — 6A</strong>
+                  <span>Wi-Fi · 1.3 kW</span>
+                  <button
+                    type="button"
+                    className="vizroi-text-button"
+                    onClick={() => setShowChargerSetup((shown) => !shown)}
+                  >
+                    {showChargerSetup ? 'Close setup' : 'Add or edit chargers'}
+                    <ArrowUpRight size={14} />
+                  </button>
                 </div>
               </div>
 
-              {/* TARIFFS */}
-              <div className="roi-section">
-                <div className="roi-section-title">
-                  <span>Rates & costs</span>
+              {showChargerSetup && (
+                <div className="vizroi-setup-panel">
+                  <div className="vizroi-setup-heading">
+                    <div>
+                      <strong>Charger configuration</strong>
+                      <p>Add devices or change the equipment price.</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="vizroi-close-button"
+                      onClick={() => setShowChargerSetup(false)}
+                      aria-label="Close charger configuration"
+                    >
+                      <X size={17} />
+                    </button>
+                  </div>
+
+                  <label className="vizroi-field-label" htmlFor="vizroi-charger-select">
+                    Choose a Wi-Fi charger
+                  </label>
+
+                  <div className="vizroi-select-row">
+                    <select
+                      id="vizroi-charger-select"
+                      value={newChargerKey}
+                      onChange={(event) => setNewChargerKey(event.target.value)}
+                    >
+                      {chargerOptions.map((option) => (
+                        <option key={option.key} value={option.key}>
+                          {option.name} · {option.variantName}
+                        </option>
+                      ))}
+                    </select>
+
+                    <button
+                      type="button"
+                      className="vizroi-add-button"
+                      onClick={addCharger}
+                      disabled={!newChargerKey}
+                    >
+                      <Plus size={16} />
+                      Add
+                    </button>
+                  </div>
+
+                  <div className="vizroi-charger-list">
+                    {chargers.map((charger) => {
+                      const option = optionMap.get(charger.key);
+                      if (!option) return null;
+
+                      return (
+                        <div className="vizroi-charger-row" key={charger.key}>
+                          <div className="vizroi-charger-row-title">
+                            <div>
+                              <strong>{option.name}</strong>
+                              <small>{option.variantName}</small>
+                            </div>
+
+                            <button
+                              type="button"
+                              className="vizroi-remove-button"
+                              onClick={() =>
+                                setChargers((current) =>
+                                  current.filter((item) => item.key !== charger.key),
+                                )
+                              }
+                              aria-label={`Remove ${option.name}`}
+                            >
+                              <Trash2 size={15} />
+                            </button>
+                          </div>
+
+                          <div className="vizroi-charger-edit-grid">
+                            <label>
+                              Quantity
+                              <input
+                                type="number"
+                                min={1}
+                                max={100}
+                                value={charger.quantity}
+                                onChange={(event) =>
+                                  updateCharger(charger.key, {
+                                    quantity: Math.round(
+                                      clamp(Number(event.target.value), 1, 100),
+                                    ),
+                                  })
+                                }
+                              />
+                            </label>
+
+                            <label>
+                              Equipment price (₹)
+                              <input
+                                type="number"
+                                min={0}
+                                value={charger.price}
+                                onChange={(event) =>
+                                  updateCharger(charger.key, {
+                                    price: clamp(
+                                      Number(event.target.value),
+                                      0,
+                                      100000000,
+                                    ),
+                                  })
+                                }
+                              />
+                            </label>
+
+                            <div className="vizroi-line-total">
+                              <span>Total</span>
+                              <strong>{money(charger.price * charger.quantity)}</strong>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {chargers.length === 0 && (
+                      <p className="vizroi-empty">
+                        No chargers selected. Add a charger to calculate payback.
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="vizroi-equipment-total">
+                    <span>Equipment total</span>
+                    <strong>{money(equipmentCost)}</strong>
+                  </div>
+                </div>
+              )}
+
+              <div className="vizroi-divider" />
+
+              <div className="vizroi-section-label">
+                <span>How busy is your location?</span>
+                <span className="vizroi-live-tag">LIVE ESTIMATE</span>
+              </div>
+
+              <div className="vizroi-usage-summary">
+                <div>
+                  <strong>{sessionsPerDay}</strong>
+                  <span>charging sessions / day</span>
                 </div>
 
-                <div className="roi-control-grid">
-                  <RangeField
-                    label="Customer rate"
-                    value={endUserRate}
-                    min={1}
-                    max={50}
-                    step={0.5}
-                    unit="₹/kWh"
-                    onChange={setEndUserRate}
-                  />
+                <div className="vizroi-usage-dot" />
 
-                  <RangeField
-                    label="Green meter"
-                    value={greenMeterTariff}
-                    min={0}
-                    max={25}
-                    step={0.01}
-                    unit="₹/kWh"
-                    onChange={setGreenMeterTariff}
-                  />
+                <div>
+                  <strong>{rupees(kwhPerSession)}</strong>
+                  <span>kWh per session</span>
+                </div>
+              </div>
+
+              <Stepper
+                label="Charging sessions"
+                value={sessionsPerDay}
+                min={0}
+                max={100}
+                suffix="sessions per day"
+                onChange={setSessionsPerDay}
+              />
+
+              <Stepper
+                label="Energy per session"
+                value={kwhPerSession}
+                min={0.5}
+                max={100}
+                step={0.5}
+                suffix="kWh per vehicle"
+                onChange={setKwhPerSession}
+              />
+
+              <div className="vizroi-energy-note">
+                <Zap size={15} />
+                <span>
+                  You could sell about <strong>{rupees(totalKwhPerDay)} kWh/day</strong>
+                  {' '}or <strong>{rupees(totalKwhPerMonth)} kWh/month</strong>.
+                </span>
+              </div>
+
+              <details className="vizroi-disclosure">
+                <summary>
+                  <span>
+                    <Settings2 size={16} />
+                    Assumptions & rates
+                  </span>
+                  <ChevronDown size={17} className="vizroi-chevron" />
+                </summary>
+
+                <div className="vizroi-disclosure-body">
+                  <div className="vizroi-edit-field">
+                    <label htmlFor="vizroi-customer-rate">
+                      Customer charging rate
+                      <small>Price paid by the customer, including GST</small>
+                    </label>
+                    <div className="vizroi-input-with-unit">
+                      <span>₹</span>
+                      <input
+                        id="vizroi-customer-rate"
+                        type="number"
+                        min={0}
+                        step={0.5}
+                        value={customerRate}
+                        onChange={(event) =>
+                          setCustomerRate(clamp(Number(event.target.value), 0, 100000))
+                        }
+                      />
+                      <small>/kWh</small>
+                    </div>
+                  </div>
+
+                  <div className="vizroi-edit-field">
+                    <label htmlFor="vizroi-electricity-rate">
+                      Green meter electricity cost
+                      <small>Amount paid for electricity</small>
+                    </label>
+                    <div className="vizroi-input-with-unit">
+                      <span>₹</span>
+                      <input
+                        id="vizroi-electricity-rate"
+                        type="number"
+                        min={0}
+                        step={0.01}
+                        value={electricityRate}
+                        onChange={(event) =>
+                          setElectricityRate(
+                            clamp(Number(event.target.value), 0, 100000),
+                          )
+                        }
+                      />
+                      <small>/kWh</small>
+                    </div>
+                  </div>
+
+                  <div className="vizroi-edit-field">
+                    <label htmlFor="vizroi-installation">
+                      Installation & setup
+                      <small>Optional; equipment cost is separate</small>
+                    </label>
+                    <div className="vizroi-input-with-unit">
+                      <span>₹</span>
+                      <input
+                        id="vizroi-installation"
+                        type="number"
+                        min={0}
+                        step={500}
+                        value={installationCost}
+                        onChange={(event) =>
+                          setInstallationCost(
+                            clamp(Number(event.target.value), 0, 100000000),
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className="vizroi-fixed-rates">
+                    <div>
+                      <span>GST</span>
+                      <strong>{GST_RATE}%</strong>
+                    </div>
+                    <div>
+                      <span>VIZ margin</span>
+                      <strong>₹{VIZ_MARGIN.toFixed(2)}/kWh</strong>
+                    </div>
+                    <div>
+                      <span>Operating days</span>
+                      <strong>{OPERATING_DAYS}/month</strong>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <button
+                type="button"
+                className="vizroi-reset"
+                onClick={resetCalculator}
+              >
+                Reset calculator
+              </button>
+            </section>
+
+            {/* RESULTS SIDE */}
+            <section className="vizroi-results">
+              <div className="vizroi-results-heading">
+                <div>
+                  <div className="vizroi-eyebrow">
+                    <Zap size={13} />
+                    YOUR ESTIMATED RETURNS
+                  </div>
+                  <h2>Your charger, earning for you.</h2>
+                  <p>Based on your daily charging activity.</p>
+                </div>
+              </div>
+
+              <div className="vizroi-hero-result">
+                <div className="vizroi-result-label">
+                  <span>Estimated monthly revenue</span>
+                  <CircleHelp size={15} />
                 </div>
 
-                <p className="roi-inline-note">
-                  Customer rate includes GST.
+                <div className="vizroi-hero-amount">{money(monthlyRevenue)}</div>
+
+                <div className="vizroi-result-caption">
+                  Customer collections, including GST
+                </div>
+
+                <div className="vizroi-result-footer">
+                  <span>Daily revenue</span>
+                  <strong>{money(dailyRevenue)}</strong>
+                </div>
+              </div>
+
+              <div className="vizroi-profit-grid">
+                <div className="vizroi-profit-card">
+                  <div className="vizroi-profit-icon">
+                    <ArrowUpRight size={17} />
+                  </div>
+                  <span>Monthly operator profit</span>
+                  <strong className={monthlyProfit < 0 ? 'is-negative' : ''}>
+                    {money(monthlyProfit)}
+                  </strong>
+                  <small>{money(dailyProfit)} per day</small>
+                </div>
+
+                <div className="vizroi-profit-card vizroi-payback-tile">
+                  <div className="vizroi-profit-icon">
+                    <Check size={17} />
+                  </div>
+                  <span>Investment break-even</span>
+                  <strong>{paybackLabel}</strong>
+                  <small>
+                    Investment: {money(totalInvestment)}
+                  </small>
+                </div>
+              </div>
+
+              <details className="vizroi-disclosure vizroi-cost-disclosure">
+                <summary>
+                  <span>
+                    <Settings2 size={16} />
+                    See monthly cost breakdown
+                  </span>
+                  <ChevronDown size={17} className="vizroi-chevron" />
+                </summary>
+
+                <div className="vizroi-disclosure-body">
+                  <div className="vizroi-breakdown-row">
+                    <span>Customer revenue (incl. GST)</span>
+                    <strong>{money(monthlyRevenue)}</strong>
+                  </div>
+                  <div className="vizroi-breakdown-row">
+                    <span>GST included in revenue</span>
+                    <strong>− {money(monthlyGst)}</strong>
+                  </div>
+                  <div className="vizroi-breakdown-row">
+                    <span>Electricity cost</span>
+                    <strong>− {money(monthlyElectricityCost)}</strong>
+                  </div>
+                  <div className="vizroi-breakdown-row">
+                    <span>VIZ margin</span>
+                    <strong>− {money(monthlyVizCost)}</strong>
+                  </div>
+                  <div className="vizroi-breakdown-row vizroi-breakdown-final">
+                    <span>Operator profit</span>
+                    <strong>{money(monthlyProfit)}</strong>
+                  </div>
+                </div>
+              </details>
+
+              <div className="vizroi-result-note">
+                <Check size={15} />
+                <p>
+                  Your estimate updates instantly when you change your usage or rates.
+                  Actual results depend on site usage and operating costs.
                 </p>
               </div>
 
-              {/* FIXED ASSUMPTIONS */}
-              <div className="roi-fixed-assumptions">
-                <div className="roi-fixed-title">Fixed assumptions</div>
-
-                <div className="roi-fixed-pills">
-                  <span>
-                    GST <strong>{GST_RATE}%</strong>
-                  </span>
-                  <span>
-                    VIZ margin <strong>₹{VIZ_MARGIN_PER_KWH}/kWh</strong>
-                  </span>
-                  <span>
-                    <strong>{OPERATING_DAYS}</strong> days/month
-                  </span>
-                </div>
-              </div>
-
-              {/* INSTALLATION */}
-              <div className="roi-installation-row">
-                <div>
-                  <strong>Installation / setup</strong>
-                  <span>Default ₹0; editable</span>
-                </div>
-
-                <label className="roi-money-input">
-                  <span>₹</span>
-                  <input
-                    type="number"
-                    min={0}
-                    step={500}
-                    value={installationCost}
-                    onChange={(event) =>
-                      setInstallationCost(
-                        toInputNumber(
-                          event.target.value,
-                          0,
-                          100000000,
-                        ),
-                      )
-                    }
-                    aria-label="Installation and setup cost"
-                  />
-                </label>
-              </div>
-            </section>
-
-            {/* RIGHT: RESULTS */}
-            <section className="roi-panel roi-results-panel">
-              <div className="roi-panel-heading">
-                <div className="roi-panel-icon roi-icon-green">
-                  <CircleDollarSign size={18} />
-                </div>
-                <div>
-                  <h2>Estimated returns</h2>
-                  <p>Based on {numberText(energyPerDay)} kWh/day</p>
-                </div>
-              </div>
-
-              {/* REVENUE + PROFIT METRICS */}
-              <div className="roi-metrics-grid">
-                <div className="roi-metric roi-metric-revenue">
-                  <span>Daily revenue</span>
-                  <strong>{money(dailyRevenue)}</strong>
-                  <small>Including GST</small>
-                </div>
-
-                <div className="roi-metric roi-metric-revenue">
-                  <span>Monthly revenue</span>
-                  <strong>{money(monthlyRevenue)}</strong>
-                  <small>{OPERATING_DAYS} operating days</small>
-                </div>
-
-                <div className="roi-metric roi-metric-profit">
-                  <span>Daily operator profit</span>
-                  <strong
-                    className={
-                      dailyOperatorProfit < 0 ? 'roi-negative' : ''
-                    }
-                  >
-                    {money(dailyOperatorProfit)}
-                  </strong>
-                  <small>After listed costs</small>
-                </div>
-
-                <div className="roi-metric roi-metric-profit roi-metric-featured">
-                  <span>Monthly operator profit</span>
-                  <strong
-                    className={
-                      monthlyOperatorProfit < 0 ? 'roi-negative' : ''
-                    }
-                  >
-                    {money(monthlyOperatorProfit)}
-                  </strong>
-                  <small>Estimated operator earnings</small>
-                </div>
-              </div>
-
-              {/* MONTHLY BREAKDOWN */}
-              <div className="roi-breakdown">
-                <div className="roi-section-title">
-                  <span>Monthly cost breakdown</span>
-                </div>
-
-                <div className="roi-breakdown-row">
-                  <span>GST component</span>
-                  <strong>{money(monthlyGst)}</strong>
-                </div>
-
-                <div className="roi-breakdown-row">
-                  <span>Green meter electricity</span>
-                  <strong>{money(monthlyElectricityCost)}</strong>
-                </div>
-
-                <div className="roi-breakdown-row">
-                  <span>VIZ margin</span>
-                  <strong>{money(monthlyVizMargin)}</strong>
-                </div>
-
-                <div className="roi-breakdown-row roi-breakdown-total">
-                  <span>Operator profit / month</span>
-                  <strong>{money(monthlyOperatorProfit)}</strong>
-                </div>
-              </div>
-
-              {/* INVESTMENT + PAYBACK */}
-              <div className="roi-payback-card">
-                <div className="roi-investment-summary">
-                  <span>Total investment</span>
-                  <strong>{money(totalInvestment)}</strong>
-                  <small>
-                    {money(equipmentCost)} equipment
-                    {' + '}
-                    {money(installationCost)} setup
-                  </small>
-                </div>
-
-                <div className="roi-payback-divider" />
-
-                <div className="roi-payback-summary">
-                  <span>
-                    <ArrowDownRight size={14} />
-                    Break-even
-                  </span>
-                  <strong>{paybackText}</strong>
-                  <small>Estimated payback period</small>
-                </div>
-              </div>
-
-              <div className="roi-disclaimer">
-                <Check size={13} />
-                <span>
-                  Estimate only. Excludes rent, maintenance, payment fees,
-                  downtime and financing costs.
-                </span>
+              <div className="vizroi-annual-note">
+                <span>Estimated yearly operator profit</span>
+                <strong>{money(monthlyProfit * 12)}</strong>
               </div>
             </section>
           </div>
 
-          <div className="roi-footer-note">
+          <footer className="vizroi-page-footnote">
             <span>
-              <Zap size={12} />
-              {numberText(energyPerDay)} kWh/day
+              <Zap size={12} /> Simple estimate. Clear decisions.
             </span>
-            <span>
-              Annual operator profit: {money(annualOperatorProfit)}
-            </span>
-          </div>
+            <button type="button" onClick={resetCalculator}>
+              Start again
+            </button>
+          </footer>
         </div>
       </main>
 
       <ProductSiteFooter />
-
-      {/* -------------------------------------------------
-          CHARGER SELECTION MODAL
-          Editing these prices does not change the catalogue.
-      ------------------------------------------------- */}
-
-      {showChargerModal && (
-        <div
-          className="roi-modal-backdrop"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setShowChargerModal(false);
-            }
-          }}
-        >
-          <section
-            className="roi-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="roi-modal-title"
-          >
-            <div className="roi-modal-heading">
-              <div>
-                <div className="roi-eyebrow">
-                  <Settings2 size={13} />
-                  EQUIPMENT CONFIGURATION
-                </div>
-
-                <h2 id="roi-modal-title">Select your chargers</h2>
-
-                <p>
-                  Add one or more catalogue variants and edit their unit
-                  prices or quantities.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                className="roi-icon-button"
-                onClick={() => setShowChargerModal(false)}
-                aria-label="Close charger selector"
-              >
-                <X size={19} />
-              </button>
-            </div>
-
-            <div className="roi-add-charger-row">
-              <label htmlFor="roi-product-select">
-                Product / configuration
-              </label>
-
-              <div className="roi-product-select-wrap">
-                <select
-                  id="roi-product-select"
-                  value={optionToAdd}
-                  onChange={(event) => setOptionToAdd(event.target.value)}
-                >
-                  {CHARGER_OPTIONS.map((option) => (
-                    <option key={option.key} value={option.key}>
-                      {option.name} — {option.variantName} —{' '}
-                      {money(option.price)}
-                    </option>
-                  ))}
-                </select>
-
-                <ChevronDown size={16} />
-              </div>
-
-              <button
-                type="button"
-                className="roi-primary-button"
-                onClick={addCharger}
-                disabled={!optionToAdd}
-              >
-                <Plus size={16} />
-                Add
-              </button>
-            </div>
-
-            <div className="roi-selected-list">
-              {selectedChargers.length === 0 ? (
-                <div className="roi-empty-selection">
-                  <div className="roi-empty-icon">
-                    <Zap size={22} />
-                  </div>
-
-                  <strong>No chargers added yet</strong>
-
-                  <p>
-                    Choose a product above, then press Add.
-                  </p>
-                </div>
-              ) : (
-                selectedChargers.map((charger) => {
-                  const option = OPTION_BY_KEY.get(charger.key);
-                  if (!option) return null;
-
-                  return (
-                    <div className="roi-selected-row" key={charger.key}>
-                      <div className="roi-selected-main">
-                        <img src={option.image} alt="" />
-
-                        <div className="roi-selected-description">
-                          <strong>{option.name}</strong>
-                          <span>
-                            {option.variantName} · {option.power}
-                          </span>
-                        </div>
-
-                        <button
-                          type="button"
-                          className="roi-remove-button"
-                          onClick={() => removeCharger(charger.key)}
-                          aria-label={`Remove ${option.name}`}
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-
-                      <div className="roi-selected-fields">
-                        <label>
-                          Quantity
-                          <input
-                            type="number"
-                            min={1}
-                            max={100}
-                            step={1}
-                            value={charger.quantity}
-                            onChange={(event) =>
-                              updateCharger(charger.key, {
-                                quantity: Math.round(
-                                  toInputNumber(
-                                    event.target.value,
-                                    1,
-                                    100,
-                                  ),
-                                ),
-                              })
-                            }
-                          />
-                        </label>
-
-                        <label>
-                          Unit price (₹)
-                          <input
-                            type="number"
-                            min={0}
-                            max={100000000}
-                            step={100}
-                            value={charger.unitPrice}
-                            onChange={(event) =>
-                              updateCharger(charger.key, {
-                                unitPrice: toInputNumber(
-                                  event.target.value,
-                                  0,
-                                  100000000,
-                                ),
-                              })
-                            }
-                          />
-                        </label>
-
-                        <div className="roi-line-total">
-                          <span>Line total</span>
-                          <strong>
-                            {money(charger.quantity * charger.unitPrice)}
-                          </strong>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-
-            <div className="roi-modal-footer">
-              <div>
-                <span>Equipment investment</span>
-                <strong>{money(equipmentCost)}</strong>
-              </div>
-
-              <button
-                type="button"
-                className="roi-primary-button"
-                onClick={() => setShowChargerModal(false)}
-              >
-                <Check size={16} />
-                Done
-              </button>
-            </div>
-          </section>
-        </div>
-      )}
     </div>
   );
 }
