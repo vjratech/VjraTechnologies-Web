@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SEO from '@/components/seo';
 import { Moon, Sun } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 import {
   BlogCard,
 } from '@/components/blog';

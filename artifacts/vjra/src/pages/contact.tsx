@@ -17,6 +17,7 @@ import {
   ProductSiteFooter,
   ProductSiteHeader,
 } from '@/components/products';
+import { Link } from '@/components/site-link';
 
 type ContactTheme = 'light' | 'dark';
 
@@ -166,12 +167,12 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   Send an enquiry <ArrowRight className="h-4 w-4" />
                 </a>
 
-                <a
-                  href="https://eviz.in/products"
-                  className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold transition hover:border-primary hover:text-primary"
+                <Link
+                href="/products"
+                className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold transition hover:border-primary hover:text-primary"
                 >
-                  Explore products
-                </a>
+                Explore products
+                </Link>
               </div>
 
               <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted-foreground">

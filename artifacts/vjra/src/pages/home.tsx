@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 import { ArrowRight, Play, Mail } from 'lucide-react';
 import { ParticleField } from '@/components/ParticleField';
 import { EnergyFlow } from '@/components/EnergyFlow';
@@ -535,6 +535,8 @@ export default function Home() {
                 data-testid="button-download-whitepaper"
               >
             <a
+            target="_blank"
+            rel="noopener noreferrer"
               href={brochurePdf}
               download
             >

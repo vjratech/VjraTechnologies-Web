@@ -31,7 +31,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { FormEvent, useEffect, useRef, useState, type ComponentType, type ReactNode } from 'react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 import brochurePdf from '@/assets/Brochure_VjraTechnologies.pdf';
 import { ProductSiteFooter, ProductSiteHeader } from '@/components/products';
 
@@ -550,7 +550,8 @@ export default function WhyVIZ() {
               <p className="mt-5 font-display text-2xl font-semibold text-primary">{t.heroBridge}</p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <a href="#solve" className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-primary-foreground transition hover:shadow-lg hover:shadow-primary/25">{t.solve}<ArrowRight className="h-4 w-4" /></a>
-                <a href={brochurePdf} download className="inline-flex items-center justify-center rounded-xl border border-border bg-card/60 px-6 py-3.5 font-semibold transition hover:border-primary hover:text-primary">{t.brochure}</a>
+                <a target="_blank"
+rel="noopener noreferrer" href={brochurePdf} download className="inline-flex items-center justify-center rounded-xl border border-border bg-card/60 px-6 py-3.5 font-semibold transition hover:border-primary hover:text-primary">{t.brochure}</a>
               </div>
             </Reveal>
 
@@ -787,7 +788,8 @@ export default function WhyVIZ() {
                   <label className="grid gap-2 text-sm sm:col-span-2"><span className="text-muted-foreground">{t.message}</span><textarea name="message" rows={4} className="resize-y rounded-xl border border-border bg-background/50 px-4 py-3 outline-none transition placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-ring" placeholder="Tell us about the site, capacity or timeline…" /></label>
                 </div>
                 <button type="submit" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground transition hover:shadow-lg hover:shadow-primary/25 sm:w-auto">{t.submit}<ArrowRight className="h-4 w-4" /></button>
-                <a href={brochurePdf} download className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-border px-5 py-3.5 text-sm font-semibold transition hover:border-primary hover:text-primary sm:ml-3 sm:mt-0 sm:w-auto">{t.brochure}</a>
+                <a target="_blank"
+rel="noopener noreferrer" href={brochurePdf} download className="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-border px-5 py-3.5 text-sm font-semibold transition hover:border-primary hover:text-primary sm:ml-3 sm:mt-0 sm:w-auto">{t.brochure}</a>
                 {submitted && <p className="mt-4 text-sm text-primary" role="status">{t.submitted}</p>}
               </form>
             </Reveal>

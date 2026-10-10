@@ -169,7 +169,8 @@ export default function ProductDetail() {
             <div className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Next step</div>
             <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">Ready to build your charging setup?</h2>
             <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">Tell us about your site, vehicles and charging goals. We’ll help you choose the right configuration.</p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a href={brochurePdf} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-primary bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition hover:shadow-lg hover:shadow-primary/30"> Download Brochure <Download /> </a></div>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a target="_blank"
+rel="noopener noreferrer" href={brochurePdf} className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-primary bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition hover:shadow-lg hover:shadow-primary/30"> Download Brochure <Download /> </a></div>
           </div>
         </section>
       </main>

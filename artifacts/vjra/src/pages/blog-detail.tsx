@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import SEO from '@/components/seo';
 import { ArrowLeft, Moon, Sun } from 'lucide-react';
-import { Link, useParams } from 'wouter';
+import { Link } from 'wouter';
+import { useParams } from 'wouter';
 import {
   BlogArticleContent,
   BlogTableOfContents,

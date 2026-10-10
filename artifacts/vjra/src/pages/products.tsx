@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 import { products } from '@/data/products';
 import { ProductCard, ProductSiteFooter, ProductSiteHeader } from '@/components/products';
 

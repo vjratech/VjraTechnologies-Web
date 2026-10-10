@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ArrowRight, Zap, Gauge, Wifi, Shield } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 
 const products = [
     {

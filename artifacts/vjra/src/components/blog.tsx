@@ -1,5 +1,5 @@
 import { ArrowRight, Clock3 } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 import type { BlogArticle } from '@/data/blogs';
 
 export function BlogCard({

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { ArrowRight, Check, ChevronDown, ExternalLink, Factory, Home, PlugZap, RefreshCw, ShieldCheck, Wifi, Zap } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from '@/components/site-link';
 import type { Product, ProductVariant } from '@/data/products';
 import { productCategories, productHref, products } from '@/data/products';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -149,6 +149,8 @@ export function ProductSiteFooter() {
 
                 <a
                 href={consultationWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 
@@ -158,6 +160,8 @@ export function ProductSiteFooter() {
 
                 <a
                 href={consultationWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                   Contact Us
