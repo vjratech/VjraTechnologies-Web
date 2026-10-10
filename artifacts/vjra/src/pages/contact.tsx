@@ -48,7 +48,6 @@ export default function Contact() {
   const [theme, setTheme] = useState<ContactTheme>('light');
   const [form, setForm] = useState<FormFields>(initialForm);
   const [status, setStatus] = useState('');
-  const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
   function updateField<K extends keyof FormFields>(
@@ -58,49 +57,42 @@ export default function Contact() {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStatus('');
+function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+
+  const message = [
+    "Hello VIZ Smart Charging,",
+    "",
+    "I would like to enquire about your services.",
+    "",
+    `Name: ${form.name}`,
+    `Phone: ${form.phone}`,
+    `Email: ${form.email}`,
+    `Preferred Service: ${form.product}`,
+    `City: ${form.city}`,
+  ].join("\n");
+
+  const whatsappUrl =
+    `https://wa.me/918855094432?text=${encodeURIComponent(message)}`;
+
+  const whatsappWindow = window.open(
+    whatsappUrl,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+  if (whatsappWindow) {
+    setSuccess(true);
+    setStatus(
+      "WhatsApp opened. Please review your enquiry and press Send in WhatsApp."
+    );
+  } else {
     setSuccess(false);
-    setSubmitting(true);
-
-    try {
-      // The frontend sends the form to the API server.
-      // Configure VITE_API_BASE_URL for your deployed API.
-      const apiBase = (
-        import.meta.env.VITE_API_BASE_URL || ''
-      ).replace(/\/$/, '');
-
-      const response = await fetch(`${apiBase}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          result.message || 'Unable to send your enquiry. Please try again.',
-        );
-      }
-
-      setSuccess(true);
-      setStatus(
-        'Thank you for contacting VIZ. Your enquiry has been submitted.',
-      );
-      setForm(initialForm);
-    } catch (error) {
-      setSuccess(false);
-      setStatus(
-        error instanceof Error
-          ? error.message
-          : 'Something went wrong. Please try again.',
-      );
-    } finally {
-      setSubmitting(false);
-    }
+    setStatus(
+      "WhatsApp could not open automatically. Please allow pop-ups or contact us at +91 88550 94432."
+    );
   }
+}
 
   return (
     <div
@@ -315,7 +307,7 @@ export default function Contact() {
                   Pune – 411030, Maharashtra, India
                 </p>
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=204%2C+Janki+Corner%2C+Sadashiv+Peth%2C+Pune+411030"
+                  href="https://www.google.com/maps/search/?api=1&query=Vjra+Technologies+LLP%2C+204%2C+Janki+Corner%2C+Sadashiv+Peth%2C+Pune+411030"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
@@ -351,8 +343,8 @@ export default function Contact() {
                   <div>
                     <p className="font-semibold">What happens next?</p>
                     <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                      Your enquiry is sent to our sales inbox for
-                      review and follow-up.
+                      You'll be redirected to WhatsApp with your enquiry details
+prefilled. Review the message and press Send to contact our team.
                     </p>
                   </div>
                 </div>
@@ -484,11 +476,10 @@ export default function Contact() {
 
               <button
                 type="submit"
-                disabled={submitting}
                 className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {submitting ? 'Sending…' : 'SEND ENQUIRY'}
-                {!submitting && <ArrowRight className="h-4 w-4" />}
+                    SEND ON WHATSAPP
+                    <ArrowRight className="h-4 w-4" />
               </button>
 
               <p className="mt-4 text-center text-xs leading-5 text-muted-foreground">
