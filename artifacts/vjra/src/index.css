@@ -492,6 +492,33 @@
   --ring: 188 82% 34%;
 }
 
+
+/* Contact page: light theme by default, with independent dark mode. */
+.contact-page[data-theme='light'] {
+  --background: 210 40% 98%;
+  --foreground: 220 25% 13%;
+  --border: 214 28% 86%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 25% 13%;
+  --card-border: 214 28% 82%;
+  --muted: 210 30% 93%;
+  --muted-foreground: 215 16% 42%;
+  --primary: 188 82% 34%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 262 55% 45%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 188 82% 34%;
+  --accent-foreground: 0 0% 100%;
+  --input: 214 28% 82%;
+  --ring: 188 82% 34%;
+}
+
+/* Preserve the site's existing dark palette when dark mode is selected. */
+.contact-page[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .why-vjra-page *,
   .why-vjra-page *::before,

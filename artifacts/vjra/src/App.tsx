@@ -9,6 +9,7 @@ import ProductDetail from '@/pages/product-detail';
 import WhyVIZ from '@/pages/why-VIZ';
 import Blog from '@/pages/blog';
 import BlogDetail from '@/pages/blog-detail';
+import Contact from '@/pages/contact';
 
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/why-VIZ" component={WhyVIZ} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogDetail} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );

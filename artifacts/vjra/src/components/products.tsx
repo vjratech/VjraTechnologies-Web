@@ -43,13 +43,12 @@ export function ProductSiteHeader() {
             Blog
           </Link>
 
-          <a
-          href={consultationWhatsAppUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-            Talk to sales
-          </a>
+          <Link
+            href="/contact"
+            className="transition-colors hover:text-primary"
+          >
+            Contact Us
+          </Link>
         </nav>
       </div>
     </header>
@@ -97,6 +96,12 @@ export function ProductSiteFooter() {
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   VIZ Insights
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Contact Us
                 </Link>
               </div>
             </div>
