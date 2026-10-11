@@ -13,7 +13,10 @@ import circuitDetailImg from '@/assets/circuit-detail.jpg';
 import smartGridImg from '@/assets/smart-grid.jpg';
 import evChargingSceneImg from '@/assets/ev-charging-scene.jpg';
 import brochurePdf from '@/assets/Brochure_VjraTechnologies.pdf';
-import { ProductSiteFooter } from '@/components/products';
+import {
+  ProductSiteHeader,
+  ProductSiteFooter,
+} from '@/components/products';
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -30,10 +33,12 @@ export default function Home() {
   const consultationWhatsAppUrl =
   `https://wa.me/918855094432?text=${encodeURIComponent(consultationMessage)}`;
 
-  return (
-    <div ref={containerRef} className="relative min-h-screen">
-      {/* Particle background */}
-      <ParticleField />
+      return (
+        <div ref={containerRef} className="relative min-h-screen">
+          <ProductSiteHeader />
+
+          {/* Particle background */}
+          <ParticleField />
 
 
 

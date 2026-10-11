@@ -519,6 +519,45 @@
 }
 
 
+/* Shared VIZ header */
+.viz-site-header {
+  isolation: isolate;
+}
+
+.viz-header-link:focus-visible,
+.viz-header-contact:focus-visible,
+.viz-mobile-menu-button:focus-visible,
+.viz-mobile-nav-link:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+.viz-mobile-menu-backdrop {
+  border: 0;
+  padding: 0;
+}
+
+.viz-mobile-drawer {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.viz-mobile-nav-link {
+  min-height: 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-site-header *,
+  .viz-site-header *::before,
+  .viz-site-header *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .why-vjra-page *,
   .why-vjra-page *::before,

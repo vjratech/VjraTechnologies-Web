@@ -1,6 +1,24 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ArrowRight, Check, ChevronDown, ExternalLink, Factory, Home, PlugZap, RefreshCw, ShieldCheck, Wifi, Zap } from 'lucide-react';
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  ExternalLink,
+  Factory,
+  Home,
+  PlugZap,
+  RefreshCw,
+  ShieldCheck,
+  Wifi,
+  Zap,
+  Menu,
+  X,
+  Calculator,
+  BookOpen,
+  Images,
+  Lightbulb,
+} from 'lucide-react';
 import { Link } from '@/components/site-link';
 import type { Product, ProductVariant } from '@/data/products';
 import { productCategories, productHref, products } from '@/data/products';
@@ -13,70 +31,209 @@ import { Button } from '@/components/ui/button';
   const consultationWhatsAppUrl =
   `https://wa.me/918855094432?text=${encodeURIComponent(consultationMessage)}`;
 
+
+const headerLinks = [
+  { label: 'Home', href: '/', icon: Home },
+  { label: 'Products', href: '/products', icon: PlugZap },
+  { label: 'Why VIZ?', href: '/why-VIZ', icon: Lightbulb },
+  { label: 'Gallery', href: '/gallery', icon: Images },
+  { label: 'How It Works', href: '/how-it-works', icon: ArrowRight },
+  { label: 'ROI Calculator', href: '/roi-calculator', icon: Calculator },
+  { label: 'VIZ Insights', href: '/blog', icon: BookOpen },
+];
+
 export function ProductSiteHeader() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMenu = () => setMobileMenuOpen(false);
+
   return (
-    <header className="relative z-40 border-b border-border/60 bg-background/80 px-4 py-4 sm:px-6 sm:py-5 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-6">
-        <Link href="/" className="flex items-center gap-3" aria-label="Vjra Technologies home">
-          <img src="/logo-removebg-preview.png" alt="Vjra Technologies" className="h-10 w-auto object-contain" />
-          <span className="hidden font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground sm:block">VIZ - Smart Charging</span>
+    <header className="viz-site-header sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        {/* Brand */}
+        <Link
+          href="/"
+          target="_self"
+          onClick={closeMenu}
+          className="flex min-w-0 shrink-0 items-center gap-3"
+          aria-label="VIZ Smart Charging home"
+        >
+          <img
+            src="/logo-removebg-preview.png"
+            alt="VJRA Technologies"
+            className="h-10 w-auto max-w-[145px] object-contain"
+          />
+
+          <span className="hidden border-l border-border pl-3 font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted-foreground sm:block">
+            VIZ
+            <br />
+            Smart Charging
+          </span>
         </Link>
-          <nav className="flex items-center gap-3 text-sm text-muted-foreground sm:gap-5">
-            <Link
-              href="/"
-              className="transition-colors hover:text-primary"
-            >
-              <span className="hidden sm:inline">Platform</span>
-              <span className="sm:hidden">Home</span>
-            </Link>
 
-            <Link
-              href="/products"
-              className="transition-colors hover:text-primary"
-            >
-              Products
-            </Link>
+        {/* Desktop / tablet navigation */}
+        <nav
+          aria-label="Main navigation"
+          className="hidden items-center gap-1 lg:flex"
+        >
+          {headerLinks.map((item) => {
+            const Icon = item.icon;
 
-            <Link
-              href="/roi-calculator"
-              className="transition-colors hover:text-primary md:inline-flex"
-            >
-              <span className="hidden sm:inline">ROI Calculator</span>
-              <span className="sm:hidden">ROI</span>
-            </Link>
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                target="_self"
+                className="viz-header-link inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
 
-            <Link
-              href="/blog"
-              className="transition-colors hover:text-primary md:inline-flex"
-            >
-              Blog
-            </Link>
+        {/* Desktop contact action */}
+        <Link
+          href="/contact"
+          target="_self"
+          className="viz-header-contact hidden shrink-0 items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 lg:inline-flex"
+        >
+          Contact Us
+          <ArrowRight size={16} />
+        </Link>
 
-            <Link
-              href="/gallery"
-              className="transition-colors hover:text-primary md:inline-flex"
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          className="viz-mobile-menu-button inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-card text-foreground transition hover:border-primary hover:text-primary lg:hidden"
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="viz-mobile-navigation"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={mobileMenuOpen ? 'close' : 'menu'}
+              initial={{ opacity: 0, rotate: -45, scale: 0.8 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 45, scale: 0.8 }}
+              transition={{ duration: 0.16 }}
+              className="flex"
             >
-              Gallery
-            </Link>
-
-             <Link
-              href="/how-it-works"
-              className="transition-colors hover:text-primary md:inline-flex"
-            >
-              How it Works?
-            </Link>
-
-            <Link
-              href="/contact"
-              className="transition-colors hover:text-primary"
-            >
-              Contact Us
-            </Link>
-          </nav>
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </motion.span>
+          </AnimatePresence>
+        </button>
       </div>
+
+      {/* Mobile menu backdrop and animated drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close navigation menu"
+              className="viz-mobile-menu-backdrop fixed inset-0 z-40 bg-black/45 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeMenu}
+            />
+
+            <motion.nav
+              id="viz-mobile-navigation"
+              aria-label="Mobile navigation"
+              className="viz-mobile-drawer absolute left-0 right-0 top-full z-50 max-h-[calc(100dvh-72px)] overflow-y-auto border-b border-border bg-background shadow-2xl lg:hidden"
+              initial={{ opacity: 0, y: -12, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.99 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+            >
+              <div className="mx-auto max-w-7xl px-4 pb-5 pt-4 sm:px-6">
+                <div className="mb-3 px-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Explore VIZ
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  {headerLinks.map((item, index) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <motion.div
+                        key={item.href}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.18,
+                          delay: index * 0.035,
+                        }}
+                      >
+                        <Link
+                          href={item.href}
+                          target="_self"
+                          onClick={closeMenu}
+                          className="viz-mobile-nav-link flex items-center gap-3 rounded-xl px-3 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+                        >
+                          <span className="viz-mobile-nav-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                            <Icon size={19} />
+                          </span>
+
+                          <span className="flex-1">{item.label}</span>
+
+                          <ArrowRight
+                            size={16}
+                            className="text-muted-foreground"
+                          />
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-4 border-t border-border pt-4">
+                  <Link
+                    href="/contact"
+                    target="_self"
+                    onClick={closeMenu}
+                    className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+                  >
+                    Contact the VIZ Team
+                    <ArrowRight size={17} />
+                  </Link>
+
+                  <p className="mt-3 text-center text-xs text-muted-foreground">
+                    Smart charging. Simplified.
+                  </p>
+                </div>
+              </div>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
+
 
 export function ProductSiteFooter() {
   return (
@@ -134,6 +291,14 @@ export function ProductSiteFooter() {
                 >
                   Gallery
                 </Link>
+
+                <Link
+                  href="/how-it-works"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  How it works?
+                </Link>
+
                 <Link
                   href="/contact"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
