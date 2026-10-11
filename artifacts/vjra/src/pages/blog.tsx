@@ -36,7 +36,7 @@ export default function Blog() {
         title="EV Charging Blog | EV Charging Infrastructure & Smart Charging | VIZ"
         description="Explore practical guides about EV charging stations, EV charging infrastructure, smart EV sockets, AC and DC chargers, load management and electric mobility in India."
         canonical="https://eviz.in/blog"
-        image="/blog/ev-charging-station-india.png"
+        image="/blog/ev-charging-station-india.jpg"
     />
 
       <ProductSiteHeader />
