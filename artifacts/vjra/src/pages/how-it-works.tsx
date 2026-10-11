@@ -58,7 +58,7 @@ const installationSteps = [
     title: 'Place your order',
     description:
       'Connect with our sales team to discuss your property, parking requirements, and charger needs.',
-    image: '/how-it-works/site-survey.jpg',
+    image: '/how-it-works/meeting.png',
     alt: 'Planning an EV charging installation',
     icon: ClipboardCheck,
   },
@@ -67,7 +67,7 @@ const installationSteps = [
     title: 'Site survey and planning',
     description:
       'Our on-ground team assesses the site, electrical capacity, charger locations, and installation requirements.',
-    image: '/how-it-works/infrastructure.jpg',
+    image: '/how-it-works/site-survey.png',
     alt: 'Assessing parking and electrical infrastructure for EV charging',
     icon: Building2,
   },
@@ -76,7 +76,7 @@ const installationSteps = [
     title: 'Infrastructure setup',
     description:
       'We coordinate the required load sanction, green metering, and electrical cabling based on the site requirements.',
-    image: '/how-it-works/infrastructure.jpg',
+    image: '/how-it-works/infrastructure.png',
     alt: 'Electrical infrastructure for EV charging points',
     icon: Cable,
   },
@@ -85,7 +85,7 @@ const installationSteps = [
     title: 'Install and commission',
     description:
       'Our team installs the chargers and carries out the necessary commissioning checks.',
-    image: '/how-it-works/installation.jpg',
+    image: '/how-it-works/installation.png',
     alt: 'Installing and commissioning EV charging points',
     icon: Wrench,
   },
@@ -94,7 +94,7 @@ const installationSteps = [
     title: 'Get ready to charge',
     description:
       'Eligible plug-and-play installations can be brought live the same day, subject to site readiness and applicable requirements.',
-    image: '/how-it-works/installation.jpg',
+    image: '/how-it-works/live_chargers.png',
     alt: 'Installed VIZ smart charging points ready for use',
     icon: Zap,
   },
@@ -214,7 +214,7 @@ export default function HowItWorksPage() {
 
           <div className="how-hero-visual">
             <img
-              src="/gallery/Commercial_Villa_1.jpg"
+              src="/gallery/Residential_Himgauri_1.jpg"
               alt="A VIZ charging point in a residential parking area"
             /> 
 
@@ -304,7 +304,7 @@ export default function HowItWorksPage() {
 
           <div className="how-install-banner">
             <img
-              src="/gallery/commercial-01.png"
+              src="/gallery/Commercial_Villa_1.jpg"
               alt="VIZ charging points installed in a parking facility"
               loading="lazy"
             />
