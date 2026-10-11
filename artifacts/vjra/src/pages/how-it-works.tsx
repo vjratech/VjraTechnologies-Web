@@ -28,7 +28,7 @@ const chargingSteps = [
     title: 'Scan the QR code',
     description:
       'Scan the QR code printed on your VIZ charging point using your phone camera.',
-    image: '/how-it-works/scan-qr.jpg',
+    image: '/how-it-works/scan-qr.png',
     alt: 'Scanning a QR code on a VIZ smart charging point',
     icon: QrCode,
   },
@@ -37,7 +37,7 @@ const chargingSteps = [
     title: 'Pay for your session',
     description:
       'Choose your charging session and pay using your preferred supported payment method.',
-    image: '/how-it-works/pay-online.jpg',
+    image: '/how-it-works/pay-online.png',
     alt: 'Paying online for an EV charging session',
     icon: CreditCard,
   },
@@ -46,7 +46,7 @@ const chargingSteps = [
     title: 'Connect and charge',
     description:
       'Connect your vehicle to the charging point and get ready for your next journey.',
-    image: '/how-it-works/connect-and-charge.jpg',
+    image: '/how-it-works/connect-and-charge.png',
     alt: 'An electric scooter connected to a charging point',
     icon: Bike,
   },
@@ -214,9 +214,9 @@ export default function HowItWorksPage() {
 
           <div className="how-hero-visual">
             <img
-              src="/gallery/residential-01.jpg"
+              src="/gallery/Commercial_Villa_1.jpg"
               alt="A VIZ charging point in a residential parking area"
-            />
+            /> 
 
             <div className="how-hero-floating-card">
               <span className="how-floating-icon">
