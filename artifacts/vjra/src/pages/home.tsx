@@ -70,14 +70,14 @@ export default function Home() {
         {/* Hero content */}
         <div className="relative z-20 max-w-7xl mx-auto px-6 text-center">
 
-                  <div className="flex items-center gap-3">
+                  {/* <div className="flex items-center gap-3">
   <img
     src="/logo-removebg-preview.png"
     alt="VJRA Technologies"
    className="h-10 w-auto object-contain"
   />
 
-</div>
+</div> */}
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
