@@ -12,6 +12,7 @@ import BlogDetail from '@/pages/blog-detail';
 import Contact from '@/pages/contact';
 import RoiCalculator from '@/pages/roi-calculator';
 import GalleryPage from '@/pages/gallery';
+import HowItWorksPage from '@/pages/how-it-works';
 
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/roi-calculator" component={RoiCalculator} />
       <Route path="/gallery" component={GalleryPage} />
+      <Route path="/how-it-works" component={HowItWorksPage} />
       <Route component={NotFound} />
     </Switch>
   );

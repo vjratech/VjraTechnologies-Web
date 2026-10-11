@@ -59,6 +59,13 @@ export function ProductSiteHeader() {
               Gallery
             </Link>
 
+             <Link
+              href="/how-it-works"
+              className="transition-colors hover:text-primary md:inline-flex"
+            >
+              How it Works?
+            </Link>
+
             <Link
               href="/contact"
               className="transition-colors hover:text-primary"

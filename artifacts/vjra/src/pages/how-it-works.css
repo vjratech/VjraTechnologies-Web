@@ -1,0 +1,703 @@
+
+.how-page {
+  --how-bg: #f7fafb;
+  --how-surface: #ffffff;
+  --how-text: #172b3a;
+  --how-muted: #657784;
+  --how-border: #dfe8ec;
+  --how-accent: #00a9bd;
+  --how-accent-dark: #008c9c;
+  color: var(--how-text);
+  background: var(--how-bg);
+}
+
+.how-page * {
+  box-sizing: border-box;
+}
+
+.how-page img {
+  display: block;
+  max-width: 100%;
+}
+
+.how-page main {
+  overflow: hidden;
+}
+
+.how-hero,
+.how-section,
+.how-final-cta {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.how-hero {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: clamp(30px, 6vw, 80px);
+  padding-top: clamp(55px, 8vw, 100px);
+  padding-bottom: clamp(65px, 9vw, 110px);
+}
+
+.how-hero-copy {
+  min-width: 0;
+}
+
+.how-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--how-accent-dark);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .12em;
+  line-height: 1.5;
+}
+
+.how-hero h1 {
+  margin: 22px 0 18px;
+  font-size: clamp(36px, 5.2vw, 66px);
+  line-height: 1.06;
+  letter-spacing: -.055em;
+  font-weight: 760;
+}
+
+.how-hero h1 span,
+.how-section-heading h2 span {
+  color: var(--how-accent-dark);
+}
+
+.how-hero-copy > p,
+.how-section-heading > p,
+.how-final-cta > p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--how-muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.how-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 27px;
+}
+
+.how-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.how-button:hover {
+  transform: translateY(-2px);
+}
+
+.how-button.primary {
+  color: #ffffff;
+  background: var(--how-accent-dark);
+}
+
+.how-button.primary:hover {
+  background: #007c8a;
+}
+
+.how-button.secondary {
+  color: var(--how-text);
+  background: var(--how-surface);
+  border-color: var(--how-border);
+}
+
+.how-button.secondary:hover {
+  border-color: var(--how-accent);
+}
+
+.how-hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.how-hero-highlights span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--how-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.how-hero-highlights svg {
+  color: var(--how-accent-dark);
+}
+
+.how-hero-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.how-hero-visual > img {
+  width: 100%;
+  height: clamp(340px, 43vw, 520px);
+  object-fit: cover;
+  border-radius: 24px;
+  background: var(--how-surface);
+  box-shadow: 0 22px 55px rgba(23, 43, 58, .12);
+}
+
+.how-hero-floating-card {
+  position: absolute;
+  right: -16px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100% - 12px);
+  padding: 15px 17px;
+  border: 1px solid var(--how-border);
+  border-radius: 15px;
+  background: var(--how-surface);
+  box-shadow: 0 12px 34px rgba(23, 43, 58, .12);
+}
+
+.how-floating-icon,
+.how-step-icon,
+.how-benefit-icon,
+.how-payment-note-icon,
+.how-go-live-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  color: var(--how-accent-dark);
+  background: rgba(0, 169, 189, .10);
+  border-radius: 12px;
+}
+
+.how-floating-icon {
+  width: 43px;
+  height: 43px;
+}
+
+.how-hero-floating-card strong,
+.how-hero-floating-card span {
+  display: block;
+}
+
+.how-hero-floating-card strong {
+  font-size: 13px;
+}
+
+.how-hero-floating-card div > span {
+  margin-top: 4px;
+  color: var(--how-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.how-section {
+  padding-top: clamp(55px, 8vw, 90px);
+  padding-bottom: clamp(55px, 8vw, 90px);
+  scroll-margin-top: 90px;
+}
+
+.how-charge-section {
+  width: 100%;
+  max-width: none;
+  background: var(--how-surface);
+}
+
+.how-charge-section > *,
+.how-install-section > * {
+  width: min(1152px, 100%);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.how-section-heading {
+  margin-bottom: 32px;
+}
+
+.how-section-heading h2 {
+  margin: 13px 0 12px;
+  font-size: clamp(29px, 4vw, 46px);
+  line-height: 1.13;
+  letter-spacing: -.04em;
+}
+
+.how-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.how-benefit-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--how-border);
+  border-radius: 16px;
+  background: var(--how-bg);
+}
+
+.how-benefit-icon {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 17px;
+}
+
+.how-benefit-card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.how-benefit-card p {
+  margin: 0;
+  color: var(--how-muted);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.how-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.how-step-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--how-border);
+  border-radius: 18px;
+  background: var(--how-surface);
+}
+
+.how-step-image {
+  position: relative;
+  overflow: hidden;
+  background: var(--how-bg);
+}
+
+.how-step-image img {
+  width: 100%;
+  height: 245px;
+  object-fit: cover;
+  transition: transform .45s ease;
+}
+
+.how-step-card:hover .how-step-image img {
+  transform: scale(1.035);
+}
+
+.how-step-number {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  height: 35px;
+  padding: 0 10px;
+  color: var(--how-text);
+  border: 1px solid rgba(255, 255, 255, .65);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .92);
+  font-size: 12px;
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+}
+
+.how-step-copy {
+  padding: 20px;
+}
+
+.how-step-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 13px;
+}
+
+.how-step-copy h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.how-step-copy p {
+  margin: 0;
+  color: var(--how-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.how-payment-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid rgba(0, 169, 189, .22);
+  border-radius: 17px;
+  background: rgba(0, 169, 189, .06);
+}
+
+.how-payment-note-icon {
+  width: 47px;
+  height: 47px;
+}
+
+.how-payment-note h3 {
+  margin: 1px 0 7px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.how-payment-note p {
+  margin: 0;
+  color: var(--how-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.how-install-section {
+  padding-top: clamp(65px, 8vw, 100px);
+}
+
+.how-install-banner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  overflow: hidden;
+  margin-bottom: 26px;
+  border: 1px solid var(--how-border);
+  border-radius: 20px;
+  background: var(--how-surface);
+}
+
+.how-install-banner > img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+}
+
+.how-install-banner-copy {
+  align-self: center;
+  padding: clamp(24px, 4vw, 42px);
+}
+
+.how-install-banner-copy > span,
+.how-go-live-copy > span {
+  color: var(--how-accent-dark);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.how-install-banner-copy h3 {
+  margin: 13px 0 10px;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.2;
+  letter-spacing: -.03em;
+}
+
+.how-install-banner-copy p {
+  margin: 0;
+  color: var(--how-muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.installation-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.how-step-card.compact .how-step-image img {
+  height: 195px;
+}
+
+.how-step-card.compact .how-step-copy {
+  padding: 17px;
+}
+
+.how-step-card.compact .how-step-copy h3 {
+  font-size: 15px;
+}
+
+.how-go-live {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 26px;
+  padding: 25px;
+  border: 1px solid var(--how-border);
+  border-radius: 17px;
+  background: var(--how-surface);
+}
+
+.how-go-live-icon {
+  width: 53px;
+  height: 53px;
+}
+
+.how-go-live-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.how-go-live-copy h3 {
+  margin: 6px 0;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.how-go-live-copy p {
+  margin: 0;
+  color: var(--how-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.how-go-live > .how-button {
+  flex-shrink: 0;
+}
+
+.how-final-cta {
+  width: calc(100% - 10%);
+  margin-bottom: 70px;
+  padding-top: clamp(36px, 6vw, 64px);
+  padding-bottom: clamp(36px, 6vw, 64px);
+  border: 1px solid var(--how-border);
+  border-radius: 22px;
+  background: var(--how-surface);
+  text-align: center;
+}
+
+.how-final-cta h2 {
+  margin: 12px 0;
+  font-size: clamp(27px, 4vw, 43px);
+  line-height: 1.15;
+  letter-spacing: -.04em;
+}
+
+.how-final-cta > p {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.how-final-cta .how-button {
+  margin-top: 22px;
+}
+
+/* Dark theme selectors: match these to your existing theme implementation. */
+.dark .how-page,
+html.dark .how-page,
+[data-theme='dark'] .how-page {
+  --how-bg: #101a21;
+  --how-surface: #17252e;
+  --how-text: #edf5f7;
+  --how-muted: #a4b4bd;
+  --how-border: #2c3d47;
+  --how-accent: #36c7d5;
+  --how-accent-dark: #36c7d5;
+}
+
+.dark .how-hero-visual > img,
+html.dark .how-hero-visual > img,
+[data-theme='dark'] .how-hero-visual > img {
+  box-shadow: 0 22px 55px rgba(0, 0, 0, .22);
+}
+
+@media (max-width: 950px) {
+  .how-hero {
+    grid-template-columns: 1fr 0.85fr;
+    gap: 28px;
+  }
+
+  .how-benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .how-step-image img {
+    height: 210px;
+  }
+
+  .how-go-live {
+    flex-wrap: wrap;
+  }
+
+  .how-go-live > .how-button {
+    margin-left: 70px;
+  }
+}
+
+@media (max-width: 700px) {
+  .how-hero,
+  .how-section {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .how-hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-top: 45px;
+    padding-bottom: 52px;
+  }
+
+  .how-hero h1 {
+    font-size: clamp(35px, 9.5vw, 49px);
+  }
+
+  .how-hero-copy > p,
+  .how-section-heading > p {
+    font-size: 14px;
+  }
+
+  .how-hero-visual > img {
+    height: 360px;
+    border-radius: 18px;
+  }
+
+  .how-hero-floating-card {
+    right: 10px;
+    bottom: 12px;
+  }
+
+  .how-section {
+    padding-top: 54px;
+    padding-bottom: 54px;
+  }
+
+  .how-section-heading {
+    margin-bottom: 24px;
+  }
+
+  .how-benefits-grid {
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .how-benefit-card {
+    padding: 15px;
+    border-radius: 13px;
+  }
+
+  .how-benefit-icon {
+    width: 39px;
+    height: 39px;
+    margin-bottom: 12px;
+  }
+
+  .how-benefit-card h3 {
+    font-size: 13px;
+  }
+
+  .how-benefit-card p {
+    font-size: 11px;
+  }
+
+  .how-steps-grid,
+  .installation-steps {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .how-step-image img,
+  .how-step-card.compact .how-step-image img {
+    height: clamp(220px, 62vw, 330px);
+  }
+
+  .how-step-copy {
+    padding: 17px;
+  }
+
+  .how-payment-note {
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .how-payment-note h3 {
+    font-size: 14px;
+  }
+
+  .how-payment-note p {
+    font-size: 12px;
+  }
+
+  .how-install-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .how-install-banner > img {
+    height: 250px;
+    min-height: 0;
+  }
+
+  .how-install-banner-copy {
+    padding: 22px;
+  }
+
+  .how-go-live {
+    align-items: flex-start;
+    gap: 13px;
+    padding: 19px;
+  }
+
+  .how-go-live-icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .how-go-live-copy {
+    flex-basis: calc(100% - 60px);
+  }
+
+  .how-go-live-copy h3 {
+    font-size: 15px;
+  }
+
+  .how-go-live > .how-button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .how-final-cta {
+    width: calc(100% - 36px);
+    margin-bottom: 40px;
+    padding: 32px 20px;
+    border-radius: 17px;
+  }
+
+  .how-final-cta > p {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .how-page *,
+  .how-page *::before,
+  .how-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
